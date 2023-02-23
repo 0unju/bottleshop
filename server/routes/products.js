@@ -17,9 +17,9 @@ router.get('/', async (req, res) => {
 router.post('/', postProduct);
 
 // http://localhost:8080/products/edit/:_id (상품 수정)
-router.put('/edit/:_id', updateProduct);
+router.put('/:id', updateProduct);
 
 // http://localhost:8080/products/delete/:_id (상품 삭제)
-router.delete('/delete/:_id', deleteProduct);
+router.delete('/:id', deleteProduct);
 
 export default router;
