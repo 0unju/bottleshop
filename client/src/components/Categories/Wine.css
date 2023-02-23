@@ -41,10 +41,10 @@ body {
   justify-content: space-evenly;
 }
 
-.wine_list1,
-.wine_list2,
-.wine_list3 {
-  display: flex;
+.wine_list {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 20px;
   justify-content: space-evenly;
 
   padding: 50px;

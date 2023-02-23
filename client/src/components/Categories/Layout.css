@@ -47,6 +47,8 @@ body {
 }
 
 .footer {
+  display: flex;
+  justify-content: center;
   text-align: center;
   background-color: var(--sub-color);
   color: var(--text-color);
