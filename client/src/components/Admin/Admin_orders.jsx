@@ -10,17 +10,11 @@ import {
   Pagination,
 } from "react-bootstrap";
 
-// API 불러오기
-const api = require("../../API.json");
+// JSON 파일 가져오기
+const api = require("../../API.json"); // API 불러오기
+const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
 
-// Admin 리스트 불러오기
-const admin_list = require("./Admin_list.json");
-
-const Admin = () => {
-  fetch(api.orders_GET)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-
+const Admin_orders = () => {
   // [GET] 데이터 불러오기
 
   const [dataList, setDataList] = useState(null);
@@ -116,17 +110,16 @@ const Admin = () => {
 
   // NAV바 만들기
   const nav_list = [];
-  admin_list.forEach((data) => {
+  admin_list.forEach((data, index) => {
     nav_list.push(
-      <Nav.Item>
+      <Nav.Item key={index}>
         <Nav.Link href={data.href}>{data.name}</Nav.Link>
       </Nav.Item>
     );
   });
 
   // 페이지 넘버 만들기
-  let db_list = [];
-  const dataList_length = db_list?.length;
+  const dataList_length = dataList?.length;
   const page_number =
     dataList_length % 5 === 0
       ? parseInt(dataList_length / 5) - 1
@@ -161,50 +154,43 @@ const Admin = () => {
   };
 
   // 리스트 구현
-
-  const upload_list = (id) => {
-    db_list = [];
-    dataList?.forEach((data) => {
-      if (data.user_id === id || data.guest_id === id)
-        if (
-          5 * (active - 1) <= dataList_length &&
-          dataList_length < 5 * active
-        ) {
-          db_list.push(
-            <tr
-              key={dataList_length}
-              onClick={() => {
-                show(data);
-              }}
-            >
-              <td>{data._id}</td>
-              <td>{data.user_id}</td>
-              <td>{data.guest_id}</td>
-              <td>{data.product_id}</td>
-              <td>{data.c_count}</td>
-            </tr>
-          );
-        }
-    });
-  };
+  let db_list = [];
+  dataList?.forEach((data, index) => {
+    if (5 * (active - 1) <= index && index < 5 * active) {
+      db_list.push(
+        <tr
+          key={index}
+          onClick={() => {
+            show(data);
+          }}
+        >
+          <td>{data._id}</td>
+          <td>{data.user_id}</td>
+          <td>{data.guest_id}</td>
+          <td>{data.product_id}</td>
+          <td>{data.c_count}</td>
+        </tr>
+      );
+    }
+  });
 
   // 조회 기능
   const search = () => {
     const searchbar_value = document.querySelector("#DB_searchbar").value;
-
+    let search_list = [];
     let success = false;
     for (let data of dataList) {
-      if (
-        data.user_id === searchbar_value ||
-        data.guest_id === searchbar_value
-      ) {
-        if (data.user_id === searchbar_value) upload_list(data.user_id);
-        else upload_list(data.guest_id);
+      if (searchbar_value === "") {
+        fetchData();
         success = true;
         break;
+      } else if (data.user_id === searchbar_value) {
+        search_list.push(data);
+        success = true;
       }
     }
-    if (!success) alert("일치하는 아이디가 없습니다.");
+    if (!success) alert("일치하는 데이터가 없습니다.");
+    else if (searchbar_value != "1") setDataList(search_list);
   };
 
   return (
@@ -260,8 +246,8 @@ const Admin = () => {
       </div>
 
       {/* 리스트 */}
-      <div id="DB_list">
-        <Table striped bordered hover>
+      <div>
+        <Table striped bordered hover size="sm" id="DB_list">
           <thead>
             <tr>
               <th>ID</th>
@@ -280,4 +266,4 @@ const Admin = () => {
     </>
   );
 };
-export default Admin;
+export default Admin_orders;

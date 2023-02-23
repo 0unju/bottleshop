@@ -15,10 +15,7 @@ const api = require("../../API.json"); // API 불러오기
 const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
 const domain_list = require("../../Domain_list.json"); // Category 리스트 불러오기
 
-const Admin = () => {
-  fetch(api.users)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+const Admin_users = () => {
   // [GET] 데이터 불러오기
 
   const [dataList, setDataList] = useState(null);
@@ -155,15 +152,19 @@ const Admin = () => {
 
   // Domain List 만들기
   const domain_form_list = [];
-  domain_list.forEach((data) => {
-    domain_form_list.push(<option value={data.name}>{data.name}</option>);
+  domain_list.forEach((data, index) => {
+    domain_form_list.push(
+      <option key={index} value={data.name}>
+        {data.name}
+      </option>
+    );
   });
 
   // NAV바 만들기
   const nav_list = [];
-  admin_list.forEach((data) => {
+  admin_list.forEach((data, index) => {
     nav_list.push(
-      <Nav.Item>
+      <Nav.Item key={index}>
         <Nav.Link href={data.href}>{data.name}</Nav.Link>
       </Nav.Item>
     );
@@ -312,8 +313,8 @@ const Admin = () => {
       </div>
 
       {/* 리스트 */}
-      <div id="DB_list">
-        <Table striped bordered hover>
+      <div>
+        <Table striped bordered hover size="sm" id="DB_list">
           <thead>
             <tr>
               <th>ID</th>
@@ -329,4 +330,4 @@ const Admin = () => {
     </>
   );
 };
-export default Admin;
+export default Admin_users;

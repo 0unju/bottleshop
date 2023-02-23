@@ -8,6 +8,7 @@ import Cheeses from "./components/Cheeses";
 import Admin_products from "./components/Admin/Admin_products";
 import Admin_users from "./components/Admin/Admin_users";
 import Admin_orders from "./components/Admin/Admin_orders";
+import Admin_categories from "./components/Admin/Admin_categories";
 
 export default function App() {
   return (
@@ -32,6 +33,11 @@ export default function App() {
               exact
               path="/admin/orders"
               element={<Admin_orders />}
+            ></Route>
+            <Route
+              exact
+              path="/admin/categories"
+              element={<Admin_categories />}
             ></Route>
             <Route
               exact

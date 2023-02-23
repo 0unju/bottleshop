@@ -21,7 +21,7 @@ const updateProduct = async (req, res, next) => {
     );
 
     res.json(product);
-    console.log(reviseProduct);
+    console.log(product);
   } catch (err) {
     console.log(err.message);
   }
