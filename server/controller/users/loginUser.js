@@ -2,10 +2,10 @@
 import { User } from '../../models/index.js';
 
 const getLogin = async (req, res, next) => {
-    const { userId, password } = req.body;
+    const { username, password } = req.body;
     try {
-        // userId DB 존재 확인
-        await User.findOne({ userId }, (err, user) => {
+        // username DB 존재 확인
+        await User.findOne({ username }, (err, user) => {
             if (err) {
                 res.send("존재하지 않은 아이디입니다.");
             }
@@ -20,7 +20,7 @@ const getLogin = async (req, res, next) => {
                     .then((user) => {
                         res.cookie("x_auth", user.token).status(200).json({
                             loginSuccess: true,
-                            userId: user._id,
+                            username: user._id,
                         });
                     })
                     .catch((err) => {

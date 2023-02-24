@@ -3,7 +3,7 @@ import { Product } from '../../models/index.js';
 
 const deleteProduct = async (req, res, next) => {
   const { id } = req.params;
-  const product = await Product.deleteOne({ id: _id });
+  const product = await Product.deleteOne({ _id: id });
   res.send(product);
 };
 

@@ -1,9 +1,9 @@
 'use strict';
 import { User } from '../../models/index.js';
 
-const getUser = async (req, res, next) => {
+const postUser = async (req, res, next) => {
   const {
-    userId,
+    username,
     domain,
     password,
     name,
@@ -13,23 +13,23 @@ const getUser = async (req, res, next) => {
   } = req.body;
   
   try {
-    const user = await User.findOne({ userId });
+    const user = await User.findOne({ username });
     
     if(user) {  // 아이디 중복 확인
-      console.log('"' + userId + '" already exists');
+      console.log('"' + username + '" already exists');
       res.send('User already exists');
     }
 
     else {
       let adminValue = false;
       
-      if(userId === "admin") {
+      if(username === "admin") {
         adminValue = true;
         console.log("getADMIN");
       }
-      const userInfo = await User.create({
+      await User.create({
         isAdmin:adminValue,
-        userId,
+        username,
         domain,
         password,
         name,
@@ -37,8 +37,6 @@ const getUser = async (req, res, next) => {
         birthday,
         auth_email,
       });
-      userInfo.save();
-
       console.log('saved in database');
       res.send('success /users');
     } 
@@ -47,4 +45,4 @@ const getUser = async (req, res, next) => {
   }
 };
 
-export default getUser;
+export default postUser;
