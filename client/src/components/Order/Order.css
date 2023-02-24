@@ -21,10 +21,54 @@ body {
 }
 
 .icons {
-    display: grid;
-    grid-template-columns: repeat(5, auto);
-    grid-gap: 100px;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 0;
-  }
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-gap: 100px;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  justify-content: space-around;
+  align-items: center;
+  height: 400px;
+}
+
+.input_user {
+  text-align: start;
+}
+
+.shipping {
+  margin: 50px 10%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
+
+.mb-5 {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 2fr 0.5fr 2fr;
+  justify-items: center;
+}
+
+.email {
+  display: grid;
+  grid-template-columns: 2fr 0.5fr 3fr;
+  justify-items: center;
+}
+
+.address {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.last_order {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding-top: 50px;
+  padding-bottom: 200px;
+}

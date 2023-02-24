@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import "./Cart.css";
 import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import {
   FaCartArrowDown,
@@ -45,6 +45,9 @@ const Cart = () => {
       <div>
         {/* 주문 상품 */}
         <div className="product">
+          <div>
+            <Form.Check aria-label="option 1" />
+          </div>
           <div>
             <Card style={{ width: "18rem", padding: "50px" }}>
               <Card.Img variant="top" src="holder.js/100px180" />
