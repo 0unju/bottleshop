@@ -1,66 +1,92 @@
-import React from "react";
-import styled from "styled-components";
-// import Pagination from "react-bootstrap/Pagination";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 
-const PageUl = styled.ul`
-  float: left;
-  list-style: none;
-  text-align: center;
-  border-radius: 3px;
-  color: white;
-  padding: 1px;
-  border-top: 3px solid #186ead;
-  border-bottom: 3px solid #186ead;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
+const api = require("../../API.json");
 
-const PageLi = styled.li`
-  display: inline-block;
-  font-size: 17px;
-  font-weight: 600;
-  padding: 5px;
-  border-radius: 5px;
-  width: 25px;
-  &:hover {
-    cursor: pointer;
-    color: white;
-    background-color: #263a6c;
-  }
-  &:focus::after {
-    color: white;
-    background-color: #263a6c;
-  }
-`;
+const NpmPagination = () => {
+  const [post, setPost] = useState([]);
+  const [number, setNumber] = useState(1); // No of pages
+  const [postPerPage] = useState(5);
 
-const PageSpan = styled.span`
-  &:hover::after,
-  &:focus::after {
-    border-radius: 100%;
-    color: white;
-    background-color: #263a6c;
-  }
-`;
+  const fetchData = async () => {
+    const response = await axios.get(api.products);
+    setPost(response.data);
+  };
 
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const lastPost = number * postPerPage;
+  const firstPost = lastPost - postPerPage;
+  const currentPost = post.slice(firstPost, lastPost);
+  const PageCount = Math.ceil(post.length / postPerPage);
+  const ChangePage = ({ selected }) => {
+    console.log(selected);
+    setNumber(selected);
+  };
   return (
-    <div>
-      <nav>
-        <PageUl className="pagination">
-          {pageNumbers.map((number) => (
-            <PageLi key={number} className="page-item">
-              <PageSpan onClick={() => paginate(number)} className="page-link">
-                {number}
-              </PageSpan>
-            </PageLi>
-          ))}
-        </PageUl>
-      </nav>
-    </div>
+    <>
+      <div className="container-fluid">
+        <div className="row">
+          <table className="col-12">
+            <thead>
+              <tr className="border-2 border-dark text-center my-2">
+                <th className="col-1 border-2 border-dark fs-4 text-capitalize">
+                  S No.
+                </th>
+                <th className="col-3 border-2 border-dark fs-4 text-capitalize">
+                  Name
+                </th>
+                <th className="col-2 border-2 border-dark fs-4 text-capitalize">
+                  Email
+                </th>
+                <th className="col-6 border-2 border-dark fs-4 text-capitalize">
+                  Comment
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentPost.map((Val) => {
+                return (
+                  <>
+                    <tr
+                      className="border-2 border-dark text-center"
+                      key={Val.id}
+                    >
+                      <td className="border-2 border-dark text-capitalize">
+                        {Val.id}
+                      </td>
+                      <td className="border-2 border-dark text-capitalize">
+                        {Val.name}
+                      </td>
+                      <td className="border-2 border-dark text-capitalize">
+                        {Val.email}
+                      </td>
+                      <td className="border-2 border-dark text-capitalize">
+                        {Val.body}
+                      </td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={PageCount}
+            onPageChange={ChangePage}
+            containerClassName={"paginationBttns"}
+            activeClassName={"paginationActive"}
+            disableInitialCallback={true}
+            initialPage={1}
+          ></ReactPaginate>
+        </div>
+      </div>
+    </>
   );
 };
 
-export default Pagination;
+export default NpmPagination;

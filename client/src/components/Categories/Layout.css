@@ -36,10 +36,28 @@ body {
 }
 
 .navbar {
-  padding-left: 30px;
+  color: var(--text-color) !important;
   font-size: 2rem;
   list-style: none;
   font-family: DXPnM;
+}
+
+.d-flex {
+  padding: 0 50px;
+}
+
+.cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 50px;
+}
+
+.login {
+  padding: 50px;
+  font-family: "AlexBrush";
+  color: var(--main-color);
+  text-align: center;
 }
 
 .main_content {

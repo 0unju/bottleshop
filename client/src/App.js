@@ -7,6 +7,8 @@ import Wine from "./components/Categories/Wine";
 import Cheeses from "./components//Categories/Cheeses";
 import Admin_products from "./components/Admin/Admin_product";
 import Admin_users from "./components/Admin/Admin_user";
+import Cart from "./components/Order/Cart";
+import Order from "./components/Order/Order";
 
 export default function App() {
   return (
@@ -32,6 +34,8 @@ export default function App() {
               path="/admin/products"
               element={<Admin_products />}
             ></Route>
+            <Route exact path="/order/cart" element={<Cart />}></Route>
+            <Route exact path="/order/order" element={<Order />}></Route>
           </Routes>
         </BrowserRouter>
       </Layout>

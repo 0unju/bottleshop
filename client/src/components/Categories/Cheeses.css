@@ -39,15 +39,13 @@
   padding: 50px 0;
 }
 
-.cheeses_list1,
-.cheeses_list2,
-.cheeses_list3,
-.cheeses_list4,
-.cheeses_list5 {
-  display: flex;
+.cheeses_list {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 20px;
   justify-content: space-evenly;
 
-  padding: 100px;
+  padding: 50px;
   font-family: "DXPnM";
   font-size: 1.5rem;
 }
