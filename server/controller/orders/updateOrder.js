@@ -8,11 +8,7 @@ const updateOrder = async (req, res, next) => {
   try {
     const order = await Order.updateOne(
       { _id: id },
-      {
-        product_id,
-        w_count,
-        c_count,
-      }
+      { $push: { product_id: product_id }, w_count, c_count }
     );
     res.json(order);
     console.log(order);

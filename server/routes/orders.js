@@ -9,17 +9,19 @@ import deleteOrder from '../controller/orders/deleteOrder.js';
 
 // http://localhost:8080/orders (주문 목록 반환)
 router.get('/', async (req, res) => {
-  const orders = await Order.find({});
+  const orders = await Order.find({})
+    .populate('product_id', 'wine_type price')
+    .exec();
   res.json(orders);
 });
 
 // http://localhost:8080/orders (주문 추가)
 router.post('/', postOrder);
 
-// http://localhost:8080/orders/edit/:_id (주문 수정)
+// http://localhost:8080/orders/:id (주문 수정)
 router.put('/:id', updateOrder);
 
-// http://localhost:8080/orders/edit/:_id (주문 삭제)
+// http://localhost:8080/orders/:id (주문 삭제)
 router.delete('/:id', deleteOrder);
 
 export default router;
