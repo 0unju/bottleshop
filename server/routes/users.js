@@ -1,11 +1,11 @@
 'use strict';
 import express from 'express';
-import auth from '../middleware/auth.js';
-import { User } from '../models/index.js';
-
 const router = express.Router();
+import { User } from '../models/index.js';
+import auth from '../middleware/auth.js';
 import postUser from '../controller/users/postUser.js';
 import loginUser from '../controller/users/loginUser.js';
+import authUser from '../controller/users/authUser.js';
 import logoutUser from '../controller/users/logoutUser.js';
 import deleteUser from '../controller/users/deleteUser.js';
 import updateUser from '../controller/users/updateUser.js';
@@ -16,7 +16,7 @@ router.get('/', auth, async (req, res) => {
     const users = await User.find({});
     res.json(users);  
   } else {
-    res.render('users');
+    res.render('login');
   }
 });
 
@@ -27,24 +27,15 @@ router.post('/join', postUser);
 router.post('/login', loginUser);
 
 // http://localhost:8080/users/auth (현재 로그인한 user 정보)
-router.get("/auth", auth, (req, res) => {
-  res.status(200).json({
-    _id: req.user._id,
-    userId: req.user.userId,
-    domain: req.user.domain,
-    name: req.user.name,
-    phone: req.user.phone,
-    birthday: req.user.birthday,
-  });
-});
+router.get("/auth", auth, authUser);
 
 // http://localhost:8080/users/logout (로그아웃)
 router.get("/logout", auth, logoutUser);
 
 // http://localhost:8080/users/delete/test1 (유저 정보 DB 삭제)
-router.delete('/delete/:userId', auth, deleteUser);
+router.delete('/delete/:username', auth, deleteUser);
 
 // http://localhost:8080/users/edit/test1 (유저 정보 수정)
-router.put('/edit/:userId', auth, updateUser);
+router.put('/edit/:username', auth, updateUser);
 
 export default router;

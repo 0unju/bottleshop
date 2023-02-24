@@ -7,7 +7,7 @@ const saltRounds = 10;
 const UserSchema = new Schema(
   {
     isAdmin: false,
-    userId: {
+    username: {
       type: String,
       required: true,
     },
@@ -27,7 +27,10 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    auth_email: false,
+    auth_email : {
+      type: Boolean,
+      default: false,
+    },
     birthday: Date,
   },
   {
