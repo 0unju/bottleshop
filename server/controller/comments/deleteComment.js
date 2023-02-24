@@ -10,7 +10,7 @@ const deleteComment = async (req, res, next) => {
     // PostList DB에서 댓글을 지우는 과정
     await Post.updateOne(
         { _id : post_id },
-        { $pull: { comment: { comment_id }},
+        { $pull: { comment: comment_id },
     });
     
     res.send("success /posts/:post_id/comments/:comment_id");

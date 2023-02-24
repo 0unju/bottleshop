@@ -1,6 +1,5 @@
 'use strict';
 import { Schema } from 'mongoose';
-import CommentArrSchema from './CommentArr.js';
 
 const PostSchema = new Schema(
   {
@@ -29,7 +28,12 @@ const PostSchema = new Schema(
       type: String,
       default: '작성자',
     },
-    comment : [CommentArrSchema],
+    comment : [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment',
+      },
+    ],
   }, {
     timestamps: true,
   }

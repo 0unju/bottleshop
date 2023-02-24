@@ -1,7 +1,7 @@
 'use strict';
-import { Comment, Post } from '../../models/index.js';
+import { Comment } from '../../models/index.js';
 
-const postComment = async (req, res) => {
+const postComment = async (req, res, next) => {
     const { id } = req.params;      // 게시글 _id
     const { content } = req.body;
     
@@ -12,14 +12,9 @@ const postComment = async (req, res) => {
                 content : content,
             });
 
-            const comment_id = comment._id;
-
-            await Post.updateOne(
-                { _id : id },
-                { $push: { comment: { comment_id }},
-            });
             console.log('saved in database');
-            res.send('[USER] success /posts');
+            req.comment = comment;
+            next();
         }
         else {
             res.send('access denied "/posts/:id/comments"');

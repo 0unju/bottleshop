@@ -10,6 +10,7 @@ import viewComment from '../controller/comments/viewComment.js';
 import postComment from '../controller/comments/postComment.js';
 import updateComment from '../controller/comments/updateComment.js';
 import deleteComment from '../controller/comments/deleteComment.js';
+import updatePostComment from '../controller/comments/updatePost.js';
 
 
 // http://localhost:8080/posts (목록 조회)
@@ -39,7 +40,7 @@ router.delete('/:id', deletePost);
 router.get('/:id/comments', viewComment);
 
 // http://localhost:8080/posts/63f5efa95a989574006dd816/comments (댓글 등록)
-router.post('/:id/comments', auth, postComment);
+router.post('/:id/comments', auth, postComment, updatePostComment);
 
 // http://localhost:8080/posts/63f79f6cd15bc5d61ac1a685/comments/63f79fd0d15bc5d61ac1a697 (댓글 수정)
 router.put('/:post_id/comments/:comment_id', updateComment);
