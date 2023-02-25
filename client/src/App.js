@@ -2,11 +2,17 @@ import { React, useState } from "react";
 import "./App.css";
 import Layout from "./components/Categories/Layout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import AdminProducts from "./components/Admin/Admin_products";
+import AdminUsers from "./components/Admin/Admin_users";
+import AdminOrders from "./components/Admin/Admin_orders";
+import AdminCategories from "./components/Admin/Admin_categories";
+import SignUpConsent from "./components/SignUp/SignUp_consent";
+import SignUpInformation from "./components/SignUp/SignUp_information";
+
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
 import Cheeses from "./components//Categories/Cheeses";
-import Admin_products from "./components/Admin/Admin_product";
-import Admin_users from "./components/Admin/Admin_user";
 import Cart from "./components/Order/Cart";
 import Order from "./components/Order/Order";
 
@@ -28,11 +34,27 @@ export default function App() {
               path="/categories/cheeses"
               element={<Cheeses />}
             ></Route>
-            <Route exact path="/admin/users" element={<Admin_users />}></Route>
+            <Route
+              exact
+              path="/SignUp/consent"
+              element={<SignUpConsent />}
+            ></Route>
+            <Route
+              exact
+              path="/SignUp/information"
+              element={<SignUpInformation />}
+            ></Route>
+            <Route exact path="/Admin/users" element={<AdminUsers />}></Route>
+            <Route exact path="/admin/orders" element={<AdminOrders />}></Route>
+            <Route
+              exact
+              path="/admin/categories"
+              element={<AdminCategories />}
+            ></Route>
             <Route
               exact
               path="/admin/products"
-              element={<Admin_products />}
+              element={<AdminProducts />}
             ></Route>
             <Route exact path="/order/cart" element={<Cart />}></Route>
             <Route exact path="/order/order" element={<Order />}></Route>

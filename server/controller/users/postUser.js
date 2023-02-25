@@ -39,11 +39,11 @@ const getUser = async (req, res, next) => {
       });
       userInfo.save();
 
-      console.log('It has been uploaded "USER" in the system');
-      res.send('success "USER"');
+      console.log('saved in database');
+      res.send('success /users');
     } 
-  } catch (e) {
-    console.log(e.message);
+  } catch (err) {
+    console.log(err.message);
   }
 };
 

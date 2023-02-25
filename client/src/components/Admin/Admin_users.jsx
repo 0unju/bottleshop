@@ -10,15 +10,18 @@ import {
   Pagination,
 } from "react-bootstrap";
 
-// API 불러오기
-const api = require("../../API.json");
+// json 연결
+const api = require("../../API.json"); // API 불러오기
+const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
+const domain_list = require("../../Domain_list.json"); // Domain 리스트 불러오기
 
-const Admin = () => {
+const Admin_users = () => {
   // [GET] 데이터 불러오기
+
   const [dataList, setDataList] = useState(null);
 
   const fetchData = async () => {
-    const response = await axios.get(api.product);
+    const response = await axios.get(api.users_GET);
     setDataList(response.data);
   };
 
@@ -28,8 +31,8 @@ const Admin = () => {
 
   // 입력칸 리셋
   const reset = () => {
-    const form = document.querySelectorAll(".product_DB > .mb-1");
-    document.querySelector("#product_searchbar").value = "";
+    const form = document.querySelectorAll(".DB_data > .mb-1");
+    document.querySelector("#DB_searchbar").value = "";
     form[0].lastChild.value = "";
     form[1].lastChild.value = "";
     form[2].lastChild.value = "";
@@ -37,41 +40,39 @@ const Admin = () => {
     form[4].lastChild.value = "";
     form[5].lastChild.value = "";
     form[6].lastChild.value = "";
-    form[7].lastChild.value = "";
   };
 
   // [POST] 데이터 전송하기
   const db_post = async () => {
-    const form = document.querySelectorAll(".product_DB > .mb-1");
-    const name = form[0].lastChild.value;
-    const type = form[1].lastChild.value;
-    const price = form[2].lastChild.value;
-    const description = form[3].lastChild.value;
-    const wine_type = form[4].lastChild.value;
-    const origin = form[5].lastChild.value;
-    const abv = form[6].lastChild.value;
-    const image_path = form[7].lastChild.value;
+    const form = document.querySelectorAll(".DB_data > .mb-1");
+    const userId = form[0].lastChild.value;
+    const domain = form[1].lastChild.value;
+    const password = form[2].lastChild.value;
+    const name = form[3].lastChild.value;
+    const phone = form[4].lastChild.value;
+    const birthday = form[5].lastChild.value;
+    const auth_email = form[6].lastChild.value;
 
     // 이름 중복 방지
     let overlap = false;
     for (let data of dataList) {
-      if (data.name === name) {
+      if (data.userId === userId) {
         alert("이름이 중복됩니다");
         overlap = true;
       }
     }
+
     if (!overlap) {
       let success = false;
       await axios
-        .post(api.product, {
+        .post(api.users_POST, {
+          userId,
+          domain,
+          password,
           name,
-          type,
-          price,
-          description,
-          wine_type,
-          origin,
-          abv,
-          image_path,
+          phone,
+          birthday,
+          auth_email,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -87,54 +88,55 @@ const Admin = () => {
 
   // [DELETE] ID로 선택된 데이터 삭제
   const db_delete = async () => {
-    const searchbar_value = document.querySelector("#product_searchbar").value;
+    const searchbar_value = document.querySelector("#DB_searchbar").value;
     let success = false;
-    await axios
-      .delete(api.product_delete + searchbar_value)
-      .then((response) => {
-        if (response.status === 200) {
-          alert("삭제되었습니다.");
-          fetchData(); // 리스트 새로고침
-          reset(); // 입력칸 리셋
-          success = true;
-        }
-      });
+    await axios.delete(api.users_DELETE + searchbar_value).then((response) => {
+      if (response.status === 200) {
+        alert("삭제되었습니다.");
+        fetchData(); // 리스트 새로고침
+        reset(); // 입력칸 리셋
+        success = true;
+      }
+    });
     if (!success) alert("ID를 바르게 입력해 주세요");
   };
 
   // [PUT] ID로 선택된 데이터 수정
   const db_put = async () => {
-    const form = document.querySelectorAll(".product_DB > .mb-1");
-    const searchbar_value = document.querySelector("#product_searchbar").value;
-    const name = form[0].lastChild.value;
-    const type = form[1].lastChild.value;
-    const price = form[2].lastChild.value;
-    const description = form[3].lastChild.value;
-    const wine_type = form[4].lastChild.value;
-    const origin = form[5].lastChild.value;
-    const abv = form[6].lastChild.value;
-    const image_path = form[7].lastChild.value;
+    const form = document.querySelectorAll(".DB_data > .mb-1");
+    const searchbar_value = document.querySelector("#DB_searchbar").value;
+    const userId = form[0].lastChild.value;
+    const domain = form[1].lastChild.value;
+    const password = form[2].lastChild.value;
+    const name = form[3].lastChild.value;
+    const phone = form[4].lastChild.value;
+    const birthday = form[5].lastChild.value;
+    const auth_email = form[6].lastChild.value;
 
     // 이름 중복 방지
     let overlap = false;
     for (let data of dataList) {
-      if (data.name === name) {
-        alert("이름이 중복됩니다");
-        overlap = true;
+      if (data._id != searchbar_value) {
+        // 수정전 이름과 다를경우
+        if (data.name === name) {
+          // 중복체크
+          alert("이름이 중복됩니다");
+          overlap = true;
+        }
       }
     }
+
     if (!overlap) {
       let success = false;
       await axios
-        .put(api.product_put + searchbar_value, {
+        .put(api.users_PUT + searchbar_value, {
+          userId,
+          domain,
+          password,
           name,
-          type,
-          price,
-          description,
-          wine_type,
-          origin,
-          abv,
-          image_path,
+          phone,
+          birthday,
+          auth_email,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -147,6 +149,26 @@ const Admin = () => {
       if (!success) alert("ID와 값을 바르게 입력해 주세요");
     }
   };
+
+  // Domain List 만들기
+  const domain_form_list = [];
+  domain_list.forEach((data, index) => {
+    domain_form_list.push(
+      <option key={index} value={data.name}>
+        {data.name}
+      </option>
+    );
+  });
+
+  // NAV바 만들기
+  const nav_list = [];
+  admin_list.forEach((data, index) => {
+    nav_list.push(
+      <Nav.Item key={index}>
+        <Nav.Link href={data.href}>{data.name}</Nav.Link>
+      </Nav.Item>
+    );
+  });
 
   // 페이지 넘버 만들기
   const dataList_length = dataList?.length;
@@ -174,24 +196,24 @@ const Admin = () => {
 
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const show = (data) => {
-    const form = document.querySelectorAll(".product_DB > .mb-1");
-    const searchbar = document.querySelector("#product_searchbar");
+    const form = document.querySelectorAll(".DB_data > .mb-1");
+    const searchbar = document.querySelector("#DB_searchbar");
     searchbar.value = data._id;
-    form[0].lastChild.value = data.name;
-    form[1].lastChild.value = data.type;
-    form[2].lastChild.value = data.price;
-    form[3].lastChild.value = data.description;
-    form[4].lastChild.value = data.wine_type;
-    form[5].lastChild.value = data.origin;
-    form[6].lastChild.value = data.abv;
+    form[0].lastChild.value = data.userId;
+    form[1].lastChild.value = data.domain;
+    form[2].lastChild.value = data.password;
+    form[3].lastChild.value = data.name;
+    form[4].lastChild.value = data.phone;
+    form[5].lastChild.value = data.birthday;
+    form[6].lastChild.value = data.auth_email;
     form[7].lastChild.value = data.image_path;
   };
 
   // 리스트 구현
-  let list = [];
+  let db_list = [];
   dataList?.forEach((data, index) => {
     if (5 * (active - 1) <= index && index < 5 * active) {
-      list.push(
+      db_list.push(
         <tr
           key={index}
           onClick={() => {
@@ -199,7 +221,7 @@ const Admin = () => {
           }}
         >
           <td>{data._id}</td>
-          <td>{data.name}</td>
+          <td>{data.userId}</td>
         </tr>
       );
     }
@@ -207,7 +229,7 @@ const Admin = () => {
 
   // 조회 기능
   const search = () => {
-    const searchbar_value = document.querySelector("#product_searchbar").value;
+    const searchbar_value = document.querySelector("#DB_searchbar").value;
 
     let success = false;
     for (let data of dataList) {
@@ -223,22 +245,17 @@ const Admin = () => {
   return (
     <>
       {/* 네비게이션 바 */}
-      <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/products">
-        <Nav.Item>
-          <Nav.Link href="/admin/products">Product</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/admin/users">User</Nav.Link>
-        </Nav.Item>
+      <Nav id="nav_bar" variant="tabs" defaultActiveKey={"/admin/users"}>
+        {nav_list}
       </Nav>
 
-      {/* Product 페이지 */}
+      {/* users 페이지 */}
 
       {/* 상단바 */}
-      <div class="product_bar">
-        <h2>Product</h2>
-        <InputGroup id="product_manager" size="sm" className="mb-2">
-          <Form.Control id="product_searchbar" placeholder="ID" />
+      <div class="DB_bar">
+        <h2>Users</h2>
+        <InputGroup id="DB_manager" size="sm" className="mb-2">
+          <Form.Control id="DB_searchbar" placeholder="ID" />
           <Button id="button" onClick={search}>
             조회
           </Button>
@@ -255,67 +272,56 @@ const Admin = () => {
       </div>
 
       {/* DB입력 부분 */}
-      <div class="product_DB">
+      <div class="DB_data">
+        <Form.Group className="mb-1">
+          <Form.Label>Users_Id</Form.Label>
+          <Form.Control type="text" placeholder="String" />
+        </Form.Group>
+
+        <Form.Group className="mb-1">
+          <Form.Label>Domain</Form.Label>
+          <Form.Select>
+            <option></option>
+            {domain_form_list}
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="mb-1">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="text" placeholder="String" />
+        </Form.Group>
+
         <Form.Group className="mb-1">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Type</Form.Label>
-          <Form.Select>
-            <option></option>
-            <option value="Wine">Wine</option>
-            <option value="Cheese">Cheese</option>
-          </Form.Select>
+          <Form.Label>Phone</Form.Label>
+          <Form.Control type="phone" placeholder="Number" />
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Price</Form.Label>
-          <Form.Control type="text" placeholder="Number" />
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control type="date" />
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Description</Form.Label>
-          <Form.Control type="text" placeholder="String" />
-        </Form.Group>
-
-        <Form.Group className="mb-1">
-          <Form.Label>Wine_type</Form.Label>
-          <Form.Select>
-            <option></option>
-            <option value="Red_Wine">Red</option>
-            <option value="White_Wine">White</option>
-            <option value="Sparkling">Sparkling</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Form.Group className="mb-1">
-          <Form.Label>Origin</Form.Label>
-          <Form.Control type="text" placeholder="String" />
-        </Form.Group>
-
-        <Form.Group className="mb-1">
-          <Form.Label>Abv</Form.Label>
-          <Form.Control type="text" placeholder="Number" />
-        </Form.Group>
-
-        <Form.Group className="mb-1">
-          <Form.Label>Image_path</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Label>Auth_email</Form.Label>
+          <Form.Control type="boolean" placeholder="Boolean" />
         </Form.Group>
       </div>
 
       {/* 리스트 */}
-      <div id="product_list">
-        <Table striped bordered hover>
+      <div>
+        <Table striped bordered hover size="sm" id="DB_list">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>User_Id</th>
             </tr>
           </thead>
-          <tbody>{list}</tbody>
+          <tbody>{db_list}</tbody>
         </Table>
         <Pagination id="page" size="sm">
           {items}
@@ -324,4 +330,4 @@ const Admin = () => {
     </>
   );
 };
-export default Admin;
+export default Admin_users;
