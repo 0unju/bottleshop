@@ -12,19 +12,6 @@ import {
 
 const Cart = () => {
   {
-    /* counter */
-  }
-  const [count, setCount] = useState(0);
-
-  const onIncrease = () => {
-    setCount(count + 1);
-  };
-
-  const onDecrease = () => {
-    setCount(count - 1);
-  };
-
-  {
     /* home으로 가기 */
   }
   const homeClick = (e) => {
@@ -48,7 +35,7 @@ const Cart = () => {
           <div>
             <Form.Check aria-label="option 1" />
           </div>
-          <div>
+          <div className="product_d">
             <Card style={{ width: "18rem", padding: "50px" }}>
               <Card.Img variant="top" src="holder.js/100px180" />
               <Card.Body>
@@ -61,9 +48,10 @@ const Cart = () => {
             </Card>
           </div>
           <div className="counter">
-            <button onClick={onIncrease}>+</button>
-            <p>{count}</p>
-            <button onClick={onDecrease}>-</button>
+            <Form.Group className="mb-1">
+              <Form.Label>수량</Form.Label>
+              <Form.Control type="number" placeholder="" />
+            </Form.Group>
           </div>
           <div>가격</div>
         </div>

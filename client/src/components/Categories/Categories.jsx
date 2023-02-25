@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Categories.css";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
@@ -14,15 +14,15 @@ import Main_about1 from "../images/main_about_01.png";
 import Main_about2 from "../images/main_about_02.png";
 import Main_about3 from "../images/main_about_03.png";
 
-const cartClick = (e) => {
-  window.location.href = "/order/cart";
-};
+const Categories = ({}) => {
+  const cartClick = (e) => {
+    window.location.href = "/order/cart";
+  };
 
-const orderClick = (e) => {
-  window.location.href = "/order/order";
-};
+  const orderClick = (e) => {
+    window.location.href = "/order/order";
+  };
 
-const Categories = () => {
   return (
     <>
       <div>
@@ -174,7 +174,7 @@ const Categories = () => {
         </div>
         <div className="Main_about">
           <div className="about_1">
-            <div>
+            <div className="main_about1">
               <img src={Main_about1} alt="about1" />
             </div>
             <div>
