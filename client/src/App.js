@@ -1,16 +1,20 @@
-import React from "react";
+import { React, useState } from "react";
 import "./App.css";
-import Layout from "./components/Layout";
+import Layout from "./components/Categories/Layout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Categories from "./components/Categories";
-import Wine from "./components/Wine";
-import Cheeses from "./components/Cheeses";
+
 import AdminProducts from "./components/Admin/Admin_products";
 import AdminUsers from "./components/Admin/Admin_users";
 import AdminOrders from "./components/Admin/Admin_orders";
 import AdminCategories from "./components/Admin/Admin_categories";
 import SignUpConsent from "./components/SignUp/SignUp_consent";
 import SignUpInformation from "./components/SignUp/SignUp_information";
+
+import Categories from "./components/Categories/Categories";
+import Wine from "./components/Categories/Wine";
+import Cheeses from "./components//Categories/Cheeses";
+import Cart from "./components/Order/Cart";
+import Order from "./components/Order/Order";
 
 export default function App() {
   return (
@@ -52,6 +56,8 @@ export default function App() {
               path="/admin/products"
               element={<AdminProducts />}
             ></Route>
+            <Route exact path="/order/cart" element={<Cart />}></Route>
+            <Route exact path="/order/order" element={<Order />}></Route>
           </Routes>
         </BrowserRouter>
       </Layout>

@@ -1,0 +1,53 @@
+:root {
+  --main-color: #6c49b8;
+  --text-color: #566270;
+  --sub-color: #d9d9d9;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+}
+body {
+  background-color: #6c49b8;
+}
+
+@font-face {
+  font-family: "AlexBrush";
+  src: url("../..//fonts/AlexBrush-Regular.ttf");
+}
+@font-face {
+  font-family: "DXPnM";
+  src: url("../../fonts/DXPnM-KSCpc-EUC-H.ttf");
+}
+
+.icons {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-gap: 100px;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 0;
+}
+
+.product {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 400px;
+}
+
+.click_button {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 100px;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.counter {
+  display: flex;
+
+  width: 70px;
+}
