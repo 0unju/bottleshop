@@ -1,12 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
 import "./App.css";
-import Layout from "./components/Layout";
+import Layout from "./components/Categories/Layout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Categories from "./components/Categories";
-import Wine from "./components/Wine";
-import Cheeses from "./components/Cheeses";
-import Admin_product from "./components/Admin/Admin_product";
-import Admin_user from "./components/Admin/Admin_user";
+import Categories from "./components/Categories/Categories";
+import Wine from "./components/Categories/Wine";
+import Cheeses from "./components//Categories/Cheeses";
+import Admin_products from "./components/Admin/Admin_product";
+import Admin_users from "./components/Admin/Admin_user";
+import Cart from "./components/Order/Cart";
+import Order from "./components/Order/Order";
 
 export default function App() {
   return (
@@ -26,12 +28,14 @@ export default function App() {
               path="/categories/cheeses"
               element={<Cheeses />}
             ></Route>
-            <Route exact path="/admin/user" element={<Admin_user />}></Route>
+            <Route exact path="/admin/users" element={<Admin_users />}></Route>
             <Route
               exact
-              path="/admin/product"
-              element={<Admin_product />}
+              path="/admin/products"
+              element={<Admin_products />}
             ></Route>
+            <Route exact path="/order/cart" element={<Cart />}></Route>
+            <Route exact path="/order/order" element={<Order />}></Route>
           </Routes>
         </BrowserRouter>
       </Layout>

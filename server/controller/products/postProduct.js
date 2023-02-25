@@ -1,5 +1,5 @@
 'use strict';
-import { Product } from '../models/index.js';
+import { Product } from '../../models/index.js';
 
 const postProduct = async (req, res, next) => {
   try {
@@ -13,6 +13,7 @@ const postProduct = async (req, res, next) => {
       abv,
       image_path,
     } = req.body;
+
     const productInfo = await Product.create({
       name,
       type,
@@ -24,11 +25,11 @@ const postProduct = async (req, res, next) => {
       image_path,
     });
     productInfo.save();
-    console.log('It has been uploaded in the system');
-    res.send('success');
-  } catch (e) {
-    console.log(e.message);
+    console.log('saved in database');
+    res.send('success /products');
+  } catch (err) {
+    console.log(err.message);
   }
 };
 
-export { postProduct };
+export default postProduct;
