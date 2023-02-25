@@ -11,6 +11,9 @@ import {
 import Card from "react-bootstrap/Card";
 
 const Order = () => {
+  const orderClick = (e) => {
+    window.location.href = "/order/complete";
+  };
   return (
     <div>
       <div className="icons">
@@ -90,7 +93,9 @@ const Order = () => {
           </Form.Group>
         </div>
         <div className="last_order">
-          <Button size="lg">주문하기</Button>
+          <Button onClick={orderClick} size="lg">
+            주문하기
+          </Button>
         </div>
       </div>
     </div>

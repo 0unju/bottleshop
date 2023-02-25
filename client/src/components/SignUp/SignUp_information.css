@@ -39,6 +39,10 @@ h3 {
   margin: 0 auto;
 }
 
+.information_input {
+  margin-bottom: 30px;
+}
+
 .information_label {
   font-size: 25px;
   font-weight: bold;

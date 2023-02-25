@@ -77,9 +77,14 @@ const Layout = ({ children }) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 계정정보 <hr />
-                로그인 <br />
-                회원가입 <br />
-                주문조회
+                <a>로그인 </a>
+                <br />
+                <a href="/signup/consent">회원가입 </a>
+                <br />
+                <a href="/order/order">주문조회</a>
+                <br />
+                {/* 관리자 권한이 있는 사람에게만 보이도록 할 예정 */}
+                <a href="/admin/products">관리자페이지 </a>
                 <br />
               </Offcanvas.Body>
             </Offcanvas>

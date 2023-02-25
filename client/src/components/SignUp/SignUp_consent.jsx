@@ -10,7 +10,7 @@ const button_click = () => {
   const check2 = document.querySelector("#chekbox_2");
 
   if (check1.checked && check2.checked) {
-    window.location.href = "/SignUp/information";
+    window.location.href = "/signup/information";
   } else {
     alert("'동의함'에 체크 해 주세요");
   }
@@ -19,8 +19,8 @@ const button_click = () => {
 const SignUp_consent = () => {
   return (
     <>
-      <h1 id="information_h1">이용약관</h1>
-      <div id="information_h3">
+      <h1 id="consent_h1">이용약관</h1>
+      <div id="consent_h3">
         <h3>이용약관</h3>
         <h3>{">"}</h3>
         <h3>기본정보 입력</h3>

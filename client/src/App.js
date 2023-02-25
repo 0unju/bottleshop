@@ -7,14 +7,15 @@ import AdminProducts from "./components/Admin/Admin_products";
 import AdminUsers from "./components/Admin/Admin_users";
 import AdminOrders from "./components/Admin/Admin_orders";
 import AdminCategories from "./components/Admin/Admin_categories";
-import SignUpConsent from "./components/SignUp/SignUp_consent";
-import SignUpInformation from "./components/SignUp/SignUp_information";
+import SignupConsent from "./components/SignUp/SignUp_consent";
+import SignupInformation from "./components/SignUp/SignUp_information";
 
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
 import Cheeses from "./components//Categories/Cheeses";
 import Cart from "./components/Order/Cart";
 import Order from "./components/Order/Order";
+import Complete from "./components/Order/Complete";
 
 export default function App() {
   return (
@@ -36,13 +37,13 @@ export default function App() {
             ></Route>
             <Route
               exact
-              path="/SignUp/consent"
-              element={<SignUpConsent />}
+              path="/signup/consent"
+              element={<SignupConsent />}
             ></Route>
             <Route
               exact
-              path="/SignUp/information"
-              element={<SignUpInformation />}
+              path="/signup/information"
+              element={<SignupInformation />}
             ></Route>
             <Route exact path="/Admin/users" element={<AdminUsers />}></Route>
             <Route exact path="/admin/orders" element={<AdminOrders />}></Route>
@@ -58,6 +59,7 @@ export default function App() {
             ></Route>
             <Route exact path="/order/cart" element={<Cart />}></Route>
             <Route exact path="/order/order" element={<Order />}></Route>
+            <Route exact path="/order/complete" element={<Complete />}></Route>
           </Routes>
         </BrowserRouter>
       </Layout>
