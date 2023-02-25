@@ -13,7 +13,7 @@ import {
 // json 연결
 const api = require("../../API.json"); // API 불러오기
 const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
-const domain_list = require("../../Domain_list.json"); // Category 리스트 불러오기
+const domain_list = require("../../Domain_list.json"); // Domain 리스트 불러오기
 
 const Admin_users = () => {
   // [GET] 데이터 불러오기
@@ -292,7 +292,7 @@ const Admin_users = () => {
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>UserId</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control type="text" placeholder="String" />
         </Form.Group>
 
