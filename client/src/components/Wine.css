@@ -56,3 +56,41 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.modal_body {
+  display: flex;
+}
+
+#Modal {
+  --bs-modal-width : 900px;
+}
+
+.modal_div1 {
+  background-color: var(--main-color);
+  width: 400px;
+  height: 400px;
+  margin: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal_div1 > #wineImg {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal_div2 {
+  width: 400px;
+  height: 200px;
+  margin: 30px 30px 0 0;
+}
+
+.modal_div3 {
+  width: 400px;
+  height: 150px;
+  margin: 0 30px 10px 0;
+}
