@@ -16,7 +16,6 @@ const postUser = async (req, res, next) => {
     const user = await User.findOne({ username });
     
     if(user) {  // 아이디 중복 확인
-      console.log('"' + username + '" already exists');
       res.send('User already exists');
     }
 
@@ -25,7 +24,6 @@ const postUser = async (req, res, next) => {
       
       if(username === "admin") {
         adminValue = true;
-        console.log("getADMIN");
       }
       await User.create({
         isAdmin:adminValue,
@@ -37,11 +35,10 @@ const postUser = async (req, res, next) => {
         birthday,
         auth_email,
       });
-      console.log('saved in database');
       res.send('success /users');
     } 
   } catch (err) {
-    console.log(err.message);
+    next(err);
   }
 };
 

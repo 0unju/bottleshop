@@ -16,12 +16,9 @@ const postOrder = async (req, res, next) => {
     const result = await Order.findOne({ _id: orderInfo._id })
       .populate('product_id', 'wine_type price')
       .exec();
-
-    console.log('saved in database');
-    console.log(result);
     res.send(result);
   } catch (err) {
-    console.log(err.message);
+    next(err);
   }
 };
 

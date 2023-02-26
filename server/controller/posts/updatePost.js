@@ -18,7 +18,7 @@ const updatePost = async (req, res, next) => {
 
     res.send(post);
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 }
 

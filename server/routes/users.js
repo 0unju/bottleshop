@@ -12,7 +12,7 @@ import updateUser from '../controller/users/updateUser.js';
 
 // http://localhost:8080/users (전체 회원 조회)
 router.get('/', auth, async (req, res) => {
-  if(req.user.isAdmin == true){
+  if(req.user.isAdmin === true){
     const users = await User.find({});
     res.json(users);  
   } else {
