@@ -1,6 +1,5 @@
-import React from 'react';
-import './Ordercomplete.css';
-import Button from 'react-bootstrap/Button';
+import React from "react";
+import "./Complete.css";
 
 const Ordercomplete = () => {
   return (
@@ -44,16 +43,16 @@ const Ordercomplete = () => {
         <button
           type="button"
           className="button btn btn-secondary"
-          style={{ backgroundColor: '#6c49b8' }}
+          style={{ backgroundColor: "#6c49b8" }}
         >
           주문 수정하기
         </button>
         <button
           type="button"
           className="button btn btn-secondary"
-          style={{ backgroundColor: '#6c49b8' }}
+          style={{ backgroundColor: "#6c49b8" }}
           onClick={() => {
-            window.location.href = '/categories';
+            window.location.href = "/categories";
           }}
         >
           메인 페이지로 돌아가기

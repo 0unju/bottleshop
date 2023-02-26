@@ -18,6 +18,10 @@ const Cart = () => {
     window.location.href = "/categories";
   };
 
+  const orderClick = (e) => {
+    window.location.href = "/order/order";
+  };
+
   return (
     <div>
       {/* 아이콘들 */}
@@ -64,10 +68,14 @@ const Cart = () => {
           </Button>
         </div>
         <div>
-          <Button variant="outline-secondary">선택상품 주문</Button>
+          <Button onClick={orderClick} variant="outline-secondary">
+            선택상품 주문
+          </Button>
         </div>
         <div>
-          <Button variant="outline-secondary">전체상품 주문</Button>
+          <Button onClick={orderClick} variant="outline-secondary">
+            전체상품 주문
+          </Button>
         </div>
       </div>
     </div>

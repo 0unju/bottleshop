@@ -38,7 +38,7 @@ const SignUp_information = () => {
       </div>
 
       <Form id="information_form">
-        <Row className="mb-5">
+        <Row className="information_input">
           <Form.Group as={Col}>
             <Form.Label className="information_label">아이디 *</Form.Label>
             <Form.Control type="text" />
@@ -53,35 +53,35 @@ const SignUp_information = () => {
           </Form.Group>
         </Row>
 
-        <Form.Group className="mb-5">
+        <Form.Group className="information_input">
           <Form.Label className="information_label">비밀번호 *</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
 
-        <Form.Group className="mb-5">
+        <Form.Group className="information_input">
           <Form.Label className="information_label">비밀번호 확인 *</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
 
-        <Form.Group className="mb-5">
+        <Form.Group className="information_input">
           <Form.Label className="information_label">이름 *</Form.Label>
           <Form.Control type="text" />
         </Form.Group>
 
-        <Form.Group className="mb-5">
+        <Form.Group className="information_input">
           <Form.Label className="information_label">전화번호 *</Form.Label>
           <Form.Control type="phone" />
         </Form.Group>
 
-        <Form.Group className="mb-5">
+        <Form.Group className="information_input">
           <Form.Label className="information_label">생년월일 *</Form.Label>
           <Form.Control type="date" />
         </Form.Group>
-      </Form>
 
-      <Button id="information_button" onClick={button_click}>
-        가입하기
-      </Button>
+        <Button id="information_button" onClick={button_click}>
+          가입하기
+        </Button>
+      </Form>
     </>
   );
 };
