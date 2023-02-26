@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./Wine.css";
 import Card from "react-bootstrap/Card";
 import ReactPaginate from "react-paginate";
@@ -14,14 +15,6 @@ import CHATEAUBONNETWHITE from "../images/white wine/CHATEAU BONNET WHITE.png";
 const api = require("../../API.json");
 
 const Wine = () => {
-  const cartClick = (e) => {
-    window.location.href = "/order/cart";
-  };
-
-  const orderClick = (e) => {
-    window.location.href = "/order/order";
-  };
-
   const [dataList, setDataList] = useState(null);
 
   const fetchData = async () => {
@@ -43,20 +36,17 @@ const Wine = () => {
             <Card.Body>
               <Card.Title>{data.name}</Card.Title>
               <Card.Text>{data.price}</Card.Text>
-              <button
-                onClick={cartClick}
-                type="button"
-                class="btn btn-outline-info"
-              >
+              <Link to="order/cart" type="button" class="btn btn-outline-info">
                 장바구니
-              </button>
-              <button
+              </Link>
+              <Link
+                to="order/order"
                 onClick={orderClick}
                 type="button"
                 class="btn btn-outline-success"
               >
                 주문하기
-              </button>
+              </Link>
             </Card.Body>
           </Card>
         </div>
@@ -79,20 +69,17 @@ const Wine = () => {
             <Card.Body>
               <Card.Title>LOUIS LATOUR SANTENAY</Card.Title>
               <Card.Text>75,000원</Card.Text>
-              <button
-                type="button"
-                onClick={cartClick}
-                class="btn btn-outline-info"
-              >
+              <Link to="order/cart" type="button" class="btn btn-outline-info">
                 장바구니
-              </button>
-              <button
+              </Link>
+              <Link
+                to="order/order"
                 onClick={orderClick}
                 type="button"
                 class="btn btn-outline-success"
               >
                 주문하기
-              </button>
+              </Link>
             </Card.Body>
           </Card>
         </div>
@@ -102,20 +89,17 @@ const Wine = () => {
             <Card.Body>
               <Card.Title>GALANTAS</Card.Title>
               <Card.Text>75,000원</Card.Text>
-              <button
-                onClick={cartClick}
-                type="button"
-                class="btn btn-outline-info"
-              >
+              <Link to="order/cart" type="button" class="btn btn-outline-info">
                 장바구니
-              </button>
-              <button
+              </Link>
+              <Link
+                to="order/order"
                 onClick={orderClick}
                 type="button"
                 class="btn btn-outline-success"
               >
                 주문하기
-              </button>
+              </Link>
             </Card.Body>
           </Card>
         </div>
@@ -125,20 +109,7 @@ const Wine = () => {
             <Card.Body>
               <Card.Title>SANTA CRISTINA BRUT</Card.Title>
               <Card.Text>33,000원</Card.Text>
-              <button
-                onClick={cartClick}
-                type="button"
-                class="btn btn-outline-info"
-              >
-                장바구니
-              </button>
-              <button
-                onClick={orderClick}
-                type="button"
-                class="btn btn-outline-success"
-              >
-                주문하기
-              </button>
+              주문하기
             </Card.Body>
           </Card>
         </div>
@@ -171,20 +142,7 @@ const Wine = () => {
             <Card.Body>
               <Card.Title>CHATEAU BONNET WHITE</Card.Title>
               <Card.Text>65,000원</Card.Text>
-              <button
-                onClick={cartClick}
-                type="button"
-                class="btn btn-outline-info"
-              >
-                장바구니
-              </button>
-              <button
-                onClick={orderClick}
-                type="button"
-                class="btn btn-outline-success"
-              >
-                주문하기
-              </button>
+              주문하기
             </Card.Body>
           </Card>
         </div>

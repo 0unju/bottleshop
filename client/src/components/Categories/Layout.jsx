@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Layout.css";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -12,9 +13,6 @@ const Layout = ({ children }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const cartClick = (e) => {
-    window.location.href = "/order/cart";
-  };
 
   return (
     <div className="wrapper">
@@ -59,9 +57,9 @@ const Layout = ({ children }) => {
                 />
                 <FaSistrix variant="outline-success" />
               </Form>
-              <div onClick={cartClick} className="cart">
+              <Link to="/categories/cart" className="cart">
                 <FaCartArrowDown />
-              </div>
+              </Link>
 
               {/* 주문조회,회원로그인 런처 */}
             </Navbar.Collapse>

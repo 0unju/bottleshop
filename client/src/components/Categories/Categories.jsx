@@ -13,16 +13,9 @@ import Cheeses2 from "../images/Ricotta1.png";
 import Main_about1 from "../images/main_about_01.png";
 import Main_about2 from "../images/main_about_02.png";
 import Main_about3 from "../images/main_about_03.png";
+import { Link } from "react-router-dom";
 
-const Categories = ({}) => {
-  const cartClick = (e) => {
-    window.location.href = "/order/cart";
-  };
-
-  const orderClick = (e) => {
-    window.location.href = "/order/order";
-  };
-
+const Categories = () => {
   return (
     <>
       <div>
@@ -60,21 +53,20 @@ const Categories = ({}) => {
                 <Card.Body>
                   <Card.Title>BODEGA GARZON 'BALASTO'</Card.Title>
                   <Card.Text>200,000원</Card.Text>
-                  <button
-                    onClick={cartClick}
+                  <Link
+                    to="/categories/order/cart"
                     type="button"
                     class="btn btn-outline-info"
                   >
                     장바구니
-                  </button>
-                  <button
-                    typ
-                    onClick={orderClick}
-                    e="button"
+                  </Link>
+                  <Link
+                    to="/order/order"
+                    type="button"
                     class="btn btn-outline-success"
                   >
                     주문하기
-                  </button>
+                  </Link>
                 </Card.Body>
               </Card>
             </div>
@@ -84,20 +76,20 @@ const Categories = ({}) => {
                 <Card.Body>
                   <Card.Title>FRIAS LADY OF DEAD</Card.Title>
                   <Card.Text>35,000원</Card.Text>
-                  <button
-                    onClick={cartClick}
+                  <Link
+                    to="/order/order/order/cart"
                     type="button"
                     class="btn btn-outline-info"
                   >
                     장바구니
-                  </button>
-                  <button
-                    onClick={orderClick}
+                  </Link>
+                  <Link
+                    to="/order/order"
                     type="button"
                     class="btn btn-outline-success"
                   >
                     주문하기
-                  </button>
+                  </Link>
                 </Card.Body>
               </Card>
             </div>
@@ -107,20 +99,20 @@ const Categories = ({}) => {
                 <Card.Body>
                   <Card.Title>BANROCK STATION MOSCATO</Card.Title>
                   <Card.Text>13,000원</Card.Text>
-                  <button
-                    onClick={cartClick}
+                  <Link
+                    to="/order/cart"
                     type="button"
                     class="btn btn-outline-info"
                   >
                     장바구니
-                  </button>
-                  <button
-                    onClick={orderClick}
+                  </Link>
+                  <Link
+                    to="/order/order"
                     type="button"
                     class="btn btn-outline-success"
                   >
                     주문하기
-                  </button>
+                  </Link>
                 </Card.Body>
               </Card>
             </div>
@@ -130,20 +122,20 @@ const Categories = ({}) => {
                 <Card.Body>
                   <Card.Title>Parmesan Cheeses</Card.Title>
                   <Card.Text>58,000원</Card.Text>
-                  <button
-                    onClick={cartClick}
-                    type="button"
-                    class="btn btn-outline-info"
-                  >
-                    장바구니
-                  </button>
-                  <button
-                    onClick={orderClick}
+                  <Link
+                    to="/order/cart"
                     type="button"
                     class="btn btn-outline-success"
                   >
                     주문하기
-                  </button>
+                  </Link>
+                  <Link
+                    to="/order/order"
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
+                  </Link>
                 </Card.Body>
               </Card>
             </div>
@@ -153,20 +145,20 @@ const Categories = ({}) => {
                 <Card.Body>
                   <Card.Title>Ricotta Cheeses</Card.Title>
                   <Card.Text>18,000원</Card.Text>
-                  <button
-                    onClick={cartClick}
-                    type="button"
-                    class="btn btn-outline-info"
-                  >
-                    장바구니
-                  </button>
-                  <button
-                    onClick={orderClick}
+                  <Link
+                    to="/order/cart"
                     type="button"
                     class="btn btn-outline-success"
                   >
                     주문하기
-                  </button>
+                  </Link>
+                  <Link
+                    to="/order/order"
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
+                  </Link>
                 </Card.Body>
               </Card>
             </div>
