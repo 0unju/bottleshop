@@ -1,6 +1,6 @@
 import "./Admin.css";
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import {
   Nav,
   Button,
@@ -15,8 +15,14 @@ const api = require("../../API.json"); // API 불러오기
 const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
 
 const Admin_orders = () => {
-  // [GET] 데이터 불러오기
+  // Element 제어
+  const input_search = useRef(null);
+  const input_userId = useRef(null);
+  const input_guestId = useRef(null);
+  const input_productId = useRef(null);
+  const input_count = useRef(null);
 
+  // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
   const fetchData = async () => {
@@ -30,21 +36,19 @@ const Admin_orders = () => {
 
   // 입력칸 리셋
   const reset = () => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    document.querySelector("#DB_searchbar").value = "";
-    form[0].lastChild.value = "";
-    form[1].lastChild.value = "";
-    form[2].lastChild.value = "";
-    form[3].lastChild.value = "";
+    input_search.current.value = "";
+    input_userId.current.value = "";
+    input_guestId.current.value = "";
+    input_productId.current.value = "";
+    input_count.current.value = "";
   };
 
   // [POST] 데이터 전송하기
   const db_post = async () => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    const user_id = form[0].lastChild.value;
-    const guest_id = form[1].lastChild.value;
-    const product_id = form[2].lastChild.value;
-    const c_count = form[3].lastChild.value;
+    const user_id = input_userId.current.value;
+    const guest_id = input_guestId.current.value;
+    const product_id = input_productId.current.value;
+    const c_count = input_count.current.value;
 
     let success = false;
     await axios
@@ -67,7 +71,7 @@ const Admin_orders = () => {
 
   // [DELETE] ID로 선택된 데이터 삭제
   const db_delete = async () => {
-    const searchbar_value = document.querySelector("#DB_searchbar").value;
+    const searchbar_value = input_search.current.value;
     let success = false;
     await axios.delete(api.orders_DELETE + searchbar_value).then((response) => {
       if (response.status === 200) {
@@ -82,12 +86,11 @@ const Admin_orders = () => {
 
   // [PUT] ID로 선택된 데이터 수정
   const db_put = async () => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    const searchbar_value = document.querySelector("#DB_searchbar").value;
-    const user_id = form[0].lastChild.value;
-    const guest_id = form[1].lastChild.value;
-    const product_id = form[2].lastChild.value;
-    const c_count = form[3].lastChild.value;
+    const searchbar_value = input_search.current.value;
+    const user_id = input_userId.current.value;
+    const guest_id = input_guestId.current.value;
+    const product_id = input_productId.current.value;
+    const c_count = input_count.current.value;
 
     let success = false;
     await axios
@@ -107,16 +110,6 @@ const Admin_orders = () => {
       });
     if (!success) alert("ID와 값을 바르게 입력해 주세요");
   };
-
-  // NAV바 만들기
-  const nav_list = [];
-  admin_list.forEach((data, index) => {
-    nav_list.push(
-      <Nav.Item key={index}>
-        <Nav.Link href={data.href}>{data.name}</Nav.Link>
-      </Nav.Item>
-    );
-  });
 
   // 페이지 넘버 만들기
   const dataList_length = dataList?.length;
@@ -144,13 +137,11 @@ const Admin_orders = () => {
 
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const show = (data) => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    const searchbar = document.querySelector("#DB_searchbar");
-    searchbar.value = data._id;
-    form[0].lastChild.value = data.user_id;
-    form[1].lastChild.value = data.guest_id;
-    form[2].lastChild.value = data.product_id;
-    form[3].lastChild.value = data.c_count;
+    input_search.current.value = data._id;
+    input_userId.current.value = data.user_id;
+    input_guestId.current.value = data.guest_id;
+    input_productId.current.value = data.product_id;
+    input_count.current.value = data.c_count;
   };
 
   // 리스트 구현
@@ -176,7 +167,7 @@ const Admin_orders = () => {
 
   // 조회 기능
   const search = () => {
-    const searchbar_value = document.querySelector("#DB_searchbar").value;
+    const searchbar_value = input_search.current.value;
     let search_list = [];
     let success = false;
     for (let data of dataList) {
@@ -197,16 +188,22 @@ const Admin_orders = () => {
     <>
       {/* 네비게이션 바 */}
       <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/orders">
-        {nav_list}
+        {admin_list.map((data, index) => (
+          <Nav.Item key={data.id}>
+            <Nav.Link href={data.href}>{data.name}</Nav.Link>
+          </Nav.Item>
+        ))}
       </Nav>
-
-      {/* orders 페이지 */}
 
       {/* 상단바 */}
       <div class="DB_bar">
         <h2>Orders</h2>
         <InputGroup id="DB_manager" size="sm" className="mb-2">
-          <Form.Control id="DB_searchbar" placeholder="Users_ID" />
+          <Form.Control
+            ref={input_search}
+            id="DB_searchbar"
+            placeholder="Users_ID"
+          />
           <Button id="button" onClick={search}>
             조회
           </Button>
@@ -226,22 +223,26 @@ const Admin_orders = () => {
       <div class="DB_data">
         <Form.Group className="mb-1">
           <Form.Label>Users_Id</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control ref={input_userId} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Guest_Id</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control ref={input_guestId} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Product_Id</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control
+            ref={input_productId}
+            type="text"
+            placeholder="String"
+          />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Count</Form.Label>
-          <Form.Control type="number" placeholder="Number" />
+          <Form.Control ref={input_count} type="number" placeholder="Number" />
         </Form.Group>
       </div>
 

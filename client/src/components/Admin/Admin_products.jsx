@@ -1,6 +1,7 @@
+import { React, useEffect, useState, useRef } from "react";
 import "./Admin.css";
 import axios from "axios";
-import { React, useEffect, useState } from "react";
+
 import {
   Nav,
   Button,
@@ -16,6 +17,17 @@ const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
 const category_list = require("../../Category_list.json"); // Category 리스트 불러오기
 
 const Admin_products = () => {
+  // Element 제어
+  const input_name = useRef(null);
+  const input_type = useRef(null);
+  const input_price = useRef(null);
+  const input_description = useRef(null);
+  const input_wine_type = useRef(null);
+  const input_origin = useRef(null);
+  const input_abv = useRef(null);
+  const input_image_path = useRef(null);
+  const input_search = useRef(null);
+
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
@@ -30,29 +42,27 @@ const Admin_products = () => {
 
   // 입력칸 리셋
   const reset = () => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    document.querySelector("#DB_searchbar").value = "";
-    form[0].lastChild.value = "";
-    form[1].lastChild.value = "";
-    form[2].lastChild.value = "";
-    form[3].lastChild.value = "";
-    form[4].lastChild.value = "";
-    form[5].lastChild.value = "";
-    form[6].lastChild.value = "";
-    form[7].lastChild.value = "";
+    input_search.value = "";
+    input_name.current.value = "";
+    input_type.current.value = "null";
+    input_price.current.value = "";
+    input_description.current.value = "";
+    input_wine_type.current.value = "null";
+    input_origin.current.value = "";
+    input_abv.current.value = "";
+    input_image_path.current.value = "";
   };
 
   // [POST] 데이터 전송하기
   const db_post = async () => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    const name = form[0].lastChild.value;
-    const type = form[1].lastChild.value;
-    const price = form[2].lastChild.value;
-    const description = form[3].lastChild.value;
-    const wine_type = form[4].lastChild.value;
-    const origin = form[5].lastChild.value;
-    const abv = form[6].lastChild.value;
-    const image_path = form[7].lastChild.value;
+    const name = input_name.current.value;
+    const type = input_type.current.value;
+    const price = input_price.current.value;
+    const description = input_description.current.value;
+    const wine_type = input_wine_type.current.value;
+    const origin = input_origin.current.value;
+    const abv = input_abv.current.value;
+    const image_path = input_image_path.current.value;
 
     // 이름 중복 방지
     let overlap = false;
@@ -89,7 +99,7 @@ const Admin_products = () => {
 
   // [DELETE] ID로 선택된 데이터 삭제
   const db_delete = async () => {
-    const searchbar_value = document.querySelector("#DB_searchbar").value;
+    const searchbar_value = input_search.value;
     let success = false;
     await axios
       .delete(api.products_DELETE + searchbar_value)
@@ -106,16 +116,15 @@ const Admin_products = () => {
 
   // [PUT] ID로 선택된 데이터 수정
   const db_put = async () => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    const searchbar_value = document.querySelector("#DB_searchbar").value;
-    const name = form[0].lastChild.value;
-    const type = form[1].lastChild.value;
-    const price = form[2].lastChild.value;
-    const description = form[3].lastChild.value;
-    const wine_type = form[4].lastChild.value;
-    const origin = form[5].lastChild.value;
-    const abv = form[6].lastChild.value;
-    const image_path = form[7].lastChild.value;
+    const searchbar_value = input_search.value;
+    const name = input_name.value;
+    const type = input_type.value;
+    const price = input_price.value;
+    const description = input_description.value;
+    const wine_type = input_wine_type.value;
+    const origin = input_origin.value;
+    const abv = input_abv.value;
+    const image_path = input_image_path.value;
 
     // 이름 중복 방지
     let overlap = false;
@@ -161,16 +170,6 @@ const Admin_products = () => {
     category_form_list.push(<option value={data.name}>{data.name}</option>);
   });
 
-  // NAV바 만들기
-  const nav_list = [];
-  admin_list.forEach((data, index) => {
-    nav_list.push(
-      <Nav.Item key={index}>
-        <Nav.Link href={data.href}>{data.name}</Nav.Link>
-      </Nav.Item>
-    );
-  });
-
   // 페이지 넘버 만들기
   const dataList_length = dataList?.length;
   const page_number =
@@ -197,17 +196,15 @@ const Admin_products = () => {
 
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const show = (data) => {
-    const form = document.querySelectorAll(".DB_data > .mb-1");
-    const searchbar = document.querySelector("#DB_searchbar");
-    searchbar.value = data._id;
-    form[0].lastChild.value = data.name;
-    form[1].lastChild.value = data.type;
-    form[2].lastChild.value = data.price;
-    form[3].lastChild.value = data.description;
-    form[4].lastChild.value = data.wine_type;
-    form[5].lastChild.value = data.origin;
-    form[6].lastChild.value = data.abv;
-    form[7].lastChild.value = data.image_path;
+    input_search.current.value = data._id;
+    input_name.current.value = data.name;
+    input_type.current.value = data.type;
+    input_price.current.value = data.price;
+    input_description.current.value = data.description;
+    input_wine_type.current.value = data.wine_type;
+    input_origin.current.value = data.origin;
+    input_abv.current.value = data.abv;
+    input_image_path.current.value = data.image_path;
   };
 
   // 리스트 구현
@@ -230,7 +227,7 @@ const Admin_products = () => {
 
   // 조회 기능
   const search = () => {
-    const searchbar_value = document.querySelector("#DB_searchbar").value;
+    const searchbar_value = input_search.value;
 
     let success = false;
     for (let data of dataList) {
@@ -247,7 +244,11 @@ const Admin_products = () => {
     <>
       {/* 네비게이션 바 */}
       <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/products">
-        {nav_list}
+        {admin_list.map((data) => (
+          <Nav.Item key={data.name}>
+            <Nav.Link href={data.href}>{data.name}</Nav.Link>
+          </Nav.Item>
+        ))}
       </Nav>
 
       {/* products 페이지 */}
@@ -255,8 +256,8 @@ const Admin_products = () => {
       {/* 상단바 */}
       <div class="DB_bar">
         <h2>Products</h2>
-        <InputGroup id="DB_manager" size="sm" className="mb-2">
-          <Form.Control id="DB_searchbar" placeholder="ID" />
+        <InputGroup id="DB_manager" size="sm">
+          <Form.Control ref={input_search} id="DB_searchbar" placeholder="ID" />
           <Button id="button" onClick={search}>
             조회
           </Button>
@@ -276,12 +277,12 @@ const Admin_products = () => {
       <div class="DB_data">
         <Form.Group className="mb-1">
           <Form.Label>Name</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control ref={input_name} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Type</Form.Label>
-          <Form.Select>
+          <Form.Select ref={input_type}>
             <option></option>
             <option value="Wine">Wine</option>
             <option value="Cheese">Cheese</option>
@@ -290,17 +291,21 @@ const Admin_products = () => {
 
         <Form.Group className="mb-1">
           <Form.Label>Price</Form.Label>
-          <Form.Control type="text" placeholder="Number" />
+          <Form.Control ref={input_price} type="text" placeholder="Number" />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Description</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control
+            ref={input_description}
+            type="text"
+            placeholder="String"
+          />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Wine_type</Form.Label>
-          <Form.Select>
+          <Form.Select ref={input_wine_type}>
             <option></option>
             <option value="Red_Wine">Red</option>
             <option value="White_Wine">White</option>
@@ -310,17 +315,21 @@ const Admin_products = () => {
 
         <Form.Group className="mb-1">
           <Form.Label>Origin</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control ref={input_origin} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Abv</Form.Label>
-          <Form.Control type="text" placeholder="Number" />
+          <Form.Control ref={input_abv} type="text" placeholder="Number" />
         </Form.Group>
 
         <Form.Group className="mb-1">
           <Form.Label>Image_path</Form.Label>
-          <Form.Control type="text" placeholder="String" />
+          <Form.Control
+            ref={input_image_path}
+            type="text"
+            placeholder="String"
+          />
         </Form.Group>
       </div>
 

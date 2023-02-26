@@ -11,20 +11,9 @@ import {
 
 // JSON 가져오기
 const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
-
 let category_list = [{ name: "Wine" }, { name: "Cheese" }];
 
 const Admin_category = () => {
-  // NAV바 만들기
-  const nav_list = [];
-  admin_list.forEach((data, index) => {
-    nav_list.push(
-      <Nav.Item key={index}>
-        <Nav.Link href={data.href}>{data.name}</Nav.Link>
-      </Nav.Item>
-    );
-  });
-
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const show = (data) => {
     const form = document.querySelector("#categories_value");
@@ -115,11 +104,13 @@ const Admin_category = () => {
   return (
     <>
       {/* 네비게이션 바 */}
-      <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/categories">
-        {nav_list}
+      <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/orders">
+        {admin_list.map((data, index) => (
+          <Nav.Item key={data.id}>
+            <Nav.Link href={data.href}>{data.name}</Nav.Link>
+          </Nav.Item>
+        ))}
       </Nav>
-
-      {/* products 페이지 */}
 
       {/* 상단바 */}
       <div class="DB_bar">
@@ -140,7 +131,6 @@ const Admin_category = () => {
           </Button>
         </InputGroup>
       </div>
-
       {/* DB입력 부분 */}
       <div class="DB_data">
         <Form.Group className="mb-1">
@@ -152,7 +142,6 @@ const Admin_category = () => {
           />
         </Form.Group>
       </div>
-
       {/* 리스트 */}
       <div>
         <Table striped bordered hover size="sm" id="DB_list">

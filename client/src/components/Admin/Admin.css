@@ -35,7 +35,7 @@ h2 {
 
 #DB_manager {
   justify-content: flex-end;
-  margin: 15px 2% 0 0;
+  margin: 15px 2% 5px 0;
 }
 
 #DB_searchbar {
@@ -44,8 +44,10 @@ h2 {
 
 #button {
   color: var(--main-color);
+  font-weight: bold;
   background-color: var(--sub-color);
   border-color: var(--text-color);
+  max-width: fit-content;
 }
 
 #button:hover {
