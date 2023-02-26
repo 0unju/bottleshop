@@ -1,5 +1,5 @@
-'use strict';
-import { Schema } from 'mongoose';
+"use strict";
+import { Schema } from "mongoose";
 
 const ProductSchema = new Schema(
   {

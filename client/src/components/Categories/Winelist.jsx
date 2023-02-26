@@ -1,39 +1,41 @@
-import "./Admin.css";
 import { React, useEffect, useState } from "react";
 import {
+  Card,
   Nav,
   Button,
   Form,
   InputGroup,
-  ListGroup,
   Pagination,
+  ListGroup,
 } from "react-bootstrap";
+import LOUISLATOURSANTENAY from "../images/red wine/LOUIS LATOUR SANTENAY.png";
 import axios from "axios";
 
 const api = require("../../API.json");
 
-const Admin = () => {
-  const [todoList, setTodoList] = useState(null);
+const WineList = () => {
+  // get 데이터 불러오기
+  const [dataList, setDataList] = useState(null);
 
   const fetchData = async () => {
     const response = await axios.get(api.product);
-    setTodoList(response.data);
+    setDataList(response.data);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const type = e.target.type.value;
-    const price = e.target.price.value;
-    const description = e.target.description.value;
-    const wine_type = e.target.wine_type.value;
-    const origin = e.target.origin.value;
-    const abv = e.target.abv.value;
-    const image_path = e.target.image_path.value;
+  const onSubmitHandler = async (element) => {
+    element.preventDefault();
+    const name = element.target.name.value;
+    const type = element.target.type.value;
+    const price = element.target.price.value;
+    const description = element.target.description.value;
+    const wine_type = element.target.wine_type.value;
+    const origin = element.target.origin.value;
+    const abv = element.target.abv.value;
+    const image_path = element.target.image_path.value;
 
     await axios.post(api.product, {
       name,
@@ -62,12 +64,23 @@ const Admin = () => {
   const popup = () => console.log("구현중");
 
   // 리스트 구현
-  let list = [];
+  let Name = [];
   {
-    todoList?.map((todo, num) =>
-      list.push(
+    dataList?.map((data, num) =>
+      Name.push(
+        <Card key={num} action onClick={popup}>
+          {data.name}
+        </Card>
+      )
+    );
+  }
+
+  let Price = [];
+  {
+    dataList?.map((data, num) =>
+      Price.push(
         <ListGroup.Item key={num} action onClick={popup}>
-          {todo.name}
+          {data.price}
         </ListGroup.Item>
       )
     );
@@ -79,9 +92,6 @@ const Admin = () => {
       <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/product">
         <Nav.Item>
           <Nav.Link href="/admin/product">Product</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/admin/user">User</Nav.Link>
         </Nav.Item>
       </Nav>
 
@@ -156,7 +166,17 @@ const Admin = () => {
 
       {/* 리스트 */}
       <div id="product_list">
-        <ListGroup>{list}</ListGroup>
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src={LOUISLATOURSANTENAY} />
+          <Card.Body>
+            <Card.Title>{Name}</Card.Title>
+            <Card.Text>{Price}</Card.Text>
+            <button type="button" class="btn btn-outline-info">
+              장바구니
+            </button>
+          </Card.Body>
+        </Card>
+
         <Pagination id="page" size="sm">
           {items}
         </Pagination>
@@ -165,4 +185,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default WineList;
