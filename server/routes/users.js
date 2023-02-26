@@ -20,11 +20,20 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// router.get("/", auth, async (req, res) => {
+//   if (req.user.isAdmin == true) {
+//     const users = await User.find({});
+//     res.json(users);
+//   } else {
+//     res.render("users");
+//   }
+// });
+
 // http://localhost:8080/users/join (회원가입)
-router.post('/join', postUser);
+router.post("/join", postUser);
 
 // http://localhost:8080/users/login (로그인)
-router.post('/login', loginUser);
+router.post("/login", loginUser);
 
 // http://localhost:8080/users/auth (현재 로그인한 user 정보)
 router.get("/auth", auth, authUser);

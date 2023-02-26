@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+import "./Layout.css";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import "./Layout.css";
+import { FaCartArrowDown, FaSistrix, FaGithubAlt } from "react-icons/fa";
 
 const Layout = ({ children }) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const cartClick = (e) => {
+    window.location.href = "/order/cart";
+  };
 
   return (
     <div className="wrapper">
@@ -22,7 +24,7 @@ const Layout = ({ children }) => {
             Bottle Shop
           </a>
         </div>
-        <Navbar bg="light" expand="lg">
+        <Navbar id="nav_main" className="navbar" bg="light" expand="lg">
           <Container fluid>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
@@ -55,25 +57,34 @@ const Layout = ({ children }) => {
                   className="me-2"
                   aria-label="Search"
                 />
-                <Button variant="outline-success">Search</Button>
+                <FaSistrix variant="outline-success" />
               </Form>
+              <div onClick={cartClick} className="cart">
+                <FaCartArrowDown />
+              </div>
+
+              {/* 주문조회,회원로그인 런처 */}
             </Navbar.Collapse>
-            <Button variant="white" onClick={handleShow}>
-              Launch
-            </Button>
+            <FaGithubAlt variant="white" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title>
+                <Offcanvas.Title className="login">
                   Bottle Shop <br />
+                  <br />
                   로그인 해주세요.
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 계정정보 <hr />
-                로그인 <br />
-                회원가입 <br />
-                주문조회
+                <a>로그인 </a>
+                <br />
+                <a href="/signup/consent">회원가입 </a>
+                <br />
+                <a href="/order/order">주문조회</a>
+                <br />
+                {/* 관리자 권한이 있는 사람에게만 보이도록 할 예정 */}
+                <a href="/admin/products">관리자페이지 </a>
                 <br />
               </Offcanvas.Body>
             </Offcanvas>
