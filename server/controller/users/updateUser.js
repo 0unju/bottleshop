@@ -3,13 +3,13 @@ import { User } from '../../models/index.js';
 
 const updateUser = async (req, res, next) => {
   try{
-    const { userId } = req.params;
+    const { username } = req.params;
     const { name, phone, birthday } = req.body;
   
     // 로그인한 유저와 admin만 정보 수정 가능
-    if((userId === req.user.userId) || (req.user.isAdmin === true)) {
+    if((username === req.user.username) || (req.user.isAdmin === true)) {
       const user = await User.updateOne(
-        { userId },
+        { username },
         {
           name,
           phone,

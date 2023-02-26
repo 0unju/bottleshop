@@ -1,5 +1,5 @@
 'use strict';
-import { Shipment, Order } from '../models/index.js';
+import { Shipment, Order } from '../../models/index.js';
 
 const postShipment = async (req, res, next) => {
   try {
@@ -8,6 +8,7 @@ const postShipment = async (req, res, next) => {
       user_id,
       guest_id,
       tracking_number,
+      status,
       city,
       district,
       address1,
@@ -17,13 +18,12 @@ const postShipment = async (req, res, next) => {
       request,
     } = req.body;
 
-    const existedOrder = await Order.findById(order_id);
-
     const shipmentInfo = await Shipment.create({
       order_id,
       user_id,
       guest_id,
       tracking_number,
+      status,
       city,
       district,
       address1,
@@ -34,7 +34,6 @@ const postShipment = async (req, res, next) => {
     });
 
     console.log(shipmentInfo);
-    shipmentInfo.save();
     res.send('success /shipments');
     console.log('saved in database');
   } catch (err) {

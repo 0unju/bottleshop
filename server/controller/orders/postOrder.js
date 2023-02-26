@@ -12,13 +12,9 @@ const postOrder = async (req, res, next) => {
       c_count,
     });
 
-    
-
     // populate product_id
     const result = await Order.findOne({ _id: orderInfo._id })
-      .where('type')
-      .equals('wine')
-      .populate('product_id', 'type price')
+      .populate('product_id', 'wine_type price')
       .exec();
 
     console.log('saved in database');

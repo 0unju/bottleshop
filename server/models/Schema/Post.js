@@ -1,12 +1,15 @@
 'use strict';
 import { Schema } from 'mongoose';
-import CommentSchema from './Comment.js';
 
 const PostSchema = new Schema(
   {
     isAdmin: false,
     user_id: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    isAdmin: {
+      type: Schema.Types.Boolean,
       ref: 'User',
     },
     title: {
@@ -25,10 +28,13 @@ const PostSchema = new Schema(
       type: String,
       default: '작성자',
     },
-    date: Date,
-    comment: [CommentSchema],
-  },
-  {
+    comment : [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment',
+      },
+    ],
+  }, {
     timestamps: true,
   }
 );
