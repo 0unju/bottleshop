@@ -10,10 +10,10 @@ import {
 } from "react-bootstrap";
 
 // JSON 가져오기
-const admin_list = require("./Admin_list.json"); // Admin 리스트 불러오기
+const admin_list = require("./adminList.json"); // Admin 리스트 불러오기
 let category_list = [{ name: "Wine" }, { name: "Cheese" }];
 
-const Admin_category = () => {
+const AdminCategory = () => {
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const show = (data) => {
     const form = document.querySelector("#categories_value");
@@ -156,4 +156,4 @@ const Admin_category = () => {
     </>
   );
 };
-export default Admin_category;
+export default AdminCategory;

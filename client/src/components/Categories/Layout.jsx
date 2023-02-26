@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
             Bottle Shop
           </a>
         </div>
-        <Navbar id="nav_main" className="navbar" bg="light" expand="lg">
+        <Navbar id="nav_main" className="navbar" expand="lg">
           <Container fluid>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">

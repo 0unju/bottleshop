@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
-const api = require("../../API.json");
+const api = require("../../api.json");
 
 const NpmPagination = () => {
   const [post, setPost] = useState([]);

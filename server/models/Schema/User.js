@@ -1,6 +1,6 @@
-'use strict';
-import { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';  // "npm i bcrypt --save" 설치 필요
+"use strict";
+import { Schema } from "mongoose";
+import bcrypt from "bcrypt"; // "npm i bcrypt --save" 설치 필요
 import jwt from "jsonwebtoken"; // "npm i jsonwebtoken" 설치 필요
 const saltRounds = 10;
 
@@ -27,17 +27,16 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    auth_email : {
+    auth_email: {
       type: Boolean,
       default: false,
     },
-    birthday: Date,
+    birthday: String,
   },
   {
     timestamps: true,
   }
 );
-
 
 UserSchema.pre("save", function (next) {
   const user = this;

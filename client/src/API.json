@@ -1,8 +1,8 @@
 {
   "products_GET": "http://localhost:8080/products",
   "products_POST": "http://localhost:8080/products",
-  "products_DELETE": "http://localhost:8080/products/delete/",
-  "products_PUT": "http://localhost:8080/products/edit/",
+  "products_DELETE": "http://localhost:8080/products/",
+  "products_PUT": "http://localhost:8080/products/",
   "users_GET": "http://localhost:8080/users",
   "users_POST": "http://localhost:8080/users/join",
   "users_DELETE": "http://localhost:8080/users/delete/",

@@ -14,7 +14,7 @@ const Cheeses = () => {
     window.location.href = "/order/order";
   };
 
-  const api = require("../../API.json");
+  const api = require("../../api.json");
 
   const [dataList, setDataList] = useState(null);
 

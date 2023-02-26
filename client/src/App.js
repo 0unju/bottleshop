@@ -3,12 +3,13 @@ import "./App.css";
 import Layout from "./components/Categories/Layout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import AdminProducts from "./components/Admin/Admin_products";
-import AdminUsers from "./components/Admin/Admin_users";
-import AdminOrders from "./components/Admin/Admin_orders";
-import AdminCategories from "./components/Admin/Admin_categories";
-import SignupConsent from "./components/SignUp/SignUp_consent";
-import SignupInformation from "./components/SignUp/SignUp_information";
+import AdminProducts from "./components/Admin/AdminProducts";
+import AdminUsers from "./components/Admin/AdminUsers";
+import AdminOrders from "./components/Admin/AdminOrders";
+import AdminCategories from "./components/Admin/AdminCategories";
+import SignupConsent from "./components/SignUp/SignUpConsent";
+import SignupInformation from "./components/SignUp/SignUpInformation";
+import SignUpComplete from "./components/SignUp/SignUpComplete";
 
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
@@ -44,6 +45,11 @@ export default function App() {
               exact
               path="/signup/information"
               element={<SignupInformation />}
+            ></Route>
+            <Route
+              exact
+              path="/signup/complete"
+              element={<SignUpComplete />}
             ></Route>
             <Route exact path="/Admin/users" element={<AdminUsers />}></Route>
             <Route exact path="/admin/orders" element={<AdminOrders />}></Route>

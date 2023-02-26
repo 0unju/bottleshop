@@ -11,7 +11,7 @@ import SANTACRISTINABRUT from "../images/sparklingwine/SANTA CRISTINA BRUT.png";
 import ARRASBLANCDEBLANCNV from "../images/sparklingwine/ARRAS BLANC DE BLANC NV.png";
 import CHATEAUBONNETWHITE from "../images/white wine/CHATEAU BONNET WHITE.png";
 
-const api = require("../../API.json");
+const api = require("../../api.json");
 
 const Wine = () => {
   const cartClick = (e) => {
