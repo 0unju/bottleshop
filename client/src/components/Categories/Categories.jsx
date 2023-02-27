@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Categories.css";
+import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
 import main from "../images/main.png";
@@ -13,7 +14,6 @@ import Cheeses2 from "../images/Ricotta1.png";
 import Main_about1 from "../images/main_about_01.png";
 import Main_about2 from "../images/main_about_02.png";
 import Main_about3 from "../images/main_about_03.png";
-import { Link } from "react-router-dom";
 
 const Categories = () => {
   return (
@@ -21,7 +21,7 @@ const Categories = () => {
       <div>
         <Carousel className="banner">
           <Carousel.Item>
-            <img className="d-block w-100" src={main} alt="First slide" />
+            <img className="w-100" src={main} alt="First slide" />
             <Carousel.Caption>
               <h3>White Day Event!!</h3>
               <p>연인과 함께 특별한 날을 보내세요.</p>
@@ -53,13 +53,13 @@ const Categories = () => {
                 <Card.Body>
                   <Card.Title>BODEGA GARZON 'BALASTO'</Card.Title>
                   <Card.Text>200,000원</Card.Text>
-                  <Link
-                    to="/categories/order/cart"
+                  <button
+                    to="/order/cart"
                     type="button"
                     class="btn btn-outline-info"
                   >
                     장바구니
-                  </Link>
+                  </button>
                   <Link
                     to="/order/order"
                     type="button"
@@ -77,7 +77,7 @@ const Categories = () => {
                   <Card.Title>FRIAS LADY OF DEAD</Card.Title>
                   <Card.Text>35,000원</Card.Text>
                   <Link
-                    to="/order/order/order/cart"
+                    to="/order/cart"
                     type="button"
                     class="btn btn-outline-info"
                   >
@@ -102,15 +102,11 @@ const Categories = () => {
                   <Link
                     to="/order/cart"
                     type="button"
-                    class="btn btn-outline-info"
+                    lass="btn btn-outline-success"
                   >
                     장바구니
                   </Link>
-                  <Link
-                    to="/order/order"
-                    type="button"
-                    class="btn btn-outline-success"
-                  >
+                  <Link type="button" class="btn btn-outline-success">
                     주문하기
                   </Link>
                 </Card.Body>
@@ -125,15 +121,11 @@ const Categories = () => {
                   <Link
                     to="/order/cart"
                     type="button"
-                    class="btn btn-outline-success"
+                    lass="btn btn-outline-success"
                   >
-                    주문하기
+                    장바구니
                   </Link>
-                  <Link
-                    to="/order/order"
-                    type="button"
-                    class="btn btn-outline-success"
-                  >
+                  <Link type="button" class="btn btn-outline-success">
                     주문하기
                   </Link>
                 </Card.Body>
@@ -148,15 +140,11 @@ const Categories = () => {
                   <Link
                     to="/order/cart"
                     type="button"
-                    class="btn btn-outline-success"
+                    lass="btn btn-outline-success"
                   >
-                    주문하기
+                    장바구니
                   </Link>
-                  <Link
-                    to="/order/order"
-                    type="button"
-                    class="btn btn-outline-success"
-                  >
+                  <Link type="button" class="btn btn-outline-success">
                     주문하기
                   </Link>
                 </Card.Body>

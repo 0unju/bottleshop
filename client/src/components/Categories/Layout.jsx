@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./Layout.css";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -13,6 +12,9 @@ const Layout = ({ children }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCartClick = (e) => {
+    window.location.href = "/order/cart";
+  };
 
   return (
     <div className="wrapper">
@@ -22,72 +24,75 @@ const Layout = ({ children }) => {
             Bottle Shop
           </a>
         </div>
-        <Navbar id="nav_main" className="navbar" bg="light" expand="lg">
-          <Container fluid>
-            <Navbar.Toggle aria-controls="navbarScroll" />
-            <Navbar.Collapse id="navbarScroll">
-              <Nav
-                className="me-auto my-2 my-lg-0"
-                style={{ maxHeight: "100px" }}
-                navbarScroll
-              >
-                <NavDropdown title="Wine" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="/categories/wine">
-                    All Wine
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
-                    Red Wine
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
-                    White Wine
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
-                    Sparkling Wine
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href="/categories/cheeses">Cheeses</Nav.Link>
-                <Nav.Link href="#">Q&A</Nav.Link>
-              </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <FaSistrix variant="outline-success" />
-              </Form>
-              <Link to="/categories/cart" className="cart">
-                <FaCartArrowDown />
-              </Link>
+        <div>
+          <Navbar id="nav_main" className="navbar" expand="lg">
+            <Container fluid>
+              <Navbar.Toggle aria-controls="navbarScroll" />
+              <Navbar.Collapse id="navbarScroll">
+                <Nav
+                  id="navv"
+                  className="me-auto my-2 my-lg-0"
+                  style={{ maxHeight: "100px" }}
+                  navbarScroll
+                >
+                  <NavDropdown title="Wine" id="navbarScrollingDropdown">
+                    <NavDropdown.Item href="/categories/wine">
+                      All Wine
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/wine">
+                      Red Wine
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/wine">
+                      White Wine
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/categories/wine">
+                      Sparkling Wine
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  <Nav.Link href="/categories/cheeses">Cheeses</Nav.Link>
+                  <Nav.Link href="#">Q&A</Nav.Link>
+                </Nav>
+                <Form id="search" className="d-flex">
+                  <Form.Control
+                    type="search"
+                    placeholder="Search"
+                    className="me-2"
+                    aria-label="Search"
+                  />
+                  <FaSistrix variant="outline-success" />
+                </Form>
+                <div onClick={handleCartClick} className="cart">
+                  <FaCartArrowDown />
+                </div>
 
-              {/* 주문조회,회원로그인 런처 */}
-            </Navbar.Collapse>
-            <FaGithubAlt variant="white" onClick={handleShow} />
+                {/* 주문조회,회원로그인 런처 */}
+              </Navbar.Collapse>
+              <FaGithubAlt className="mylogin" onClick={handleShow} />
 
-            <Offcanvas show={show} onHide={handleClose}>
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title className="login">
-                  Bottle Shop <br />
+              <Offcanvas show={show} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title className="login">
+                    Bottle Shop <br />
+                    <br />
+                    로그인 해주세요.
+                  </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  계정정보 <hr />
+                  <a>로그인 </a>
                   <br />
-                  로그인 해주세요.
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                계정정보 <hr />
-                <a>로그인 </a>
-                <br />
-                <a href="/signup/consent">회원가입 </a>
-                <br />
-                <a href="/order/order">주문조회</a>
-                <br />
-                {/* 관리자 권한이 있는 사람에게만 보이도록 할 예정 */}
-                <a href="/admin/products">관리자페이지 </a>
-                <br />
-              </Offcanvas.Body>
-            </Offcanvas>
-          </Container>
-        </Navbar>
+                  <a href="/signup/consent">회원가입 </a>
+                  <br />
+                  <a href="/order/order">주문조회</a>
+                  <br />
+                  {/* 관리자 권한이 있는 사람에게만 보이도록 할 예정 */}
+                  <a href="/admin/products">관리자페이지 </a>
+                  <br />
+                </Offcanvas.Body>
+              </Offcanvas>
+            </Container>
+          </Navbar>
+        </div>
       </header>
       <main className="main_content">{children}</main>
       <footer className="footer">

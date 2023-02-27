@@ -19,7 +19,7 @@ const Cheeses = () => {
   const [dataList, setDataList] = useState(null);
 
   const fetchData = async () => {
-    const response = await axios.get(api.products);
+    const response = await axios.get(api.products_GET);
     setDataList(response.data);
   };
 
