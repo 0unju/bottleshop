@@ -1,20 +1,93 @@
 import React, { useState } from "react";
 import "./Layout.css";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Offcanvas,
+} from "react-bootstrap";
+
 import { FaCartArrowDown, FaSistrix, FaGithubAlt } from "react-icons/fa";
+import axios from "axios";
+axios.defaults.withCredentials = true; // withCredentials 전역 설정
+const api = require("../../api.json"); // API 불러오기
 
 const Layout = ({ children }) => {
+  const [cookieUserData, setCookieUserData] = useState(null); // 쿠키 유저이름
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = async () => {
+    setCookieUserData(
+      await axios.get(api.users_auth_GET).then((response) => response.data) // 쿠키 유저이름 가져오기
+    );
+    setShow(true);
+  };
   const cartClick = (e) => {
     window.location.href = "/order/cart";
   };
+
+  //로그아웃 함수
+  const handleLogoutClick = async () => {
+    await axios
+      .get(api.users_logout_GET)
+      .then((response) => {
+        if (response.data.success === true) {
+          setShow(false);
+          alert("로그아웃 성공");
+        }
+      })
+      .catch((err) => alert(err.message));
+  };
+
+  // 로그인 유무 구별
+
+  let checkCookie = [];
+  if (document.cookie) {
+    checkCookie = [];
+    checkCookie.push(
+      <>
+        <p>{cookieUserData?.name}님 안녕하세요!!</p>
+        <Button id="layout_logout_button" onClick={handleLogoutClick}>
+          로그아웃
+        </Button>
+      </>
+    );
+  } else {
+    checkCookie = [];
+    checkCookie.push(<a href="/login">로그인 해주세요 </a>);
+  }
+
+  //런처 리스트 구현
+  let luncherList = [];
+  if (document.cookie) {
+    luncherList = [];
+    if (cookieUserData?.username === "admin")
+      luncherList.push(
+        <>
+          <a href="/admin/products">관리자페이지 </a>
+          <br />
+        </>
+      );
+    luncherList.push(
+      <>
+        <a>마이페이지</a>
+        <br />
+        <a href="/order/order">주문조회</a>
+      </>
+    );
+  } else {
+    luncherList = [];
+    luncherList.push(
+      <>
+        <a href="/signup/consent">회원가입 </a>
+        <br />
+        <a>비회원 주문조회</a>
+      </>
+    );
+  }
 
   return (
     <div className="wrapper">
@@ -72,20 +145,12 @@ const Layout = ({ children }) => {
                 <Offcanvas.Title className="login">
                   Bottle Shop <br />
                   <br />
-                  로그인 해주세요.
+                  {checkCookie}
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                계정정보 <hr />
-                <a href="/login">로그인 </a>
-                <br />
-                <a href="/signup/consent">회원가입 </a>
-                <br />
-                <a href="/order/order">주문조회</a>
-                <br />
-                {/* 관리자 권한이 있는 사람에게만 보이도록 할 예정 */}
-                <a href="/admin/products">관리자페이지 </a>
-                <br />
+                <hr />
+                {luncherList}
               </Offcanvas.Body>
             </Offcanvas>
           </Container>

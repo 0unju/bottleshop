@@ -1,13 +1,6 @@
 import "./Admin.css";
 import { React } from "react";
-import {
-  Nav,
-  Button,
-  Form,
-  InputGroup,
-  Table,
-  Pagination,
-} from "react-bootstrap";
+import { Nav, Button, Form, InputGroup, Table } from "react-bootstrap";
 
 // JSON 가져오기
 const admin_list = require("./adminList.json"); // Admin 리스트 불러오기

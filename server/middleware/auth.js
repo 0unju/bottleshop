@@ -1,27 +1,29 @@
 // 회원/비회원 인증 로직
-'use strict';
-import { User } from '../models/index.js';
+"use strict";
+import { User } from "../models/index.js";
+import jwt from "jsonwebtoken"; // "npm i jsonwebtoken" 설치 필요
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
+  try {
     const token = req.cookies.x_auth;
-    const guest = (token === undefined);
 
-    if(guest === false) {
-        User.findByToken(token)
-        .then((user) => {
-            if(!user) return res.json({ isAuth: false, error: true });
-            req.token = token;
-            req.user = user;
-            req.flagGuest = false;
-            next();
-        })
-        .catch((e) => {
-            console.log(e.message);
-        });
-    }   else {
-        req.flagGuest = true;
-        next();
+    const guest = token === undefined;
+    if (guest === false) {
+      const decoded = jwt.verify(token, "secretToken");
+      const user = await User.findOne({ _id: decoded });
+
+      if (!user) return res.json({ isAuth: false, error: true });
+      req.token = token;
+      req.user = user;
+      req.flagGuest = false;
+      next();
+    } else {
+      req.flagGuest = true;
+      next();
     }
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default auth;

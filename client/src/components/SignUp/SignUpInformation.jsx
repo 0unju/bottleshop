@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./SignUpInformation.css";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import Axios from "axios";
+import axios from "axios";
 
 // JSON 가져오기
 const domainList = require("../../domainList.json"); // Domain 리스트 불러오기
@@ -36,14 +36,15 @@ const SignUpInformation = () => {
     const birthday = inputBirthday.current.value;
 
     if (password === password_check) {
-      await Axios.post(api.users_POST, {
-        username,
-        domain,
-        password,
-        name,
-        phone,
-        birthday,
-      })
+      await axios
+        .post(api.users_POST, {
+          username,
+          domain,
+          password,
+          name,
+          phone,
+          birthday,
+        })
         .then((response) => {
           if (response.status === 200) {
             if (response.data === "User already exists")

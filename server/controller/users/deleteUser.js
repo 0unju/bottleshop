@@ -9,7 +9,7 @@ const deleteUser = async (req, res, next) => {
         const user = await User.deleteOne({ username });
         res.send(user);
     } else {
-        res.send("access denied /users/delete");
+        res.send("access denied /users/:username");
     }
 };
 

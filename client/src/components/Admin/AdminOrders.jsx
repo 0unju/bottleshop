@@ -1,5 +1,5 @@
 import "./Admin.css";
-import Axios from "axios";
+import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import {
   Nav,
@@ -16,17 +16,17 @@ const adminList = require("./adminList.json"); // Admin 리스트 불러오기
 
 const AdminOrders = () => {
   // Element 제어
-  const inputSearchBar = useRef(null);
-  const inputUserId = useRef(null);
-  const inputGuestId = useRef(null);
-  const inputProductId = useRef(null);
-  const inputCount = useRef(null);
+  let inputSearchBar = useRef(null);
+  let inputUserId = useRef(null);
+  let inputGuestId = useRef(null);
+  let inputProductId = useRef(null);
+  let inputCount = useRef(null);
 
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
   const getDate = async () => {
-    const response = await Axios.get(api.orders_GET);
+    const response = await axios.get(api.orders_GET);
     setDataList(response.data);
   };
 
@@ -51,7 +51,7 @@ const AdminOrders = () => {
     const c_count = inputCount.current.value;
 
     let success = false;
-    await Axios.post(api.orders_POST, {
+    await axios.post(api.orders_POST, {
       user_id,
       guest_id,
       product_id,
@@ -80,7 +80,7 @@ const AdminOrders = () => {
   const handleDeleteButtonClick = async () => {
     const id = inputSearchBar.current.value;
     let success = false;
-    await Axios.delete(api.orders_DELETE + id)
+    await axios.delete(api.orders_DELETE + id)
       .then((response) => {
         if (response.status === 200) {
           alert("삭제되었습니다.");
@@ -105,7 +105,7 @@ const AdminOrders = () => {
     const c_count = inputCount.current.value;
 
     let success = false;
-    await Axios.put(api.orders_PUT + id, {
+    await axios.put(api.orders_PUT + id, {
       user_id,
       guest_id,
       product_id,

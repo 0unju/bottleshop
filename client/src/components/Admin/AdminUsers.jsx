@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Admin.css";
-import Axios from "axios";
+import axios from "axios";
 
 import {
   Nav,
@@ -17,6 +17,7 @@ const adminList = require("./adminList.json"); // Admin 리스트 불러오기
 const domainList = require("../../domainList.json"); // Domain 리스트 불러오기
 
 const AdminUsers = () => {
+  axios.defaults.withCredentials = true; // withCredentials 전역 설정
   // Element 제어
   let inputSearchBar = useRef(null);
   let inputUserName = useRef(null);
@@ -31,7 +32,7 @@ const AdminUsers = () => {
   const [dataList, setDataList] = useState(null);
 
   const getDate = async () => {
-    const response = await Axios.get(api.users_GET);
+    const response = await axios.get(api.users_GET);
     setDataList(response.data);
   };
 
@@ -71,14 +72,15 @@ const AdminUsers = () => {
 
     if (!overlap) {
       let success = false;
-      await Axios.post(api.users_POST, {
-        username,
-        domain,
-        password,
-        name,
-        phone,
-        birthday,
-      })
+      await axios
+        .post(api.users_POST, {
+          username,
+          domain,
+          password,
+          name,
+          phone,
+          birthday,
+        })
         .then((response) => {
           if (response.status === 200) {
             alert("추가되었습니다.");
@@ -100,7 +102,8 @@ const AdminUsers = () => {
     const username = inputUserName.current.value;
     let success = false;
 
-    await Axios.delete(api.users_DELETE + username)
+    await axios
+      .delete(api.users_DELETE + username)
       .then((response) => {
         if (response.status === 200) {
           alert("삭제되었습니다.");
@@ -141,15 +144,16 @@ const AdminUsers = () => {
 
     if (!overlap) {
       let success = false;
-      await Axios.put(api.users_PUT + username, {
-        username,
-        domain,
-        password,
-        name,
-        phone,
-        birthday,
-        auth_email,
-      })
+      await axios
+        .put(api.users_PUT + username, {
+          username,
+          domain,
+          password,
+          name,
+          phone,
+          birthday,
+          auth_email,
+        })
         .then((response) => {
           if (response.status === 200) {
             alert("수정되었습니다.");

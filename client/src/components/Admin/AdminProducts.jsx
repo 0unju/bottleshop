@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Admin.css";
-import Axios from "axios";
+import axios from "axios";
 import {
   Nav,
   Button,
@@ -17,21 +17,21 @@ const categoryList = require("../../categoryList.json"); // Category 리스트 �
 
 const AdminProducts = () => {
   // Element 제어
-  const inputName = useRef(null);
-  const inputType = useRef(null);
-  const inputPrice = useRef(null);
-  const inputDescription = useRef(null);
-  const inputWineType = useRef(null);
-  const inputOrigin = useRef(null);
-  const inputAbv = useRef(null);
-  const inputImagePath = useRef(null);
-  const inputSearchBar = useRef(null);
+  let inputName = useRef(null);
+  let inputType = useRef(null);
+  let inputPrice = useRef(null);
+  let inputDescription = useRef(null);
+  let inputWineType = useRef(null);
+  let inputOrigin = useRef(null);
+  let inputAbv = useRef(null);
+  let inputImagePath = useRef(null);
+  let inputSearchBar = useRef(null);
 
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
   const getDate = async () => {
-    const response = await Axios.get(api.products_GET);
+    const response = await axios.get(api.products_GET);
     setDataList(response.data);
   };
 
@@ -74,7 +74,7 @@ const AdminProducts = () => {
     }
     let success = false;
     if (!overlap) {
-      await Axios.post(api.products_POST, {
+      await axios.post(api.products_POST, {
         name,
         type,
         price,
@@ -105,7 +105,7 @@ const AdminProducts = () => {
     let success = false;
     const id = inputSearchBar.current.value;
 
-    await Axios.delete(api.products_DELETE + id)
+    await axios.delete(api.products_DELETE + id)
       .then((response) => {
         if (response.status === 200) {
           alert("삭제되었습니다.");
@@ -148,7 +148,7 @@ const AdminProducts = () => {
 
     if (!overlap) {
       let success = false;
-      await Axios.put(api.products_PUT + id, {
+      await axios.put(api.products_PUT + id, {
         name,
         type,
         price,
