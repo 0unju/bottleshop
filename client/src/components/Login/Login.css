@@ -1,0 +1,46 @@
+:root {
+  --main-color: #6c49b8;
+  --text-color: #566270;
+  --sub-color: #e0e3da;
+  margin: 0;
+}
+
+#login_h1 {
+  color: var(--main-color);
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+#login_form {
+  margin: 2% 30%;
+  border: 3px solid var(--main-color);
+}
+
+#login_input_id,
+#login_login_button,
+#login_nonuser_order_button {
+  margin-bottom: 2px;
+}
+
+#login_input {
+  margin: 40px;
+}
+
+#login_login_button,
+#login_nonuser_order_button {
+  --bs-btn-bg: var(--main-color);
+  --bs-btn-border-color: var(--main-color);
+  --bs-btn-hover-bg: #583b95;
+  --bs-btn-hover-border-color: var(--main-color);
+  max-width: 100%;
+}
+
+#login_signup_button,
+#login_nonuser_ordercheck_button {
+  --bs-btn-bg: var(--text-color);
+  --bs-btn-border-color: var(--text-color);
+  --bs-btn-hover-bg: #47515c;
+  --bs-btn-hover-border-color: var(--text-color);
+  max-width: 100%;
+  margin-bottom: 40px;
+}

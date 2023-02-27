@@ -18,14 +18,14 @@ const domainList = require("../../domainList.json"); // Domain 리스트 불러�
 
 const AdminUsers = () => {
   // Element 제어
-  const inputSearchBar = useRef(null);
-  const inputUserName = useRef(null);
-  const inputDomain = useRef(null);
-  const inputPassword = useRef(null);
-  const inputName = useRef(null);
-  const inputPhone = useRef(null);
-  const inputBirthday = useRef(null);
-  const inputAuthEmail = useRef(null);
+  let inputSearchBar = useRef(null);
+  let inputUserName = useRef(null);
+  let inputDomain = useRef(null);
+  let inputPassword = useRef(null);
+  let inputName = useRef(null);
+  let inputPhone = useRef(null);
+  let inputBirthday = useRef(null);
+  let inputAuthEmail = useRef(null);
 
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);

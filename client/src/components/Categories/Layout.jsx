@@ -77,7 +77,7 @@ const Layout = ({ children }) => {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 계정정보 <hr />
-                <a>로그인 </a>
+                <a href="/login">로그인 </a>
                 <br />
                 <a href="/signup/consent">회원가입 </a>
                 <br />

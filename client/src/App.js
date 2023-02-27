@@ -10,6 +10,7 @@ import AdminCategories from "./components/Admin/AdminCategories";
 import SignupConsent from "./components/SignUp/SignUpConsent";
 import SignupInformation from "./components/SignUp/SignUpInformation";
 import SignUpComplete from "./components/SignUp/SignUpComplete";
+import Login from "./components/Login/Login";
 
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
@@ -46,6 +47,7 @@ export default function App() {
               path="/signup/information"
               element={<SignupInformation />}
             ></Route>
+            <Route exact path="/login" element={<Login />}></Route>
             <Route
               exact
               path="/signup/complete"
