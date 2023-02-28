@@ -1,5 +1,6 @@
 'use strict';
 import { Product } from '../../models/index.js';
+import imgfile from '../../routes/images.js';
 
 const postProduct = async (req, res, next) => {
   try {
@@ -22,7 +23,7 @@ const postProduct = async (req, res, next) => {
       wine_type,
       origin,
       abv,
-      image_path,
+      image_path: imgfile,
     });
 
     console.log('saved in database');
