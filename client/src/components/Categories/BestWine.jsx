@@ -19,16 +19,6 @@ function BestWine() {
           <Card.Body>
             <Card.Title onClick={setShow}>LOUIS LATOUR SANTENAY</Card.Title>
             <Card.Text>75,000원</Card.Text>
-            <button type="button" class="btn btn-outline-info">
-              장바구니
-            </button>
-            <Link
-              to="/order/order"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              주문하기
-            </Link>
           </Card.Body>
         </Card>
       </div>
@@ -38,16 +28,6 @@ function BestWine() {
           <Card.Body>
             <Card.Title>GALANTAS</Card.Title>
             <Card.Text>75,000원</Card.Text>
-            <Link to="/order/cart" type="button" class="btn btn-outline-info">
-              장바구니
-            </Link>
-            <Link
-              to="/order/order"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              주문하기
-            </Link>
           </Card.Body>
         </Card>
       </div>
@@ -57,16 +37,6 @@ function BestWine() {
           <Card.Body>
             <Card.Title>SANTA CRISTINA BRUT</Card.Title>
             <Card.Text>33,000원</Card.Text>
-            <Link to="/order/cart" type="button" class="btn btn-outline-info">
-              장바구니
-            </Link>
-            <Link
-              to="/order/order"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              주문하기
-            </Link>
           </Card.Body>
         </Card>
       </div>
@@ -76,16 +46,6 @@ function BestWine() {
           <Card.Body>
             <Card.Title>ARRASBLANCDEBLANCNV </Card.Title>
             <Card.Text>52,000원</Card.Text>
-            <Link to="/order/cart" type="button" class="btn btn-outline-info">
-              장바구니
-            </Link>
-            <Link
-              to="/order/order"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              주문하기
-            </Link>
           </Card.Body>
         </Card>
       </div>
@@ -95,16 +55,6 @@ function BestWine() {
           <Card.Body>
             <Card.Title>CHATEAU BONNET WHITE</Card.Title>
             <Card.Text>65,000원</Card.Text>
-            <Link to="/order/cart" type="button" class="btn btn-outline-info">
-              장바구니
-            </Link>
-            <Link
-              to="/order/order"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              주문하기
-            </Link>
           </Card.Body>
         </Card>
       </div>

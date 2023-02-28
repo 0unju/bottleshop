@@ -19,37 +19,6 @@ const Cart = () => {
     setShoppingItem(Items);
   }, []);
 
-  // check box
-  const [checkedList, setCheckedList] = useState([]);
-
-  // 전체 체크 클릭 시 발생하는 함수 //
-  // const onCheckedAll = useCallback(
-  //   (checked) => {
-  //     if (checked) {
-  //       const checkedListArray = [];
-
-  //       Items.forEach((list) => checkedListArray.push(list.id));
-
-  //       setCheckedList(checkedListArray);
-  //     } else {
-  //       setCheckedList([]);
-  //     }
-  //   },
-  //   [Items]
-  // );
-
-  // 개별 체크 클릭 시 발생하는 함수 //
-  // const onCheckedElement = useCallback(
-  //   (checked, list) => {
-  //     if (checked) {
-  //       setCheckedList([...checkedList, list]);
-  //     } else {
-  //       setCheckedList(checkedList.filter((el) => el !== list));
-  //     }
-  //   },
-  //   [checkedList]
-  // );
-
   const homeClick = (e) => {
     window.location.href = "/categories";
   };
@@ -62,7 +31,7 @@ const Cart = () => {
     <div>
       {/* 아이콘들 */}
       <div className="icons">
-        <FaCartArrowDown size="30px" color="#566270" />
+        <FaCartArrowDown className="shoppingcart" size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />
         <FaRegCreditCard size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />
@@ -73,27 +42,6 @@ const Cart = () => {
       <div>
         {/* 주문 상품 */}
         <div className="product">
-          <div>
-            {/* <input
-              type="checkbox"
-              onChange={(e) => onCheckedAll(e.target.checked)}
-              checked={
-                checkedList.length === 0
-                  ? false
-                  : checkedList.length === Items.length
-                  ? true
-                  : false
-              }
-            />
-            {Items.map((list) => {
-              <input
-                key={list.id}
-                type="checkbox"
-                onChange={(e) => onCheckedElement(e.target.checked, list)}
-                checked={checkedList.includes(list) ? true : false}
-              />;
-            })} */}
-          </div>
           <div>
             <div className="product_d">
               {shoppingItem.map((el, index) => (
@@ -108,13 +56,20 @@ const Cart = () => {
                       </Card.Body>
                     </Card>
                     <div>
-                      <p>1</p>
+                      <Form.Group>
+                        <Form.Control
+                          id="modal_num"
+                          type="number"
+                          placeholder="1"
+                          min="1"
+                        />
+                      </Form.Group>
                     </div>
                     <div>
                       <p>{el.price}</p>
                     </div>
                     <div>
-                      <p>{el.price * 2}</p>
+                      <p>{el.price * 1}</p>
                     </div>
                   </div>
                 </div>

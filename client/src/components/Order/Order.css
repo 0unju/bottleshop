@@ -37,6 +37,18 @@ body {
   height: 400px;
 }
 
+element.style {
+  color: var(--main-color) !important;
+}
+
+svg {
+  color: var(--main-color);
+}
+
+.orders {
+  color: var(--main-color);
+}
+
 .input_user {
   text-align: start;
 }
@@ -44,7 +56,7 @@ body {
 .shipping {
   margin: 50px 10%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, auto);
   grid-gap: 30px;
 }
 

@@ -29,6 +29,14 @@ body {
   padding: 100px 0;
 }
 
+element.style {
+  color: var(--main-color);
+}
+
+.shoppingcart {
+  color: var(--main-color);
+}
+
 .product {
   display: flex;
   justify-content: space-around;
@@ -50,9 +58,10 @@ body {
   padding-bottom: 50px;
 }
 
-.counter {
-  display: flex;
-
+.names {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr 3fr;
+  justify-items: center;
   width: 70px;
 }
 
@@ -61,4 +70,5 @@ body {
   grid-template-columns: 3fr 1fr 2fr 3fr;
   grid-gap: 50px;
   align-items: center;
+  justify-items: center;
 }
