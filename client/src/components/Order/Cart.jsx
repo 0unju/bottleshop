@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import { React, useState, useCallback, useEffect } from "react";
 import "./Cart.css";
+import "../Categories/Wine.jsx";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
@@ -11,9 +12,44 @@ import {
 } from "react-icons/fa";
 
 const Cart = () => {
-  {
-    /* home으로 가기 */
-  }
+  // localStorage에서 데이터 가져오기
+  const [shoppingItem, setShoppingItem] = useState([]);
+  useEffect(() => {
+    const Items = JSON.parse(localStorage.getItem("cartList")) || [];
+    setShoppingItem(Items);
+  }, []);
+
+  // check box
+  const [checkedList, setCheckedList] = useState([]);
+
+  // 전체 체크 클릭 시 발생하는 함수 //
+  // const onCheckedAll = useCallback(
+  //   (checked) => {
+  //     if (checked) {
+  //       const checkedListArray = [];
+
+  //       Items.forEach((list) => checkedListArray.push(list.id));
+
+  //       setCheckedList(checkedListArray);
+  //     } else {
+  //       setCheckedList([]);
+  //     }
+  //   },
+  //   [Items]
+  // );
+
+  // 개별 체크 클릭 시 발생하는 함수 //
+  // const onCheckedElement = useCallback(
+  //   (checked, list) => {
+  //     if (checked) {
+  //       setCheckedList([...checkedList, list]);
+  //     } else {
+  //       setCheckedList(checkedList.filter((el) => el !== list));
+  //     }
+  //   },
+  //   [checkedList]
+  // );
+
   const homeClick = (e) => {
     window.location.href = "/categories";
   };
@@ -33,31 +69,58 @@ const Cart = () => {
         <FaRegCheckCircle size="30px" color="#566270" />
       </div>
       <hr />
+
       <div>
         {/* 주문 상품 */}
         <div className="product">
           <div>
-            <Form.Check aria-label="option 1" />
+            {/* <input
+              type="checkbox"
+              onChange={(e) => onCheckedAll(e.target.checked)}
+              checked={
+                checkedList.length === 0
+                  ? false
+                  : checkedList.length === Items.length
+                  ? true
+                  : false
+              }
+            />
+            {Items.map((list) => {
+              <input
+                key={list.id}
+                type="checkbox"
+                onChange={(e) => onCheckedElement(e.target.checked, list)}
+                checked={checkedList.includes(list) ? true : false}
+              />;
+            })} */}
           </div>
-          <div className="product_d">
-            <Card style={{ width: "18rem", padding: "50px" }}>
-              <Card.Img variant="top" src="holder.js/100px180" />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-              </Card.Body>
-            </Card>
+          <div>
+            <div className="product_d">
+              {shoppingItem.map((el, index) => (
+                <div key={el._id}>
+                  <div className="carts">
+                    <Card style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src="" />
+
+                      <Card.Body>
+                        <Card.Title>{el.name}</Card.Title>
+                        <Card.Text>{el.price}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                    <div>
+                      <p>1</p>
+                    </div>
+                    <div>
+                      <p>{el.price}</p>
+                    </div>
+                    <div>
+                      <p>{el.price * 2}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="counter">
-            <Form.Group className="mb-1">
-              <Form.Label>수량</Form.Label>
-              <Form.Control type="number" placeholder="" />
-            </Form.Group>
-          </div>
-          <div>가격</div>
         </div>
       </div>
       <hr />

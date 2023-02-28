@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
     );
     setShow(true);
   };
-  const cartClick = (e) => {
+  const handleCartClick = (e) => {
     window.location.href = "/order/cart";
   };
 
@@ -103,11 +103,13 @@ const Layout = ({ children }) => {
             Bottle Shop
           </a>
         </div>
+        {/* <div> */}
         <Navbar id="nav_main" className="navbar" expand="lg">
           <Container fluid>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               <Nav
+                id="navv"
                 className="me-auto my-2 my-lg-0"
                 style={{ maxHeight: "100px" }}
                 navbarScroll
@@ -129,7 +131,7 @@ const Layout = ({ children }) => {
                 <Nav.Link href="/categories/cheeses">Cheeses</Nav.Link>
                 <Nav.Link href="#">Q&A</Nav.Link>
               </Nav>
-              <Form className="d-flex">
+              <Form id="search" className="d-flex">
                 <Form.Control
                   type="search"
                   placeholder="Search"
@@ -138,13 +140,13 @@ const Layout = ({ children }) => {
                 />
                 <FaSistrix variant="outline-success" />
               </Form>
-              <div onClick={cartClick} className="cart">
+              <div onClick={handleCartClick} className="cart">
                 <FaCartArrowDown />
               </div>
 
               {/* 주문조회,회원로그인 런처 */}
             </Navbar.Collapse>
-            <FaGithubAlt variant="white" onClick={handleShow} />
+            <FaGithubAlt className="mylogin" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
               <Offcanvas.Header
