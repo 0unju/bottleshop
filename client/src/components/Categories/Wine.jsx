@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Wine.css";
@@ -13,6 +13,7 @@ import LOUISLATOURSANTENAY from "../images/red wine/LOUIS LATOUR SANTENAY.png";
 const api = require("../../api.json");
 
 const Wine = () => {
+  const countRef = useRef();
   const [dataList, setDataList] = useState(null);
 
   const GetData = async () => {
@@ -28,8 +29,8 @@ const Wine = () => {
   const dataList_length = dataList?.length;
   const page_number =
     dataList_length % 5 === 0
-      ? parseInt(dataList_length / 5) - 1
-      : parseInt(dataList_length / 5);
+      ? parseInt(dataList_length / 12) - 1
+      : parseInt(dataList_length / 12);
 
   let items = [];
   const [active, setActive] = useState(1);
@@ -61,7 +62,7 @@ const Wine = () => {
         getCart?.map((localstorageData) => {
           addCart.push(localstorageData);
         });
-        addCart.push(clikData);
+        addCart.push({ ...clikData, count: countRef.current.value });
         localStorage.setItem("cartList", JSON.stringify(addCart));
       };
       if (data.type === "Wine")
@@ -96,6 +97,7 @@ const Wine = () => {
                     <h3>주문수량</h3>
                     <Form.Group>
                       <Form.Control
+                        ref={countRef}
                         id="modal_num"
                         type="number"
                         placeholder="0"

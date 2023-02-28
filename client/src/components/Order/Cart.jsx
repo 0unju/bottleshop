@@ -1,4 +1,4 @@
-import { React, useState, useCallback, useEffect } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import "./Cart.css";
 import "../Categories/Wine.jsx";
 import Button from "react-bootstrap/Button";
@@ -12,6 +12,8 @@ import {
 } from "react-icons/fa";
 
 const Cart = () => {
+  const counterRef = useRef;
+
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
   useEffect(() => {
@@ -25,6 +27,17 @@ const Cart = () => {
 
   const orderClick = (e) => {
     window.location.href = "/order/order";
+  };
+
+  const handleClickOrder = (clikData) => {
+    const addOrder = [];
+    const getOrder = JSON.parse(localStorage.getItem("orderList"));
+
+    getOrder?.map((localstorageData) => {
+      addOrder.push(localstorageData);
+    });
+    addOrder.push(clikData);
+    localStorage.setItem("orderList", JSON.stringify(addOrder));
   };
 
   return (
@@ -43,6 +56,14 @@ const Cart = () => {
         {/* 주문 상품 */}
         <div className="product">
           <div>
+            <div className="names">
+              <span>제품</span>
+              <span>수량</span>
+              <span>가격</span>
+              <span>총금액</span>
+            </div>
+
+            <hr />
             <div className="product_d">
               {shoppingItem.map((el, index) => (
                 <div key={el._id}>
@@ -58,9 +79,10 @@ const Cart = () => {
                     <div>
                       <Form.Group>
                         <Form.Control
+                          // ref={counterRef}
                           id="modal_num"
                           type="number"
-                          placeholder="1"
+                          placeholder={el.count}
                           min="1"
                         />
                       </Form.Group>
@@ -69,9 +91,18 @@ const Cart = () => {
                       <p>{el.price}</p>
                     </div>
                     <div>
-                      <p>{el.price * 1}</p>
+                      <p>{el.count * el.price}</p>
                     </div>
+                    <div></div>
                   </div>
+                  <Button
+                    onClick={() => {
+                      handleClickOrder(el);
+                    }}
+                    variant="outline-secondary"
+                  >
+                    선택상품 주문
+                  </Button>
                 </div>
               ))}
             </div>
@@ -85,11 +116,7 @@ const Cart = () => {
             계속 쇼핑하기
           </Button>
         </div>
-        <div>
-          <Button onClick={orderClick} variant="outline-secondary">
-            선택상품 주문
-          </Button>
-        </div>
+
         <div>
           <Button onClick={orderClick} variant="outline-secondary">
             전체상품 주문

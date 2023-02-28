@@ -17,7 +17,7 @@ const Order = () => {
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
   useEffect(() => {
-    const Items = JSON.parse(localStorage.getItem("cartList")) || [];
+    const Items = JSON.parse(localStorage.getItem("orderList")) || [];
     setShoppingItem(Items);
   }, []);
 
@@ -37,6 +37,13 @@ const Order = () => {
         <FaRegCreditCard className="orders" size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />
         <FaRegCheckCircle size="30px" color="#566270" />
+      </div>
+      <hr />
+      <div className="names">
+        <span>제품</span>
+        <span>수량</span>
+        <span>가격</span>
+        <span>총금액</span>
       </div>
       <hr />
       <div>
@@ -68,7 +75,7 @@ const Order = () => {
                       <p>{el.price}</p>
                     </div>
                     <div>
-                      <p>{el.price * 1}</p>
+                      <p>{el.price}</p>
                     </div>
                   </div>
                 </div>
@@ -78,6 +85,10 @@ const Order = () => {
         </div>
       </div>
       <hr />
+      <div>
+        <p>총 금액</p>
+        <p>()</p>
+      </div>
       <div className="click_button">
         <div>
           <Button onClick={homeClick} variant="outline-secondary">

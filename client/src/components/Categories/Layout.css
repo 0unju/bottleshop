@@ -40,11 +40,21 @@ body {
 }
 
 .navbar {
-  color: var(--text-color) !important;
+  color: var(--text-color);
   background-color: var(--main-color);
   font-size: 2rem;
   list-style: none;
   font-family: DXPnM;
+}
+
+#navv {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+}
+
+svg {
+  color: var(--sub-color) !important;
 }
 
 #search {

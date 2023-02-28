@@ -59,10 +59,14 @@ element.style {
 }
 
 .names {
+  padding-bottom: 50px;
+  font-size: 2rem;
+  font-family: "DXPnM";
   display: grid;
   grid-template-columns: 3fr 1fr 2fr 3fr;
+  grid-gap: 50px;
   justify-items: center;
-  width: 70px;
+  align-items: center;
 }
 
 .carts {
@@ -71,4 +75,7 @@ element.style {
   grid-gap: 50px;
   align-items: center;
   justify-items: center;
+
+  font-size: 1.5rem;
+  font-family: "DXPnM";
 }
