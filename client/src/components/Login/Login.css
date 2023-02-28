@@ -20,7 +20,7 @@
 #login_form {
   margin: 2% auto;
   width: 40%;
-  border: 3px solid var(--main-color);
+  border: 2px solid var(--main-color);
 }
 
 /* 내부 간격 */
@@ -59,7 +59,6 @@
 #login_input_password {
   height: 70px;
   font-size: 25px;
-  font-weight: bold;
   border: 2px solid var(--main-color);
 }
 
@@ -70,7 +69,6 @@
   --bs-btn-padding-x: 20px;
   --bs-btn-padding-y: 15px;
   --bs-btn-font-size: 25px;
-  --bs-btn-font-weight: bold;
 }
 
 /* nonuser 버튼 크기 */
@@ -80,5 +78,4 @@
   --bs-btn-padding-x: 20px;
   --bs-btn-padding-y: 15px;
   --bs-btn-font-size: 25px;
-  --bs-btn-font-weight: bold;
 }

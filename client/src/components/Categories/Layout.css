@@ -57,15 +57,75 @@ body {
   padding-right: 50px;
 }
 
-.login {
-  padding: 50px;
+#layout_closebutton {
+  justify-content: right;
+}
+
+.layout_login {
+  margin: 0 auto;
   font-family: "AlexBrush";
   color: var(--main-color);
-  text-align: center;
+}
+
+#layout_title {
+  font-size: 70px;
+  font-weight: bold;
+}
+
+#layout_checkCookie > a {
+  color: var(--main-color);
+  font-size: 30px;
+  font-family: "DXPnM";
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#layout_checkCookie :hover {
+  color: #50368a;
+  text-decoration: underline;
 }
 
 .main_content {
   flex: 1;
+}
+
+#layout_luncherlist {
+  font-size: 25px;
+  font-family: "DXPnM";
+}
+
+#layout_luncherlist > div > a:hover {
+  color: #2f363d;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#layout_luncherlist > div > a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+#layout_luncherlist > div {
+  margin-top: 20px;
+}
+
+#layout_user_message {
+  font-size: 30px;
+  font-family: "DXPnM";
+  font-weight: bold;
+}
+
+#layout_logout_button {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--sub-color);
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+#layout_logout_button:hover {
+  color: var(--sub-color);
+  background-color: #4a327d;
 }
 
 .footer {

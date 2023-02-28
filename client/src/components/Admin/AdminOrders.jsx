@@ -27,7 +27,11 @@ const AdminOrders = () => {
 
   const getDate = async () => {
     const response = await axios.get(api.orders_GET);
-    setDataList(response.data);
+    if (response.data === "access denied /orders") {
+      window.location.assign("/categories");
+    } else {
+      setDataList(response.data);
+    }
   };
 
   useEffect(() => {
@@ -51,12 +55,13 @@ const AdminOrders = () => {
     const c_count = inputCount.current.value;
 
     let success = false;
-    await axios.post(api.orders_POST, {
-      user_id,
-      guest_id,
-      product_id,
-      c_count,
-    })
+    await axios
+      .post(api.orders_POST, {
+        user_id,
+        guest_id,
+        product_id,
+        c_count,
+      })
       .then((response) => {
         if (response.status === 200) {
           alert("추가되었습니다.");
@@ -80,7 +85,8 @@ const AdminOrders = () => {
   const handleDeleteButtonClick = async () => {
     const id = inputSearchBar.current.value;
     let success = false;
-    await axios.delete(api.orders_DELETE + id)
+    await axios
+      .delete(api.orders_DELETE + id)
       .then((response) => {
         if (response.status === 200) {
           alert("삭제되었습니다.");
@@ -105,12 +111,13 @@ const AdminOrders = () => {
     const c_count = inputCount.current.value;
 
     let success = false;
-    await axios.put(api.orders_PUT + id, {
-      user_id,
-      guest_id,
-      product_id,
-      c_count,
-    })
+    await axios
+      .put(api.orders_PUT + id, {
+        user_id,
+        guest_id,
+        product_id,
+        c_count,
+      })
       .then((response) => {
         if (response.status === 200) {
           alert("수정되었습니다.");

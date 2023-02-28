@@ -43,13 +43,12 @@ const Layout = ({ children }) => {
   };
 
   // 로그인 유무 구별
-
   let checkCookie = [];
   if (document.cookie) {
     checkCookie = [];
     checkCookie.push(
       <>
-        <p>{cookieUserData?.name}님 안녕하세요!!</p>
+        <p id="layout_user_message">{cookieUserData?.name}님 안녕하세요!!</p>
         <Button id="layout_logout_button" onClick={handleLogoutClick}>
           로그아웃
         </Button>
@@ -57,7 +56,7 @@ const Layout = ({ children }) => {
     );
   } else {
     checkCookie = [];
-    checkCookie.push(<a href="/login">로그인 해주세요 </a>);
+    checkCookie.push(<a href="/login">로그인 </a>);
   }
 
   //런처 리스트 구현
@@ -67,24 +66,31 @@ const Layout = ({ children }) => {
     if (cookieUserData?.username === "admin")
       luncherList.push(
         <>
-          <a href="/admin/products">관리자페이지 </a>
-          <br />
+          <div>
+            <a href="/admin/products">관리자페이지 </a>
+          </div>
         </>
       );
     luncherList.push(
       <>
-        <a>마이페이지</a>
-        <br />
-        <a href="/order/order">주문조회</a>
+        <div>
+          <a>마이페이지</a>
+        </div>
+        <div>
+          <a href="/order/order">주문조회</a>
+        </div>
       </>
     );
   } else {
     luncherList = [];
     luncherList.push(
       <>
-        <a href="/signup/consent">회원가입 </a>
-        <br />
-        <a>비회원 주문조회</a>
+        <div>
+          <a href="/signup/consent">회원가입 </a>
+        </div>
+        <div>
+          <a>비회원 주문조회</a>
+        </div>
       </>
     );
   }
@@ -141,16 +147,17 @@ const Layout = ({ children }) => {
             <FaGithubAlt variant="white" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title className="login">
-                  Bottle Shop <br />
-                  <br />
-                  {checkCookie}
-                </Offcanvas.Title>
-              </Offcanvas.Header>
+              <Offcanvas.Header
+                closeButton
+                id="layout_closebutton"
+              ></Offcanvas.Header>
+              <Offcanvas.Title className="layout_login">
+                <p id="layout_title">Bottle Shop</p>
+                <dev id="layout_checkCookie">{checkCookie}</dev>
+              </Offcanvas.Title>
               <Offcanvas.Body>
                 <hr />
-                {luncherList}
+                <div id="layout_luncherlist">{luncherList}</div>
               </Offcanvas.Body>
             </Offcanvas>
           </Container>

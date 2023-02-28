@@ -32,7 +32,12 @@ const AdminProducts = () => {
 
   const getDate = async () => {
     const response = await axios.get(api.products_GET);
-    setDataList(response.data);
+
+    if (response.data === "access denied /products") {
+      window.location.assign("/categories");
+    } else {
+      setDataList(response.data);
+    }
   };
 
   useEffect(() => {
@@ -74,16 +79,17 @@ const AdminProducts = () => {
     }
     let success = false;
     if (!overlap) {
-      await axios.post(api.products_POST, {
-        name,
-        type,
-        price,
-        description,
-        wine_type,
-        origin,
-        abv,
-        image_path,
-      })
+      await axios
+        .post(api.products_POST, {
+          name,
+          type,
+          price,
+          description,
+          wine_type,
+          origin,
+          abv,
+          image_path,
+        })
         .then((response) => {
           if (response.status === 200) {
             alert("추가되었습니다.");
@@ -105,7 +111,8 @@ const AdminProducts = () => {
     let success = false;
     const id = inputSearchBar.current.value;
 
-    await axios.delete(api.products_DELETE + id)
+    await axios
+      .delete(api.products_DELETE + id)
       .then((response) => {
         if (response.status === 200) {
           alert("삭제되었습니다.");
@@ -148,16 +155,17 @@ const AdminProducts = () => {
 
     if (!overlap) {
       let success = false;
-      await axios.put(api.products_PUT + id, {
-        name,
-        type,
-        price,
-        description,
-        wine_type,
-        origin,
-        abv,
-        image_path,
-      })
+      await axios
+        .put(api.products_PUT + id, {
+          name,
+          type,
+          price,
+          description,
+          wine_type,
+          origin,
+          abv,
+          image_path,
+        })
         .then((response) => {
           if (response.status === 200) {
             alert("수정되었습니다.");

@@ -33,7 +33,12 @@ const AdminUsers = () => {
 
   const getDate = async () => {
     const response = await axios.get(api.users_GET);
-    setDataList(response.data);
+
+    if (response.data === "access denied /users") {
+      window.location.assign("/categories");
+    } else {
+      setDataList(response.data);
+    }
   };
 
   useEffect(() => {
