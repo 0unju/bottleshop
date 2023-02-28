@@ -20,6 +20,7 @@ const postOrder = async (req, res, next) => {
     // populate product_id
     const result = await Order.findOne({ _id: orderInfo._id })
       .populate('product_id', 'wine_type price')
+      .populate('user_id', 'username')
       .exec();
 
     console.log('saved in database');
