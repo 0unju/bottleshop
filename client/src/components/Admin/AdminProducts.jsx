@@ -10,12 +10,14 @@ import {
   Pagination,
 } from "react-bootstrap";
 
-// JSON 가져오기
+// 가져오기
 const api = require("../../api.json"); // API 불러오기
 const adminList = require("./adminList.json"); // Admin 리스트 불러오기
 const categoryList = require("../../categoryList.json"); // Category 리스트 불러오기
+const adminPermission = require("./adminPermission.js");
 
 const AdminProducts = () => {
+  adminPermission.default();
   // Element 제어
   let inputName = useRef(null);
   let inputType = useRef(null);
@@ -32,12 +34,7 @@ const AdminProducts = () => {
 
   const getDate = async () => {
     const response = await axios.get(api.products_GET);
-
-    if (response.data === "access denied /products") {
-      window.location.assign("/categories");
-    } else {
-      setDataList(response.data);
-    }
+    setDataList(response.data);
   };
 
   useEffect(() => {

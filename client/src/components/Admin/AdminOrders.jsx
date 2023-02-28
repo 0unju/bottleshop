@@ -13,8 +13,10 @@ import {
 // JSON 파일 가져오기
 const api = require("../../api.json"); // API 불러오기
 const adminList = require("./adminList.json"); // Admin 리스트 불러오기
+const adminPermission = require("./adminPermission.js");
 
 const AdminOrders = () => {
+  adminPermission.default();
   // Element 제어
   let inputSearchBar = useRef(null);
   let inputUserId = useRef(null);
@@ -27,11 +29,7 @@ const AdminOrders = () => {
 
   const getDate = async () => {
     const response = await axios.get(api.orders_GET);
-    if (response.data === "access denied /orders") {
-      window.location.assign("/categories");
-    } else {
-      setDataList(response.data);
-    }
+    setDataList(response.data);
   };
 
   useEffect(() => {
