@@ -11,14 +11,16 @@ const ShipmentSchema = new Schema(
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'Order',
-      required: true,
     },
     guest_id: {
       type: Schema.Types.ObjectId,
       ref: 'Guest',
-      // required: true,
     },
     tracking_number: {
+      type: String,
+      required: true,
+    },
+    status: {
       type: String,
       required: true,
     },
@@ -49,7 +51,6 @@ const ShipmentSchema = new Schema(
       type: String,
       default: '대문 앞',
     },
-
   },
   {
     timestamps: true,

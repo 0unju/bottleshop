@@ -35,19 +35,25 @@ body {
   color: var(--main-color);
 }
 
-#nav_main > .bg-light {
-  background-color: var(--main-color);
+.nav_mail {
+  color: var(--sub-color);
 }
 
 .navbar {
   color: var(--text-color) !important;
+  background-color: var(--main-color);
   font-size: 2rem;
   list-style: none;
   font-family: DXPnM;
 }
 
-.d-flex {
-  padding: 0 50px;
+#search {
+  padding: 0 70px;
+  color: var(--sub-color);
+}
+
+.mylogin {
+  color: var(--sub-color);
 }
 
 .cart {
@@ -55,6 +61,7 @@ body {
   justify-content: center;
   align-items: center;
   padding-right: 50px;
+  color: var(--sub-color);
 }
 
 .login {

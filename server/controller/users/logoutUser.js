@@ -6,7 +6,7 @@ const logoutUser = async (req, res, next) => {
         if (err) return res.json({ success: false, err });
         res.clearCookie("x_auth");
         return res.status(200).send({
-          id: user.userId,
+          id: user.username,
           success: true,
         });
     });

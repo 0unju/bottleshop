@@ -2,12 +2,12 @@
 import { Product } from '../../models/index.js';
 
 const updateProduct = async (req, res, next) => {
-  const { _id } = req.params;
+  const { id } = req.params;
   const { name, type, price, description, wine_type, origin, abv, image_path } =
     req.body;
   try {
     const product = await Product.updateOne(
-      { _id },
+      { _id: id },
       {
         name,
         type,

@@ -19,7 +19,7 @@ const Cheeses = () => {
   const [dataList, setDataList] = useState(null);
 
   const fetchData = async () => {
-    const response = await axios.get(api.products);
+    const response = await axios.get(api.products_GET);
     setDataList(response.data);
   };
 
@@ -30,6 +30,16 @@ const Cheeses = () => {
   let list = [];
   dataList?.forEach((data, index) => {
     if (data.type === "cheese") {
+      const handleClickCart = (clikData) => {
+        const addCart = [];
+        const getCart = JSON.parse(localStorage.getItem("cartList"));
+        getCart?.map((localstorageData) => {
+          addCart.push(localstorageData);
+        });
+
+        addCart.push(clikData);
+        localStorage.setItem("cartList", JSON.stringify(addCart));
+      };
       list.push(
         <div>
           <Card style={{ width: "18rem" }}>
@@ -38,8 +48,9 @@ const Cheeses = () => {
               <Card.Title>{data.name}</Card.Title>
               <Card.Text>{data.price}</Card.Text>
               <button
-                onClick={cartClick}
-                type="button"
+                onClick={() => {
+                  handleClickCart(data);
+                }}
                 class="btn btn-outline-info"
               >
                 장바구니
