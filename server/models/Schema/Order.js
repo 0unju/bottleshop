@@ -17,8 +17,7 @@ const OrderSchema = new Schema(
         ref: 'Product',
       },
     ],
-    w_count: Number,
-    c_count: Number,
+    count: Object,
   },
   {
     timestamps: true,
