@@ -6,13 +6,11 @@ const postComment = async (req, res, next) => {
     const { content } = req.body;
     
     try {
-        if(req.user.isAdmin == true) {
+        if(req.user.isAdmin === true) {
             const comment = await Comment.create({
                 post_id : id,
                 content : content,
             });
-
-            console.log('saved in database');
             req.comment = comment;
             next();
         }
@@ -20,7 +18,7 @@ const postComment = async (req, res, next) => {
             res.send('access denied "/posts/:id/comments"');
         }
     } catch(err) {
-        console.log(err.message);
+        next(err);
     }
 };
 

@@ -15,9 +15,9 @@ const updateOrder = async (req, res, next) => {
       }
     );
     res.json(order);
-    console.log(order);
+
   } catch (err) {
-    console.log(err.message);
+    next(err);
   }
 };
 

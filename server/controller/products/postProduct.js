@@ -25,10 +25,9 @@ const postProduct = async (req, res, next) => {
       image_path,
     });
 
-    console.log('saved in database');
     res.send('success /products');
   } catch (err) {
-    console.log(err.message);
+    next(err);
   }
 };
 
