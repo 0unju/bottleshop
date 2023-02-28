@@ -1,4 +1,4 @@
-import { React, useState, useCallback } from "react";
+import { React, useState, useCallback, useEffect } from "react";
 import "./Cart.css";
 import "../Categories/Wine.jsx";
 import Button from "react-bootstrap/Button";
@@ -12,38 +12,43 @@ import {
 } from "react-icons/fa";
 
 const Cart = () => {
-  const savedItem = localStorage.getItem("cartList");
-  const parsedItem = JSON.parse(savedItem);
+  // localStorage에서 데이터 가져오기
+  const [shoppingItem, setShoppingItem] = useState([]);
+  useEffect(() => {
+    const Items = JSON.parse(localStorage.getItem("cartList")) || [];
+    setShoppingItem(Items);
+  }, []);
 
+  // check box
   const [checkedList, setCheckedList] = useState([]);
 
   // 전체 체크 클릭 시 발생하는 함수 //
-  const onCheckedAll = useCallback(
-    (checked) => {
-      if (checked) {
-        const checkedListArray = [];
+  // const onCheckedAll = useCallback(
+  //   (checked) => {
+  //     if (checked) {
+  //       const checkedListArray = [];
 
-        parsedItem.forEach((list) => checkedListArray.push(list.id));
+  //       Items.forEach((list) => checkedListArray.push(list.id));
 
-        setCheckedList(checkedListArray);
-      } else {
-        setCheckedList([]);
-      }
-    },
-    [parsedItem]
-  );
+  //       setCheckedList(checkedListArray);
+  //     } else {
+  //       setCheckedList([]);
+  //     }
+  //   },
+  //   [Items]
+  // );
 
   // 개별 체크 클릭 시 발생하는 함수 //
-  const onCheckedElement = useCallback(
-    (checked, list) => {
-      if (checked) {
-        setCheckedList([...checkedList, list]);
-      } else {
-        setCheckedList(checkedList.filter((el) => el !== list));
-      }
-    },
-    [checkedList]
-  );
+  // const onCheckedElement = useCallback(
+  //   (checked, list) => {
+  //     if (checked) {
+  //       setCheckedList([...checkedList, list]);
+  //     } else {
+  //       setCheckedList(checkedList.filter((el) => el !== list));
+  //     }
+  //   },
+  //   [checkedList]
+  // );
 
   const homeClick = (e) => {
     window.location.href = "/categories";
@@ -69,42 +74,53 @@ const Cart = () => {
         {/* 주문 상품 */}
         <div className="product">
           <div>
-            <input
+            {/* <input
               type="checkbox"
               onChange={(e) => onCheckedAll(e.target.checked)}
               checked={
                 checkedList.length === 0
                   ? false
-                  : checkedList.length === parsedItem.length
+                  : checkedList.length === Items.length
                   ? true
                   : false
               }
             />
-            {parsedItem.map((list) => {
+            {Items.map((list) => {
               <input
                 key={list.id}
                 type="checkbox"
                 onChange={(e) => onCheckedElement(e.target.checked, list)}
                 checked={checkedList.includes(list) ? true : false}
               />;
-            })}
+            })} */}
           </div>
-          <div className="product_d">
-            <Card style={{ width: "18rem", padding: "50px" }}>
-              <Card.Img variant="top" src="holder.js/100px180" />
-              <Card.Body>
-                <Card.Title>{parsedItem.name}</Card.Title>
-                <Card.Text>{parsedItem.price}</Card.Text>
-              </Card.Body>
-            </Card>
+          <div>
+            <div className="product_d">
+              {shoppingItem.map((el, index) => (
+                <div key={el._id}>
+                  <div className="carts">
+                    <Card style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src="" />
+
+                      <Card.Body>
+                        <Card.Title>{el.name}</Card.Title>
+                        <Card.Text>{el.price}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                    <div>
+                      <p>1</p>
+                    </div>
+                    <div>
+                      <p>{el.price}</p>
+                    </div>
+                    <div>
+                      <p>{el.price * 2}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="counter">
-            <Form.Group className="mb-1">
-              <Form.Label>{parsedItem.count}</Form.Label>
-              <Form.Control type="number" placeholder="" />
-            </Form.Group>
-          </div>
-          <div>{parsedItem.price}</div>
         </div>
       </div>
       <hr />

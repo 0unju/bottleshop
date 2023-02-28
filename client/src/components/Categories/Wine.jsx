@@ -6,6 +6,9 @@ import Card from "react-bootstrap/Card";
 import winemain from "../images/winebenner.png";
 import { Pagination } from "react-bootstrap";
 import BestWine from "./BestWine";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import LOUISLATOURSANTENAY from "../images/red wine/LOUIS LATOUR SANTENAY.png";
 
 const api = require("../../API.json");
 
@@ -21,6 +24,7 @@ const Wine = () => {
     GetData();
   }, []);
 
+  // 리스트 만들기
   const dataList_length = dataList?.length;
   const page_number =
     dataList_length % 5 === 0
@@ -45,9 +49,12 @@ const Wine = () => {
     );
   }
 
+  // DB에서 데이터 가져와서 제품표기
   let list = [];
+  const [show, setShow] = useState(false);
   dataList?.forEach((data, index) => {
-    if (5 * (active - 1) <= index && index < 14 * active) {
+    if (12 * (active - 1) <= index && index < 14 * active) {
+      // localstorage에 제품데이더 넣기
       const handleClickCart = (clikData) => {
         const addCart = [];
         const getCart = JSON.parse(localStorage.getItem("cartList"));
@@ -61,9 +68,9 @@ const Wine = () => {
         list.push(
           <div>
             <Card style={{ width: "18rem" }}>
-              <Card.Img variant="top" src="" />
+              <Card.Img onClick={setShow} variant="top" src="" />
               <Card.Body>
-                <Card.Title>{data.name}</Card.Title>
+                <Card.Title onClick={setShow}>{data.name}</Card.Title>
                 <Card.Text>{data.price}</Card.Text>
                 <div>
                   <button
@@ -101,6 +108,49 @@ const Wine = () => {
       <div>
         <div className="best_wine">
           <BestWine />
+          <Modal
+            id="Modal"
+            show={show}
+            onHide={() => setShow(false)}
+            dialogClassName="modal-90w"
+            aria-labelledby="example-custom-modal-styling-title"
+          >
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body class="modal_body">
+              <div class="modal_div1">
+                <img id="wineImg" src={LOUISLATOURSANTENAY} alt="modal_wine" />
+              </div>
+              <div class="modal_div2">
+                <h3 id="wineName">LOUIS LATOUR SANTENAY</h3>
+                <p id="wineEngname">14Hands Cabernet Sauvignon</p>
+                <div>
+                  <p id="wineDiscription">
+                    미국 워싱턴 와인의 상징, 포틴핸즈의 가성비 뛰어난 데일리
+                    레드 와인으로 미국 프리미엄 까베르네 소비뇽 카테고리
+                    ($8~$11) 중 판매 5위 (21년 기준)
+                  </p>
+                </div>
+                <p id="winePrice">75,000원</p>
+                <div class="modal_div3">
+                  <h3>주문수량</h3>
+                  <Form.Group>
+                    <Form.Control
+                      id="modal_num"
+                      type="number"
+                      placeholder="0"
+                      min="0"
+                    />
+                  </Form.Group>
+                </div>
+                <button type="button" class="btn btn-outline-info">
+                  장바구니
+                </button>
+                <button type="button" class="btn btn-outline-success">
+                  구매하기
+                </button>
+              </div>
+            </Modal.Body>
+          </Modal>
         </div>
       </div>
       <hr />

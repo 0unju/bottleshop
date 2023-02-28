@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import LOUISLATOURSANTENAY from "../images/red wine/LOUIS LATOUR SANTENAY.png";
@@ -6,15 +6,18 @@ import GALANTAS from "../images/red wine/GALANTAS.png";
 import SANTACRISTINABRUT from "../images/sparklingwine/SANTA CRISTINA BRUT.png";
 import ARRASBLANCDEBLANCNV from "../images/sparklingwine/ARRAS BLANC DE BLANC NV.png";
 import CHATEAUBONNETWHITE from "../images/white wine/CHATEAU BONNET WHITE.png";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 
 function BestWine() {
+  const [show, setShow] = useState(false);
   return (
     <>
       <div className="Best_wine">
         <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src={LOUISLATOURSANTENAY} />
+          <Card.Img variant="top" src={LOUISLATOURSANTENAY} onClick={setShow} />
           <Card.Body>
-            <Card.Title>LOUIS LATOUR SANTENAY</Card.Title>
+            <Card.Title onClick={setShow}>LOUIS LATOUR SANTENAY</Card.Title>
             <Card.Text>75,000원</Card.Text>
             <button type="button" class="btn btn-outline-info">
               장바구니
