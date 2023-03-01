@@ -46,9 +46,6 @@ const Order = (props) => {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    console.log(data);
-    console.log(fullAddress);
-    console.log(data.zonecode);
 
     props.setcompany({
       ...props.company,
@@ -200,18 +197,6 @@ const Order = (props) => {
           <Form.Group className="mb-1">
             <Form.Label>나머지 주소*</Form.Label>
             <Form.Control type="text" placeholder="" />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>생년월일*</Form.Label>
-            <div className="brithday">
-              <Form.Control type="text" placeholder="" />
-              <p>년</p>
-              <Form.Control type="text" placeholder="" />
-              <p>월</p>
-              <Form.Control type="text" placeholder="" />
-              <p>일</p>
-            </div>
           </Form.Group>
         </div>
         <div className="last_order">

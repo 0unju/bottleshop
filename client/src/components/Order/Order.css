@@ -31,7 +31,7 @@ body {
 
 .product {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: 0.5fr 3fr 1fr 2fr 2fr;
   justify-content: space-around;
   align-items: center;
   height: 400px;
@@ -90,11 +90,4 @@ element.style {
   align-content: center;
   padding-top: 50px;
   padding-bottom: 200px;
-}
-
-.brithday {
-  display: grid;
-  grid-template-columns: 2fr 1fr 2fr 1fr 2fr 1fr;
-  align-content: center;
-  justify-items: center;
 }

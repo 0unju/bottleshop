@@ -29,8 +29,8 @@ const Wine = () => {
   const dataList_length = dataList?.length;
   const page_number =
     dataList_length % 5 === 0
-      ? parseInt(dataList_length / 12) - 1
-      : parseInt(dataList_length / 12);
+      ? parseInt(dataList_length / 5) - 1
+      : parseInt(dataList_length / 5);
 
   let items = [];
   const [active, setActive] = useState(1);
@@ -54,7 +54,7 @@ const Wine = () => {
   let list = [];
   const [show, setShow] = useState(false);
   dataList?.forEach((data, index) => {
-    if (4 * (active - 1) <= index && index < 5 * active) {
+    if (4 * (active - 1) <= index && index < 14 * active) {
       // localstorage에 제품데이더 넣기
       const handleClickCart = (clikData) => {
         const addCart = [];
@@ -116,9 +116,9 @@ const Wine = () => {
               </Modal.Body>
             </Modal>
             <Card style={{ width: "18rem" }}>
-              <Card.Img onClick={setShow} variant="top" src="" />
-              <Card.Body>
-                <Card.Title onClick={setShow}>{data.name}</Card.Title>
+              <Card.Img onClick={setShow} variant="top" src={data.image} />
+              <Card.Body onClick={setShow}>
+                <Card.Title>{data.name}</Card.Title>
                 <Card.Text>{data.price}</Card.Text>
               </Card.Body>
             </Card>

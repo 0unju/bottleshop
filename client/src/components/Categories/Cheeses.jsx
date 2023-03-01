@@ -45,8 +45,8 @@ const Cheeses = () => {
       list.push(
         <div>
           <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="" />
-            <Card.Body>
+            <Card.Img onClick={setShow} variant="top" src="" />
+            <Card.Body onClick={setShow}>
               <Card.Title>{data.name}</Card.Title>
               <Card.Text>{data.price}</Card.Text>
             </Card.Body>
@@ -63,7 +63,7 @@ const Cheeses = () => {
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body class="modal_body">
                 <div class="modal_div1">
-                  <img id="cheesesImg" src={data.image} alt="modal_cheeses" />
+                  <img id="cheesesImg" src="" alt="modal_cheeses" />
                 </div>
                 <div class="modal_div2">
                   <h3 id="cheeses">{data.name}</h3>
@@ -99,13 +99,6 @@ const Cheeses = () => {
                 </div>
               </Modal.Body>
             </Modal>
-            <Card style={{ width: "18rem" }}>
-              <Card.Img onClick={setShow} variant="top" src={data.image_path} />
-              <Card.Body>
-                <Card.Title onClick={setShow}>{data.name}</Card.Title>
-                <Card.Text>{data.price}</Card.Text>
-              </Card.Body>
-            </Card>
           </div>
         </div>
       );
@@ -119,18 +112,6 @@ const Cheeses = () => {
       </div>
       <h3 className="cheeses_text">Best Cheeses</h3>
       <div className="best_cheeses">
-        <div>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </div>
         <div>
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src="holder.js/100px180" />
