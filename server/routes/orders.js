@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 // http://localhost:8080/orders (주문 추가)
 router.post('/', postOrder);
 
-// http://localhost:8080/orders/edit/:_id (주문 수정)
+// http://localhost:8080/orders/edit/:id (주문 수정)
 router.put('/:id', updateOrder);
 
 // http://localhost:8080/orders/:_id (주문 삭제)

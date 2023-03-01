@@ -1,11 +1,15 @@
 'use strict';
 import { User } from '../../models/index.js';
+import bcrypt from 'bcrypt';  // "npm i bcrypt --save" 설치 필요
+const saltRounds = 10;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
 const postUser = async (req, res, next) => {
   const {
     username,
     domain,
     password,
+    passwordVerify,
     name,
     phone,
     birthday,
@@ -17,25 +21,31 @@ const postUser = async (req, res, next) => {
     
     if(user) {  // 아이디 중복 확인
       res.send('User already exists');
-    }
-
-    else {
+    } else {
       let adminValue = false;
-      
-      if(username === "admin") {
-        adminValue = true;
+      if((password === passwordVerify) === false) {
+        res.send("비밀번호가 일치하지 않습니다.")
+      } else {
+        if(passwordRegex.test(password) === false) {
+          res.send("비밀번호 조건이 맞지 않습니다.")
+        } else {
+          const hash = bcrypt.hashSync(password, saltRounds);
+          if(username === "admin") {
+            adminValue = true;
+          }
+          await User.create({
+            isAdmin:adminValue,
+            username,
+            domain,
+            password : hash,
+            name,
+            phone,
+            birthday,
+            auth_email,
+          });
+          res.send('success /users');
+        }
       }
-      await User.create({
-        isAdmin:adminValue,
-        username,
-        domain,
-        password,
-        name,
-        phone,
-        birthday,
-        auth_email,
-      });
-      res.send('success /users');
     } 
   } catch (err) {
     next(err);

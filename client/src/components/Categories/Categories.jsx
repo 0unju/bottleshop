@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Categories.css";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Carousel from "react-bootstrap/Carousel";
-import main from "./images/main.png";
-import wine from "./images/wine.png";
-import cheeses from "./images/cheeses.png";
-import Red1 from "./images/red1.png";
-import White2 from "./images/white2.png";
-import Champ1 from "./images/champ1.png";
-import Cheeses1 from "./images/Parmesan.png";
-import Cheeses2 from "./images/Ricotta1.png";
-import Main_about1 from "./images/main_about_01.png";
-import Main_about2 from "./images/main_about_02.png";
-import Main_about3 from "./images/main_about_03.png";
+import main from "../images/main.png";
+import wine from "../images/wine.png";
+import cheeses from "../images/cheeses.png";
+import Red1 from "../images/red1.png";
+import White2 from "../images/white2.png";
+import Champ1 from "../images/champ1.png";
+import Cheeses1 from "../images/Parmesan.png";
+import Cheeses2 from "../images/Ricotta1.png";
+import Main_about1 from "../images/main_about_01.png";
+import Main_about2 from "../images/main_about_02.png";
+import Main_about3 from "../images/main_about_03.png";
 
-const Categories = () => {
+const Categories = ({}) => {
+  const cartClick = (e) => {
+    window.location.href = "/order/cart";
+  };
+
+  const orderClick = (e) => {
+    window.location.href = "/order/order";
+  };
+
   return (
     <>
       <div>
@@ -53,11 +60,20 @@ const Categories = () => {
                 <Card.Body>
                   <Card.Title>BODEGA GARZON 'BALASTO'</Card.Title>
                   <Card.Text>200,000원</Card.Text>
-                  <button type="button" class="btn btn-outline-info">
+                  <button
+                    onClick={cartClick}
+                    type="button"
+                    class="btn btn-outline-info"
+                  >
                     장바구니
                   </button>
-                  <button type="button" class="btn btn-outline-success">
-                    구매하기
+                  <button
+                    typ
+                    onClick={orderClick}
+                    e="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
                   </button>
                 </Card.Body>
               </Card>
@@ -68,11 +84,19 @@ const Categories = () => {
                 <Card.Body>
                   <Card.Title>FRIAS LADY OF DEAD</Card.Title>
                   <Card.Text>35,000원</Card.Text>
-                  <button type="button" class="btn btn-outline-info">
+                  <button
+                    onClick={cartClick}
+                    type="button"
+                    class="btn btn-outline-info"
+                  >
                     장바구니
                   </button>
-                  <button type="button" class="btn btn-outline-success">
-                    구매하기
+                  <button
+                    onClick={orderClick}
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
                   </button>
                 </Card.Body>
               </Card>
@@ -83,11 +107,19 @@ const Categories = () => {
                 <Card.Body>
                   <Card.Title>BANROCK STATION MOSCATO</Card.Title>
                   <Card.Text>13,000원</Card.Text>
-                  <button type="button" class="btn btn-outline-info">
+                  <button
+                    onClick={cartClick}
+                    type="button"
+                    class="btn btn-outline-info"
+                  >
                     장바구니
                   </button>
-                  <button type="button" class="btn btn-outline-success">
-                    구매하기
+                  <button
+                    onClick={orderClick}
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
                   </button>
                 </Card.Body>
               </Card>
@@ -98,11 +130,19 @@ const Categories = () => {
                 <Card.Body>
                   <Card.Title>Parmesan Cheeses</Card.Title>
                   <Card.Text>58,000원</Card.Text>
-                  <button type="button" class="btn btn-outline-info">
+                  <button
+                    onClick={cartClick}
+                    type="button"
+                    class="btn btn-outline-info"
+                  >
                     장바구니
                   </button>
-                  <button type="button" class="btn btn-outline-success">
-                    구매하기
+                  <button
+                    onClick={orderClick}
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
                   </button>
                 </Card.Body>
               </Card>
@@ -113,11 +153,19 @@ const Categories = () => {
                 <Card.Body>
                   <Card.Title>Ricotta Cheeses</Card.Title>
                   <Card.Text>18,000원</Card.Text>
-                  <button type="button" class="btn btn-outline-info">
+                  <button
+                    onClick={cartClick}
+                    type="button"
+                    class="btn btn-outline-info"
+                  >
                     장바구니
                   </button>
-                  <button type="button" class="btn btn-outline-success">
-                    구매하기
+                  <button
+                    onClick={orderClick}
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    주문하기
                   </button>
                 </Card.Body>
               </Card>
@@ -126,7 +174,7 @@ const Categories = () => {
         </div>
         <div className="Main_about">
           <div className="about_1">
-            <div>
+            <div className="main_about1">
               <img src={Main_about1} alt="about1" />
             </div>
             <div>

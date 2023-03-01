@@ -11,7 +11,6 @@ const postComment = async (req, res, next) => {
                 post_id : id,
                 content : content,
             });
-            
             req.comment = comment;
             next();
         }

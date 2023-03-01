@@ -33,7 +33,7 @@ const updateShipment = async (req, res, next) => {
 
     res.json(shipment);
   } catch (err) {
-    console.log(err.message);
+    next(err);
   }
 };
 

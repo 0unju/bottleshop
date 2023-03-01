@@ -5,10 +5,6 @@ const postPost = async (req, res, next) => {
     const { title, content, email } = req.body;
     
     try {
-        if (!title || !content) {
-            res.status(500).send({ error: 'title content Null' });
-        }
-
         // 로그인한 유저인 경우
         if (req.flagGuest === false) {
             await Post.create({

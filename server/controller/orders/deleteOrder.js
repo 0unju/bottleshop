@@ -2,7 +2,7 @@
 import { Order } from '../../models/index.js';
 
 const deleteOrder = async (req, res, next) => {
-  const { id } = req.params;  // order_id
+  const { id } = req.params; // order_id
   console.log(req.query.select); // product_id
 
   if (!req.query.select) {

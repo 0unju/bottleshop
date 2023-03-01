@@ -14,17 +14,17 @@ import updateUser from '../controller/users/updateUser.js';
 router.get('/', auth, async (req, res) => {
   if(req.user.isAdmin === true){
     const users = await User.find({});
-    res.json(users);  
+    res.json(users);
   } else {
-    res.render('login');
+    res.send("access denied /users");
   }
 });
 
-// http://localhost:8080/users/join (회원가입)
-router.post('/join', postUser);
+// http://localhost:8080/users (회원가입)
+router.post("/", postUser);
 
 // http://localhost:8080/users/login (로그인)
-router.post('/login', loginUser);
+router.post("/login", loginUser);
 
 // http://localhost:8080/users/auth (현재 로그인한 user 정보)
 router.get("/auth", auth, authUser);
@@ -32,10 +32,10 @@ router.get("/auth", auth, authUser);
 // http://localhost:8080/users/logout (로그아웃)
 router.get("/logout", auth, logoutUser);
 
-// http://localhost:8080/users/delete/test1 (유저 정보 DB 삭제)
-router.delete('/delete/:username', auth, deleteUser);
+// http://localhost:8080/users/test1 (유저 정보 DB 삭제)
+router.delete('/:username', auth, deleteUser);
 
-// http://localhost:8080/users/edit/test1 (유저 정보 수정)
-router.put('/edit/:username', auth, updateUser);
+// http://localhost:8080/users/test1 (유저 정보 수정)
+router.put('/:username', auth, updateUser);
 
 export default router;
