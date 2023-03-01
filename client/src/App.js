@@ -21,7 +21,6 @@ import Cheeses from "./components//Categories/Cheeses";
 import Cart from "./components/Order/Cart";
 import Order from "./components/Order/Order";
 import Complete from "./components/Order/Complete";
-import Login from "./components/Login/Login";
 
 export default function App() {
   return (
