@@ -118,28 +118,20 @@ const Layout = ({ children }) => {
                   <NavDropdown.Item href="/categories/wine">
                     All Wine
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
+                  <NavDropdown.Item href="/categories/wine?wine_type=redwine">
                     Red Wine
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
+                  <NavDropdown.Item href="/categories/wine?wine_type=whitewine">
                     White Wine
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
+                  <NavDropdown.Item href="/categories/wine?wine_type=sparklingwine">
                     Sparkling Wine
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="/categories/cheeses">Cheeses</Nav.Link>
                 <Nav.Link href="#">Q&A</Nav.Link>
               </Nav>
-              <Form id="search" className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <FaSistrix variant="outline-success" />
-              </Form>
+
               <div onClick={handleCartClick} className="cart">
                 <FaCartArrowDown />
               </div>

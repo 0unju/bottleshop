@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import Axios from "axios";
 import "./Order.css";
+import Post from "./Post.jsx";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {
@@ -13,35 +14,63 @@ import Card from "react-bootstrap/Card";
 
 const api = require("../../api.json");
 
-const Order = () => {
-  const [dataList, setDataList] = useState(null);
-
-  const getDate = async () => {
-    const response = await Axios.get(api.orderList_GET);
-    setDataList(response.data);
-  };
-
+const Order = (props) => {
+  // localStorage에서 데이터 가져오기
+  const [shoppingItem, setShoppingItem] = useState([]);
   useEffect(() => {
-    getDate();
+    const Items = JSON.parse(localStorage.getItem("orderList")) || [];
+    setShoppingItem(Items);
   }, []);
 
-  let List = [];
-  dataList?.forEach((data, index) => {
-    List.push(
-      <div>
-        <Card style={{ width: "18rem", padding: "50px" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>{data.name}</Card.Title>
-            <Card.Text>{data.product_id}</Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
-    );
-  });
+  // 계속 주문하기 버튼
+  const homeClick = (e) => {
+    window.location.href = "/categories";
+  };
 
+  // 주문 완료 버튼
   const orderClick = (e) => {
     window.location.href = "/order/complete";
+  };
+
+  const complete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    console.log(data);
+    console.log(fullAddress);
+    console.log(data.zonecode);
+
+    props.setcompany({
+      ...props.company,
+      address: fullAddress,
+    });
+  };
+
+  const [enroll_company, setEnroll_company] = useState({
+    address: "",
+  });
+
+  const [popup, setPopup] = useState(false);
+
+  const handleInput = (e) => {
+    setEnroll_company({
+      ...enroll_company,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleComplete = (data) => {
+    setPopup(!popup);
   };
 
   return (
@@ -49,24 +78,60 @@ const Order = () => {
       <div className="icons">
         <FaCartArrowDown size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />
-        <FaRegCreditCard size="30px" color="#566270" />
+        <FaRegCreditCard className="orders" size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />
         <FaRegCheckCircle size="30px" color="#566270" />
       </div>
       <hr />
-      <div className="product">
-        <Card style={{ width: "18rem", padding: "50px" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <h3>수량</h3>
-        <h3>가격</h3>
+      <div className="names">
+        <span>제품</span>
+        <span>수량</span>
+        <span>가격</span>
+        <span>총금액</span>
+      </div>
+      <hr />
+      <div>
+        {/* 주문 상품 */}
+        <div className="product">
+          <div>
+            <div className="product_d">
+              {shoppingItem.map((el, index) => (
+                <div key={el._id}>
+                  <div className="carts">
+                    <Card style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src="" />
+                      <Card.Body>
+                        <Card.Title>{el.name}</Card.Title>
+                        <Card.Text>{el.price}</Card.Text>
+                      </Card.Body>
+                    </Card>
+                    <div>
+                      <Form.Group>
+                        <Form.Control
+                          id="modal_num"
+                          type="number"
+                          placeholder="1"
+                          min="1"
+                        />
+                      </Form.Group>
+                    </div>
+                    <div>
+                      <p>{el.price}</p>
+                    </div>
+                    <div>
+                      <p>{el.price}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div className="totalPrice">
+        <p>총 금액</p>
+        <p>()</p>
       </div>
       <hr />
       <div className="input_user">
@@ -80,7 +145,7 @@ const Order = () => {
 
           <Form.Group>
             <Form.Label>핸드폰번호*</Form.Label>
-            <div className="mb-5">
+            <div id="phone" className="mb-5">
               <Form.Select>
                 <option></option>
                 <option value="010">010</option>
@@ -110,11 +175,26 @@ const Order = () => {
           </Form.Group>
 
           <Form.Group className="mb-1">
-            <Form.Label>주소*</Form.Label>
-            <div className="address">
-              <Form.Control type="text" placeholder="" />
-              <Button variant="success">우편번호</Button>
+            <Form.Label>주소</Form.Label>
+            <div id="address_search">
+              <Form.Control
+                className="user_enroll_text"
+                placeholder="주소"
+                type="text"
+                required={true}
+                name="address"
+                onChange={handleInput}
+                value={enroll_company.address}
+              />
+              <button onClick={handleComplete}>우편번호 찾기</button>
             </div>
+
+            {popup && (
+              <Post
+                company={enroll_company}
+                setcompany={setEnroll_company}
+              ></Post>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-1">
