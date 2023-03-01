@@ -73,7 +73,6 @@ const AdminUsers = () => {
     }
 
     if (!overlap) {
-      let success = false;
       await axios
         .post(api.users_POST, {
           username,
@@ -84,92 +83,69 @@ const AdminUsers = () => {
           birthday,
         })
         .then((response) => {
+          console.log(response);
           if (response.status === 200) {
-            alert("추가되었습니다.");
+            alert(response.data);
             getDate(); // 리스트 새로고침
             reSet(); // 입력칸 리셋
-            success = true;
           }
         })
         .catch((err) => {
           alert(err.message);
-          success = true;
         });
-      if (!success) alert("값을 바르게 입력해 주세요");
     }
   };
 
   // [DELETE] ID로 선택된 데이터 삭제
   const handleDeleteButtonClick = async () => {
     const username = inputUserName.current.value;
-    let success = false;
 
     await axios
       .delete(api.users_DELETE + username)
       .then((response) => {
         if (response.status === 200) {
-          alert("삭제되었습니다.");
+          alert(response.data);
           getDate(); // 리스트 새로고침
           reSet(); // 입력칸 리셋
-          success = true;
         }
       })
       .catch((err) => {
         alert(err.message);
-        success = true;
       });
-    if (!success) alert("ID를 바르게 입력해 주세요");
   };
 
   // [PUT] ID로 선택된 데이터 수정
   const handlePutButtonClick = async () => {
-    const id = inputSearchBar.current.value;
     const username = inputUserName.current.value;
-    const domain = inputDomain.current.value;
     const password = inputPassword.current.value;
     const name = inputName.current.value;
     const phone = inputPhone.current.value;
     const birthday = inputBirthday.current.value;
-    const auth_email = inputAuthEmail.current.value;
 
-    // 이름 중복 방지
-    let overlap = false;
-    for (let data of dataList) {
-      if (data._id !== id) {
-        // 다른 이름으로 변경할 경우 중복 체크
-        if (data.username === username) {
-          alert("이름이 중복됩니다");
-          overlap = true;
+    await axios
+      .put(api.users_PUT + username, {
+        name,
+        phone,
+        birthday,
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+
+    await axios
+      .put(api.users_PUT + username, {
+        password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+          getDate(); // 리스트 새로고침
+          reSet(); // 입력칸 리셋
         }
-      }
-    }
-
-    if (!overlap) {
-      let success = false;
-      await axios
-        .put(api.users_PUT + username, {
-          username,
-          domain,
-          password,
-          name,
-          phone,
-          birthday,
-          auth_email,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            alert("수정되었습니다.");
-            getDate(); // 리스트 새로고침
-            reSet(); // 입력칸 리셋
-            success = true;
-          }
-        })
-        .catch((err) => {
-          alert(err.message);
-          success = true;
-        });
-      if (!success) alert("ID와 값을 바르게 입력해 주세요");
-    }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   // Domain List 만들기
@@ -209,7 +185,6 @@ const AdminUsers = () => {
 
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const setInput = (data) => {
-    inputSearchBar.current.value = data._id;
     inputUserName.current.value = data.username;
     inputDomain.current.value = data.domain;
     inputPassword.current.value = data.password;
@@ -239,11 +214,11 @@ const AdminUsers = () => {
 
   // 조회 기능
   const handleSearchButtonClick = () => {
-    const id = inputSearchBar.current.value;
+    const searchValue = inputSearchBar.current.value;
     let success = false;
 
     for (let data of dataList) {
-      if (data._id === id) {
+      if (data.username === searchValue) {
         setInput(data);
         success = true;
         break;

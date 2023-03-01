@@ -38,5 +38,5 @@
 
 #mypage_information_button {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }

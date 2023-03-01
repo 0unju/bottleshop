@@ -1,10 +1,12 @@
-import multer from 'multer';
-import path from 'path';
+import multer from "multer";
+import path from "path";
+
+// npm i multer 설치하기
 
 // image storage config
 const storage = multer.diskStorage({
   destination: (req, file, done) => {
-    done(null, 'public/images');
+    done(null, "public/images");
   },
   filename: function (req, file, done) {
     const ext = path.extname(file.originalname); // 확장자 추가
