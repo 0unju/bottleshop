@@ -35,6 +35,9 @@ const getLogin = async (req, res, next) => {
     } catch(err) {
         next(err);
     }
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default getLogin;

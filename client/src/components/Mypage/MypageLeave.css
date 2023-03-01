@@ -1,0 +1,48 @@
+:root {
+  --main-color: #6c49b8;
+  --text-color: #566270;
+  --sub-color: #e0e3da;
+}
+
+#mypage_leave_topbox {
+  border: 2px solid var(--main-color);
+  max-width: 60%;
+  margin: 50px auto 5px auto;
+  background-color: var(--sub-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage_leave_box > p {
+  margin: 0;
+}
+
+.mypage_leave_box {
+  border: 2px solid var(--text-color);
+  width: 80px;
+}
+
+#mypage_leave_nav_bar {
+  margin: 0 20%;
+}
+
+#mypage_leave_box {
+  margin: 50px 20%;
+}
+
+#mypage_leave_password {
+  display: flex;
+  justify-content: center;
+}
+
+#mypage_leave_text {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--main-color);
+
+  margin-bottom: 30px;
+}
+
+#mypage_leave_input_password {
+  width: 40%;
+}
