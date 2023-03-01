@@ -72,69 +72,65 @@ const Order = (props) => {
     setPopup(!popup);
   };
 
+  let orderShooping = [];
+  shoppingItem.map((el, index) =>
+    orderShooping.push(
+      <>
+        <div key={el._id}>
+          <div>
+            <div className="orders">
+              <Card style={{ width: "18rem" }}>
+                <Card.Img variant="top" src="" />
+                <Card.Body>
+                  <Card.Title>{el.name}</Card.Title>
+                  <Card.Text>{el.price}</Card.Text>
+                </Card.Body>
+              </Card>
+              <div className="orderCount">
+                <Form.Group>
+                  <Form.Text>{el.count}</Form.Text>
+                </Form.Group>
+              </div>
+              <div>
+                <p>{el.price}</p>
+              </div>
+              <div>
+                <p>{el.count * el.price}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  );
+
   return (
     <div>
       <div className="icons">
         <FaCartArrowDown size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />
-        <FaRegCreditCard className="orders" size="30px" color="#566270" />
+        <FaRegCreditCard className="orders" size="30px" color="#6c49b8" />
         <FaAngleLeft size="30px" color="#566270" />
         <FaRegCheckCircle size="30px" color="#566270" />
       </div>
       <hr />
-      <div className="names">
+      <div className="named">
         <span>제품</span>
         <span>수량</span>
         <span>가격</span>
         <span>총금액</span>
       </div>
       <hr />
-      <div>
-        {/* 주문 상품 */}
-        <div className="product">
-          <div>
-            <div className="product_d">
-              {shoppingItem.map((el, index) => (
-                <div key={el._id}>
-                  <div className="carts">
-                    <Card style={{ width: "18rem" }}>
-                      <Card.Img variant="top" src="" />
-                      <Card.Body>
-                        <Card.Title>{el.name}</Card.Title>
-                        <Card.Text>{el.price}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                    <div>
-                      <Form.Group>
-                        <Form.Control
-                          id="modal_num"
-                          type="number"
-                          placeholder="1"
-                          min="1"
-                        />
-                      </Form.Group>
-                    </div>
-                    <div>
-                      <p>{el.price}</p>
-                    </div>
-                    <div>
-                      <p>{el.price}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <div>{orderShooping}</div>
       <hr />
       <div className="totalPrice">
         <p>총 금액</p>
-        <p>()</p>
+        <p>60,000 원</p>
       </div>
       <hr />
+      <hr />
       <div className="input_user">
-        <h2>배송정보 입력</h2>
+        <h2 className="shipment">배송정보 입력</h2>
         <hr />
         <div className="shipping">
           <Form.Group className="mb-1">
@@ -185,7 +181,9 @@ const Order = (props) => {
                 onChange={handleInput}
                 value={enroll_company.address}
               />
-              <button onClick={handleComplete}>우편번호 찾기</button>
+              <button className="postBtn" onClick={handleComplete}>
+                우편번호 찾기
+              </button>
             </div>
 
             {popup && (
