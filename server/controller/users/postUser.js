@@ -21,6 +21,7 @@ const postUser = async (req, res, next) => {
       res.send('아이디가 중복되었습니다.');
     } else {
       let adminValue = false;
+      
       if(passwordRegex.test(password) === false) {
         res.send("비밀번호 조건이 맞지 않습니다.");
         next();

@@ -1,6 +1,6 @@
-'use strict';
-import { User } from '../../models/index.js';
-import bcrypt from 'bcrypt';  // "npm i bcrypt --save" 설치 필요
+"use strict";
+import { User } from "../../models/index.js";
+import bcrypt from "bcrypt"; // "npm i bcrypt --save" 설치 필요
 import jwt from "jsonwebtoken"; // "npm i jsonwebtoken" 설치 필요
 import dotenv from "dotenv";
 dotenv.config();

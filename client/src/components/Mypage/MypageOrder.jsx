@@ -34,6 +34,9 @@ const MypageOrder = () => {
           <Nav.Link href="/mypage/information">회원정보수정</Nav.Link>
         </Nav.Item>
         <Nav.Item>
+          <Nav.Link href="/mypage/password">비밀번호변경</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
           <Nav.Link href="/mypage/leave">회원탈퇴</Nav.Link>
         </Nav.Item>
       </Nav>

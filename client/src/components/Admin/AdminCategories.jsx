@@ -1,92 +1,186 @@
+import React, { useEffect, useState, useRef } from "react";
 import "./Admin.css";
-import { React } from "react";
-import { Nav, Button, Form, InputGroup, Table } from "react-bootstrap";
+import axios from "axios";
+import {
+  Nav,
+  Button,
+  Form,
+  InputGroup,
+  Table,
+  Pagination,
+} from "react-bootstrap";
 
-// JSON 가져오기
-const admin_list = require("./adminList.json"); // Admin 리스트 불러오기
-let category_list = [{ name: "Wine" }, { name: "Cheese" }];
+// 가져오기
+const api = require("../../api.json"); // API 불러오기
+const adminList = require("./adminList.json"); // Admin 리스트 불러오기
+const adminPermission = require("./adminPermission.js");
 
-const AdminCategory = () => {
-  // 데이터를 입력하면 입력폼에 표시하는 코드
-  const show = (data) => {
-    const form = document.querySelector("#categories_value");
-    const searchbar = document.querySelector("#DB_searchbar");
-    searchbar.value = data.name;
-    form.value = data.name;
+const AdminCategories = () => {
+  adminPermission.default();
+
+  // Element 제어
+  let inputSearchBar = useRef(null);
+  let inputName = useRef(null);
+
+  // [GET] 데이터 불러오기
+  const [dataList, setDataList] = useState(null);
+
+  const getDate = async () => {
+    const response = await axios.get(api.categories_GET);
+    setDataList(response.data);
   };
-  let list = [];
+
+  useEffect(() => {
+    getDate();
+  }, []);
+
+  // 입력칸 리셋
+  const reSet = () => {
+    inputSearchBar.current.value = "";
+    inputName.current.value = "";
+  };
+
+  // [POST] 데이터 전송하기
+  const handlePostButtonClick = async () => {
+    // Element 값
+    const name = inputName.current.value;
+
+    // 이름 중복 방지
+    let overlap = false;
+    for (let data of dataList) {
+      if (data.name === name) {
+        alert("이름이 중복됩니다");
+        overlap = true;
+      }
+    }
+
+    if (!overlap) {
+      await axios
+        .post(api.categories_POST, {
+          name,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            alert(response.data);
+            getDate(); // 리스트 새로고침
+            reSet(); // 입력칸 리셋
+          }
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
+  };
+
+  // [DELETE] ID로 선택된 데이터 삭제
+  const handleDeleteButtonClick = async () => {
+    const id = inputSearchBar.current.value;
+
+    await axios
+      .delete(api.categories_DELETE + id)
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+          getDate(); // 리스트 새로고침
+          reSet(); // 입력칸 리셋
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  // [PUT] ID로 선택된 데이터 수정
+  const handlePutButtonClick = async () => {
+    // Element 값
+    const id = inputSearchBar.current.value;
+    const name = inputName.current.value;
+
+    // 이름 중복 방지
+    let overlap = false;
+    for (let data of dataList) {
+      if (data._id !== id) {
+        // 다른 이름으로 변경할 경우 중복 체크
+        if (data.name === name) {
+          alert("이름이 중복됩니다");
+          overlap = true;
+        }
+      }
+    }
+
+    if (!overlap) {
+      await axios
+        .put(api.categories_PUT + id, {
+          name,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            alert(response.data);
+            getDate(); // 리스트 새로고침
+            reSet(); // 입력칸 리셋
+          }
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
+  };
+
+  // 페이지 넘버 만들기
+  const row = 5; // 한 페이지에 넣을 개수
+  const dataListLength = dataList?.length;
+  const pageNumber =
+    dataListLength % row === 0
+      ? parseInt(dataListLength / row) - 1
+      : parseInt(dataListLength / row);
+  let setPageNumber = [];
+  const [active, setActive] = useState(1);
+  const handlePageClick = (number) => setActive(number);
+
+  for (let number = 1; number <= pageNumber + 1; number++) {
+    setPageNumber.push(
+      <Pagination.Item
+        key={number}
+        active={number === active}
+        onClick={() => {
+          handlePageClick(number);
+        }}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
+  // 데이터를 입력하면 입력폼에 표시하는 코드
+  const setInput = (data) => {
+    inputSearchBar.current.value = data._id;
+    inputName.current.value = data.name;
+  };
+
   // 리스트 구현
-  const list_update = () => {
-    list = [];
-    category_list.forEach((data, index) => {
-      list.push(
+  let setList = [];
+  dataList?.forEach((data, index) => {
+    if (row * (active - 1) <= index && index < row * active) {
+      setList.push(
         <tr
-          key={index}
+          key={data._id}
           onClick={() => {
-            show(data);
+            setInput(data);
           }}
         >
           <td>{data.name}</td>
         </tr>
       );
-    });
-  };
-  list_update();
-
-  // 추가 기능
-  const db_post = () => {
-    const form = document.querySelector("#categories_value");
-    const searchbar = document.querySelector("#DB_searchbar");
-    let overlap = false;
-    category_list.forEach((data) => {
-      if (data.name === form.value) {
-        overlap = true; // 중복발생
-      }
-    });
-    if (overlap) alert("중복된 이름이 있습니다.");
-    else category_list.push({ name: form.value });
-    list_update();
-    console.log(category_list);
-  };
-
-  // 삭제 기능
-  const db_delete = () => {
-    const searchbar = document.querySelector("#DB_searchbar").value;
-    category_list.forEach((data, index) => {
-      if (data.name === searchbar.value) {
-        category_list.splice(index, 1);
-      }
-    });
-  };
-
-  //저장 기능
-  const db_put = () => {
-    const searchbar = document.querySelector("#DB_searchbar").value;
-    const form = document.querySelector("#categories_value");
-
-    let overlap = false;
-    let id = -1;
-
-    category_list.forEach((data, index) => {
-      if (data.name === form.value && form.value != searchbar.value)
-        overlap = true; // 중복발생
-      else if (data.name === searchbar.value) {
-        id = index;
-      }
-      if (!overlap) {
-        category_list[id].name = searchbar.value;
-      }
-    });
-  };
+    }
+  });
 
   // 조회 기능
-  const search = () => {
-    const searchbar = document.querySelector("#DB_searchbar").value;
-
+  const handleSearchButtonClick = () => {
+    const id = inputSearchBar.current.value;
     let success = false;
-    for (let data of category_list) {
-      if (data.name === searchbar.value) {
-        show(data);
+    for (let data of dataList) {
+      if (data._id === id) {
+        setInput(data);
         success = true;
         break;
       }
@@ -97,9 +191,9 @@ const AdminCategory = () => {
   return (
     <>
       {/* 네비게이션 바 */}
-      <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/orders">
-        {admin_list.map((data, index) => (
-          <Nav.Item key={data.id}>
+      <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/categories">
+        {adminList.map((data) => (
+          <Nav.Item key={data.name}>
             <Nav.Link href={data.href}>{data.name}</Nav.Link>
           </Nav.Item>
         ))}
@@ -108,33 +202,35 @@ const AdminCategory = () => {
       {/* 상단바 */}
       <div class="DB_bar">
         <h2>Categories</h2>
-        <InputGroup id="DB_manager" size="sm" className="mb-2">
-          <Form.Control id="DB_searchbar" placeholder="ID" />
-          <Button id="button" onClick={search}>
+        <InputGroup id="DB_manager" size="sm">
+          <Form.Control
+            ref={inputSearchBar}
+            id="DB_searchbar"
+            placeholder="ID"
+          />
+          <Button id="button" onClick={handleSearchButtonClick}>
             조회
           </Button>
-          <Button id="button" onClick={db_put}>
+          <Button id="button" onClick={handlePutButtonClick}>
             저장
           </Button>
-          <Button id="button" onClick={db_delete}>
+          <Button id="button" onClick={handleDeleteButtonClick}>
             삭제
           </Button>
-          <Button id="button" onClick={db_post}>
+          <Button id="button" onClick={handlePostButtonClick}>
             추가
           </Button>
         </InputGroup>
       </div>
+
       {/* DB입력 부분 */}
       <div class="DB_data">
         <Form.Group className="mb-1">
           <Form.Label>Name</Form.Label>
-          <Form.Control
-            id="categories_value"
-            type="text"
-            placeholder="String"
-          />
+          <Form.Control ref={inputName} type="text" placeholder="String" />
         </Form.Group>
       </div>
+
       {/* 리스트 */}
       <div>
         <Table striped bordered hover size="sm" id="DB_list">
@@ -143,10 +239,13 @@ const AdminCategory = () => {
               <th>Name</th>
             </tr>
           </thead>
-          <tbody>{list}</tbody>
+          <tbody>{setList}</tbody>
         </Table>
+        <Pagination id="page" size="sm">
+          {setPageNumber}
+        </Pagination>
       </div>
     </>
   );
 };
-export default AdminCategory;
+export default AdminCategories;
