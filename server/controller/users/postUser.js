@@ -9,7 +9,6 @@ const postUser = async (req, res, next) => {
     username,
     domain,
     password,
-    passwordVerify,
     name,
     phone,
     birthday,
@@ -23,29 +22,28 @@ const postUser = async (req, res, next) => {
       res.send('User already exists');
     } else {
       let adminValue = false;
-      if((password === passwordVerify) === false) {
-        res.send("비밀번호가 일치하지 않습니다.")
+      
+      if(passwordRegex.test(password) === false) {
+        res.send("비밀번호 조건이 맞지 않습니다.");
+        next();
       } else {
-        if(passwordRegex.test(password) === false) {
-          res.send("비밀번호 조건이 맞지 않습니다.")
-        } else {
-          const hash = bcrypt.hashSync(password, saltRounds);
-          if(username === "admin") {
-            adminValue = true;
-          }
-          await User.create({
-            isAdmin:adminValue,
-            username,
-            domain,
-            password : hash,
-            name,
-            phone,
-            birthday,
-            auth_email,
-          });
-          res.send('success /users');
+        const hash = bcrypt.hashSync(password, saltRounds);
+        if(username === "admin") {
+          adminValue = true;
         }
+        await User.create({
+          isAdmin : adminValue,
+          username,
+          domain,
+          password : hash,
+          name,
+          phone,
+          birthday,
+          auth_email,
+        });
+        res.send('success /users');
       }
+      
     } 
   } catch (err) {
     next(err);

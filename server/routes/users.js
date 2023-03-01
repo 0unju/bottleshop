@@ -9,6 +9,7 @@ import authUser from '../controller/users/authUser.js';
 import logoutUser from '../controller/users/logoutUser.js';
 import deleteUser from '../controller/users/deleteUser.js';
 import updateUser from '../controller/users/updateUser.js';
+import updatePassword from '../controller/users/updatePassword.js';
 
 // http://localhost:8080/users (전체 회원 조회)
 router.get('/', auth, async (req, res) => {
@@ -37,5 +38,8 @@ router.delete('/:username', auth, deleteUser);
 
 // http://localhost:8080/users/test1 (유저 정보 수정)
 router.put('/:username', auth, updateUser);
+
+// http://localhost:8080/users/test1/password (유저 정보 수정)
+router.put('/:username/password', auth, updatePassword);
 
 export default router;

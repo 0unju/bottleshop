@@ -13,5 +13,9 @@
   "orders_PUT": "http://localhost:8080/orders/edit/",
   "users_login_POST": "http://localhost:8080/users/login",
   "users_auth_GET": "http://localhost:8080/users/auth",
-  "users_logout_GET": "http://localhost:8080/users/logout"
+  "users_logout_GET": "http://localhost:8080/users/logout",
+  "categories_GET": "http://localhost:8080/categories",
+  "categories_POST": "http://localhost:8080/categories",
+  "categories_DELETE": "http://localhost:8080/categories/",
+  "categories_PUT": "http://localhost:8080/categories/"
 }

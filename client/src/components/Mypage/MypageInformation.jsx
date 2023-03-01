@@ -1,21 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import "./MypageInformation.css";
-import {
-  Nav,
-  Button,
-  Form,
-  InputGroup,
-  Table,
-  Pagination,
-} from "react-bootstrap";
-
-const domainList = require("../../domainList.json"); // Domain 리스트 불러오기
+import { Nav, Button, Form } from "react-bootstrap";
 
 const MypageOrder = () => {
   // Element 제어
 
-  let inputPassword = useRef(null);
-  let inputPasswordCheck = useRef(null);
   let inputName = useRef(null);
   let inputPhone = useRef(null);
   let inputBirthday = useRef(null);
@@ -52,30 +41,14 @@ const MypageOrder = () => {
           <Nav.Link href="/mypage/information">회원정보수정</Nav.Link>
         </Nav.Item>
         <Nav.Item>
+          <Nav.Link href="/mypage/password">비밀번호변경</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
           <Nav.Link href="/mypage/leave">회원탈퇴</Nav.Link>
         </Nav.Item>
       </Nav>
       {/* 데이터 수정 */}
       <div id="mypage_information_data">
-        <div id="mypage_information_password">
-          <Form.Group className="mypage_information_input">
-            <Form.Label>비밀번호</Form.Label>
-            <Form.Control
-              ref={inputPassword}
-              type="text"
-              placeholder="String"
-            />
-          </Form.Group>
-
-          <Form.Group className="mypage_information_input">
-            <Form.Label>비밀번호 확인 </Form.Label>
-            <Form.Control
-              ref={inputPasswordCheck}
-              type="text"
-              placeholder="String"
-            />
-          </Form.Group>
-        </div>
         <div id="mypage_information_other">
           <Form.Group className="mypage_information_input">
             <Form.Label>이름</Form.Label>
