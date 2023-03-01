@@ -1,7 +1,6 @@
 'use strict';
 import { Product } from '../../models/index.js';
 
-
 const postProduct = async (req, res, next) => {
   try {
     const {
@@ -14,7 +13,7 @@ const postProduct = async (req, res, next) => {
       abv,
     } = req.body;
 
-    const productInfo = await Product.create({
+    await Product.create({
       name,
       type,
       price,
@@ -24,7 +23,6 @@ const postProduct = async (req, res, next) => {
       abv,
       image_path: req.file.path,
     });
-
     res.send('success /products');
   } catch (err) {
     next(err);

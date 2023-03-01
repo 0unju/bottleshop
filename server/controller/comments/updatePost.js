@@ -5,10 +5,11 @@ const updatePostComment = async (req, res, next) => {
     try {
         const { id } = req.params; 
         const comment_id = req.comment._id;
-        const post = await Post.updateOne({ _id: id },
+        
+        await Post.updateOne({ _id: id },
             { $push: { comment: comment_id },
         });
-        res.send(post);
+        res.send("게시글이 수정되었습니다.");
     } catch(err) {
         next(err);
     }

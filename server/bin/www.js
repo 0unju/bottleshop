@@ -32,7 +32,8 @@ import http from 'http';
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT);
+//const port = normalizePort(process.env.PORT);
+const port = normalizePort("8080");
 app.set('port', port);
 
 /**
@@ -45,7 +46,7 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, () => console.log('Bottleshop is listening to port 5000'));
+server.listen(port, () => console.log('Bottleshop is listening to port 8080'));
 server.on('error', onError);
 server.on('listening', onListening);
 
