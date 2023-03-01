@@ -22,6 +22,7 @@ import Cheeses from "./components//Categories/Cheeses";
 import Cart from "./components/Order/Cart";
 import Order from "./components/Order/Order";
 import Complete from "./components/Order/Complete";
+import Login from "./components/Login/Login";
 
 export default function App() {
   return (
@@ -84,6 +85,7 @@ export default function App() {
             <Route exact path="/order/cart" element={<Cart />}></Route>
             <Route exact path="/order/order" element={<Order />}></Route>
             <Route exact path="/order/complete" element={<Complete />}></Route>
+            <Route exact path="/login" element={<Login />}></Route>
           </Routes>
         </BrowserRouter>
       </Layout>

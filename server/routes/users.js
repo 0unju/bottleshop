@@ -14,20 +14,11 @@ import updateUser from '../controller/users/updateUser.js';
 router.get('/', auth, async (req, res) => {
   if(req.user.isAdmin === true){
     const users = await User.find({});
-    res.json(users);  
+    res.json(users);
   } else {
-    res.send("access denied /users")
+    res.send("access denied /users");
   }
 });
-
-// router.get("/", auth, async (req, res) => {
-//   if (req.user.isAdmin == true) {
-//     const users = await User.find({});
-//     res.json(users);
-//   } else {
-//     res.render("users");
-//   }
-// });
 
 // http://localhost:8080/users (회원가입)
 router.post("/", postUser);

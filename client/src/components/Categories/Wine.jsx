@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./Wine.css";
@@ -13,6 +13,7 @@ import LOUISLATOURSANTENAY from "../images/red wine/LOUIS LATOUR SANTENAY.png";
 const api = require("../../api.json");
 
 const Wine = () => {
+  const countRef = useRef();
   const [dataList, setDataList] = useState(null);
 
   const GetData = async () => {
@@ -28,8 +29,8 @@ const Wine = () => {
   const dataList_length = dataList?.length;
   const page_number =
     dataList_length % 5 === 0
-      ? parseInt(dataList_length / 5) - 1
-      : parseInt(dataList_length / 5);
+      ? parseInt(dataList_length / 12) - 1
+      : parseInt(dataList_length / 12);
 
   let items = [];
   const [active, setActive] = useState(1);
@@ -53,7 +54,7 @@ const Wine = () => {
   let list = [];
   const [show, setShow] = useState(false);
   dataList?.forEach((data, index) => {
-    if (12 * (active - 1) <= index && index < 14 * active) {
+    if (4 * (active - 1) <= index && index < 5 * active) {
       // localstorage에 제품데이더 넣기
       const handleClickCart = (clikData) => {
         const addCart = [];
@@ -61,18 +62,45 @@ const Wine = () => {
         getCart?.map((localstorageData) => {
           addCart.push(localstorageData);
         });
-        addCart.push(clikData);
+        addCart.push({ ...clikData, count: countRef.current.value });
         localStorage.setItem("cartList", JSON.stringify(addCart));
       };
       if (data.type === "Wine")
         list.push(
           <div>
-            <Card style={{ width: "18rem" }}>
-              <Card.Img onClick={setShow} variant="top" src="" />
-              <Card.Body>
-                <Card.Title onClick={setShow}>{data.name}</Card.Title>
-                <Card.Text>{data.price}</Card.Text>
-                <div>
+            <Modal
+              id="Modal"
+              show={show}
+              onHide={() => setShow(false)}
+              dialogClassName="modal-90w"
+              aria-labelledby="example-custom-modal-styling-title"
+            >
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body class="modal_body">
+                <div class="modal_div1">
+                  <img id="wineImg" src={data.image_path} alt="modal_wine" />
+                </div>
+                <div class="modal_div2">
+                  <h3 id="wineName">{data.name}</h3>
+                  <hr />
+                  <div>
+                    <p id="wineDiscription">{data.description}</p>
+                  </div>
+
+                  <p id="winePrice">{data.price}</p>
+                  <hr />
+                  <div class="modal_div3">
+                    <h3>주문수량</h3>
+                    <Form.Group>
+                      <Form.Control
+                        ref={countRef}
+                        id="modal_num"
+                        type="number"
+                        placeholder="0"
+                        min="0"
+                      />
+                    </Form.Group>
+                  </div>
                   <button
                     onClick={() => {
                       handleClickCart(data);
@@ -81,15 +109,17 @@ const Wine = () => {
                   >
                     장바구니
                   </button>
+                  <button type="button" class="btn btn-outline-success">
+                    구매하기
+                  </button>
                 </div>
-
-                <Link
-                  to="/order/order"
-                  type="button"
-                  class="btn btn-outline-success"
-                >
-                  주문하기
-                </Link>
+              </Modal.Body>
+            </Modal>
+            <Card style={{ width: "18rem" }}>
+              <Card.Img onClick={setShow} variant="top" src="" />
+              <Card.Body>
+                <Card.Title onClick={setShow}>{data.name}</Card.Title>
+                <Card.Text>{data.price}</Card.Text>
               </Card.Body>
             </Card>
           </div>
@@ -108,49 +138,6 @@ const Wine = () => {
       <div>
         <div className="best_wine">
           <BestWine />
-          <Modal
-            id="Modal"
-            show={show}
-            onHide={() => setShow(false)}
-            dialogClassName="modal-90w"
-            aria-labelledby="example-custom-modal-styling-title"
-          >
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body class="modal_body">
-              <div class="modal_div1">
-                <img id="wineImg" src={LOUISLATOURSANTENAY} alt="modal_wine" />
-              </div>
-              <div class="modal_div2">
-                <h3 id="wineName">LOUIS LATOUR SANTENAY</h3>
-                <p id="wineEngname">14Hands Cabernet Sauvignon</p>
-                <div>
-                  <p id="wineDiscription">
-                    미국 워싱턴 와인의 상징, 포틴핸즈의 가성비 뛰어난 데일리
-                    레드 와인으로 미국 프리미엄 까베르네 소비뇽 카테고리
-                    ($8~$11) 중 판매 5위 (21년 기준)
-                  </p>
-                </div>
-                <p id="winePrice">75,000원</p>
-                <div class="modal_div3">
-                  <h3>주문수량</h3>
-                  <Form.Group>
-                    <Form.Control
-                      id="modal_num"
-                      type="number"
-                      placeholder="0"
-                      min="0"
-                    />
-                  </Form.Group>
-                </div>
-                <button type="button" class="btn btn-outline-info">
-                  장바구니
-                </button>
-                <button type="button" class="btn btn-outline-success">
-                  구매하기
-                </button>
-              </div>
-            </Modal.Body>
-          </Modal>
         </div>
       </div>
       <hr />
