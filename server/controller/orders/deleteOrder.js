@@ -10,9 +10,9 @@ const deleteOrder = async (req, res, next) => {
     res.send(order);
   } else {
     const order = await Order.updateOne(
-      { _id: id },
-      { $pull: { product_id: req.query.select } }
-    );
+      { _id : id },
+      { $pull: { product_id: req.query.select },
+    });
     res.send(order);
   }
 };

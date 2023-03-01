@@ -19,7 +19,7 @@ router.post('/', postOrder);
 // http://localhost:8080/orders/edit/:id (주문 수정)
 router.put('/:id', updateOrder);
 
-// http://localhost:8080/orders/edit/:id (주문 삭제)
+// http://localhost:8080/orders/:_id (주문 삭제)
 router.delete('/:id', deleteOrder);
 
 export default router;

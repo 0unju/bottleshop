@@ -22,12 +22,8 @@ const postOrder = async (req, res, next) => {
       .populate('product_id', 'wine_type price')
       .populate('user_id', 'username')
       .exec();
-
-    console.log('saved in database');
-
     res.send(result);
   } catch (err) {
-    res.status(400);
     console.log(err.message);
   }
 };
