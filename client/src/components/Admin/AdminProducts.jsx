@@ -18,6 +18,7 @@ const adminPermission = require("./adminPermission.js");
 
 const AdminProducts = () => {
   adminPermission.default();
+
   // Element 제어
   let inputName = useRef(null);
   let inputType = useRef(null);
@@ -45,10 +46,10 @@ const AdminProducts = () => {
   const reSet = () => {
     inputSearchBar.current.value = "";
     inputName.current.value = "";
-    inputType.current.value = "null";
+    inputType.current.value = null;
     inputPrice.current.value = "";
     inputDescription.current.value = "";
-    inputWineType.current.value = "null";
+    inputWineType.current.value = null;
     inputOrigin.current.value = "";
     inputAbv.current.value = "";
     inputImagePath.current.value = "";

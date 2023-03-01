@@ -1,0 +1,43 @@
+:root {
+  --main-color: #6c49b8;
+  --text-color: #566270;
+  --sub-color: #e0e3da;
+}
+
+#mypage_information_topbox {
+  border: 2px solid var(--main-color);
+  max-width: 60%;
+  margin: 50px auto 5px auto;
+  background-color: var(--sub-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage_information_box > p {
+  margin: 0;
+}
+
+.mypage_information_box {
+  border: 2px solid var(--text-color);
+  width: 80px;
+}
+
+#mypage_information_nav_bar {
+  margin: 0 20%;
+}
+
+#mypage_information_data {
+  margin: 50px 20%;
+}
+
+#mypage_information_password,
+#mypage_information_other {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 50px;
+}
+
+#mypage_information_button {
+  display: flex;
+  justify-content: end;
+}

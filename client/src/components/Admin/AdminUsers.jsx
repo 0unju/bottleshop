@@ -46,12 +46,12 @@ const AdminUsers = () => {
   const reSet = () => {
     inputSearchBar = "";
     inputUserName.current.value = "";
-    inputDomain.current.value = "null";
+    inputDomain.current.value = null;
     inputPassword.current.value = "";
     inputName.current.value = "";
     inputPhone.current.value = "";
     inputBirthday.current.value = "";
-    inputAuthEmail.current.value = "null";
+    inputAuthEmail.current.value = null;
   };
 
   // [POST] 데이터 전송하기

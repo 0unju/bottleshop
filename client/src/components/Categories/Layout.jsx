@@ -74,7 +74,7 @@ const Layout = ({ children }) => {
     luncherList.push(
       <>
         <div>
-          <a>마이페이지</a>
+          <a href="/mypage/order">마이페이지</a>
         </div>
         <div>
           <a href="/order/order">주문조회</a>
