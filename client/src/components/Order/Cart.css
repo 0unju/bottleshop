@@ -29,14 +29,21 @@ body {
   padding: 100px 0;
 }
 
+element.style {
+  color: none;
+}
+
+.shoppingcart {
+  color: var(--main-color);
+}
+
 .product {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  padding-bottom: 600px;
 }
 
 .product_d {
   display: grid;
+
   grid-gap: 20px;
 }
 
@@ -50,10 +57,14 @@ body {
   padding-bottom: 50px;
 }
 
-.counter {
-  display: flex;
-
-  width: 70px;
+.names {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: 2rem;
+  font-family: "DXPnM";
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr 3fr;
+  grid-gap: 50px;
 }
 
 .carts {
@@ -61,4 +72,9 @@ body {
   grid-template-columns: 3fr 1fr 2fr 3fr;
   grid-gap: 50px;
   align-items: center;
+  justify-items: center;
+
+  font-size: 1.5rem;
+  font-family: "DXPnM";
+  color: var(--text-color);
 }

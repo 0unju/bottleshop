@@ -25,9 +25,10 @@
 }
 
 .best_item {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
   justify-content: space-around;
-  align-content: center;
+  align-items: center;
 
   font-size: 1.3rem;
   object-fit: fill;
