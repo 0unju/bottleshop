@@ -6,6 +6,7 @@ import { Product } from '../models/index.js';
 import postProduct from '../controller/products/postProduct.js';
 import updateProduct from '../controller/products/updateProduct.js';
 import deleteProduct from '../controller/products/deleteProduct.js';
+import uploadImage from '../middleware/multer.js';
 
 // http://localhost:8080/products (상품 목록 반환)
 router.get('/', async (req, res) => {
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // http://localhost:8080/products (상품 추가)
-router.post('/', postProduct);
+router.post('/', uploadImage.single('image'), postProduct);
 
 // http://localhost:8080/products/edit/:_id (상품 수정)
 router.put('/:id', updateProduct);
