@@ -14,6 +14,7 @@ import Login from "./components/Login/Login";
 import MypageOrder from "./components/Mypage/MypageOrder";
 import MypageInformation from "./components/Mypage/MypageInformation";
 import MypageLeave from "./components/Mypage/MypageLeave";
+import MypagePassword from "./components/Mypage/MypagePassword";
 
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
@@ -73,6 +74,11 @@ export default function App() {
               exact
               path="/mypage/information"
               element={<MypageInformation />}
+            ></Route>
+            <Route
+              exact
+              path="/mypage/password"
+              element={<MypagePassword />}
             ></Route>
             <Route exact path="/mypage/leave" element={<MypageLeave />}></Route>
             <Route exact path="/order/cart" element={<Cart />}></Route>
