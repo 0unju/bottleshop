@@ -2,6 +2,8 @@ import React from "react";
 import DaumPostcode from "react-daum-postcode";
 import "./Post.css";
 
+// npm install react-daum-postcode 설치해야함
+
 const Post = (props) => {
   const complete = (data) => {
     let fullAddress = data.address;

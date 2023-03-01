@@ -15,8 +15,10 @@ import {
 const api = require("../../api.json"); // API 불러오기
 const adminList = require("./adminList.json"); // Admin 리스트 불러오기
 const domainList = require("../../domainList.json"); // Domain 리스트 불러오기
+const adminPermission = require("./adminPermission.js");
 
 const AdminUsers = () => {
+  adminPermission.default();
   axios.defaults.withCredentials = true; // withCredentials 전역 설정
   // Element 제어
   let inputSearchBar = useRef(null);
@@ -33,12 +35,7 @@ const AdminUsers = () => {
 
   const getDate = async () => {
     const response = await axios.get(api.users_GET);
-
-    if (response.data === "access denied /users") {
-      window.location.assign("/categories");
-    } else {
-      setDataList(response.data);
-    }
+    setDataList(response.data);
   };
 
   useEffect(() => {
@@ -49,12 +46,12 @@ const AdminUsers = () => {
   const reSet = () => {
     inputSearchBar = "";
     inputUserName.current.value = "";
-    inputDomain.current.value = "null";
+    inputDomain.current.value = null;
     inputPassword.current.value = "";
     inputName.current.value = "";
     inputPhone.current.value = "";
     inputBirthday.current.value = "";
-    inputAuthEmail.current.value = "null";
+    inputAuthEmail.current.value = null;
   };
 
   // [POST] 데이터 전송하기

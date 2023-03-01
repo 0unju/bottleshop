@@ -134,15 +134,17 @@ svg {
 
 #layout_logout_button {
   font-size: 20px;
-  font-weight: bold;
   color: var(--sub-color);
   background-color: var(--main-color);
   border-color: var(--main-color);
+  width: 50%;
 }
 
 #layout_logout_button:hover {
   color: var(--sub-color);
   background-color: #4a327d;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .footer {

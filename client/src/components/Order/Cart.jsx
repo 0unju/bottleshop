@@ -11,6 +11,8 @@ import {
   FaRegCheckCircle,
 } from "react-icons/fa";
 
+// npm install react-icons --save 설치해야함
+
 const Cart = () => {
   const counterRef = useRef;
 

@@ -12,6 +12,8 @@ import {
 } from "react-icons/fa";
 import Card from "react-bootstrap/Card";
 
+// npm install react-icons --save 설치해야함
+
 const api = require("../../api.json");
 
 const Order = (props) => {

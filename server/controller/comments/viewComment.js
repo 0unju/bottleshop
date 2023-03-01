@@ -6,7 +6,6 @@ const viewComment = async (req, res) => {
     const post = await Post.findOne({ _id : id })
         .populate('comment', 'post_id content createdAt updatedAt')
         .exec();
-    // const comment = await Comment.populate(post.comment, { path: 'comment' });
     res.json(post);
 };
 

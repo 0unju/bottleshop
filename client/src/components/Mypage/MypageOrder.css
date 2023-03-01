@@ -1,0 +1,31 @@
+:root {
+  --main-color: #6c49b8;
+  --text-color: #566270;
+  --sub-color: #e0e3da;
+}
+
+#mypage_order_topbox {
+  border: 2px solid var(--main-color);
+  max-width: 60%;
+  margin: 50px auto 5px auto;
+  background-color: var(--sub-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.mypage_order_box > p {
+  margin: 0;
+}
+
+.mypage_order_box {
+  border: 2px solid var(--text-color);
+  width: 80px;
+}
+
+#mypage_order_nav_bar {
+  margin: 0 20%;
+}
+
+#mypage_order_orderlist {
+  margin: 0 20% 50px 20%;
+}
