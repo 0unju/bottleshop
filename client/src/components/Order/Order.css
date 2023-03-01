@@ -41,10 +41,6 @@ element.style {
   color: var(--main-color) !important;
 }
 
-svg {
-  color: var(--main-color);
-}
-
 .orders {
   color: var(--main-color);
 }
@@ -56,11 +52,11 @@ svg {
 .shipping {
   margin: 50px 10%;
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 30px;
 }
 
-.mb-5 {
+#phone {
   display: grid;
   grid-template-columns: 2fr 0.5fr 2fr 0.5fr 2fr;
   justify-items: center;
@@ -72,9 +68,20 @@ svg {
   justify-items: center;
 }
 
-.address {
+#address_search {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 5px;
+  justify-items: center;
+}
+
+.postmodal {
+  background: var(--main-color);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .last_order {

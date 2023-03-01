@@ -30,7 +30,7 @@ body {
 }
 
 element.style {
-  color: var(--main-color);
+  color: none;
 }
 
 .shoppingcart {
@@ -38,13 +38,12 @@ element.style {
 }
 
 .product {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  padding-bottom: 600px;
 }
 
 .product_d {
   display: grid;
+
   grid-gap: 20px;
 }
 
@@ -59,14 +58,13 @@ element.style {
 }
 
 .names {
+  padding-top: 50px;
   padding-bottom: 50px;
   font-size: 2rem;
   font-family: "DXPnM";
   display: grid;
   grid-template-columns: 3fr 1fr 2fr 3fr;
   grid-gap: 50px;
-  justify-items: center;
-  align-items: center;
 }
 
 .carts {
@@ -78,4 +76,5 @@ element.style {
 
   font-size: 1.5rem;
   font-family: "DXPnM";
+  color: var(--text-color);
 }

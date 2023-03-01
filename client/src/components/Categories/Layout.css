@@ -54,7 +54,7 @@ body {
 }
 
 svg {
-  color: var(--sub-color) !important;
+  color: var(--sub-color);
 }
 
 #search {

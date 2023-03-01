@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import {
-  FaCartArrowDown,
+  FaShoppingCart,
   FaAngleLeft,
   FaRegCreditCard,
   FaRegCheckCircle,
@@ -44,7 +44,7 @@ const Cart = () => {
     <div>
       {/* 아이콘들 */}
       <div className="icons">
-        <FaCartArrowDown className="shoppingcart" size="30px" color="#566270" />
+        <FaShoppingCart className="shoppingcart" size="30px" color="#6c49b8" />
         <FaAngleLeft size="30px" color="#566270" />
         <FaRegCreditCard size="30px" color="#566270" />
         <FaAngleLeft size="30px" color="#566270" />

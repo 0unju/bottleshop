@@ -78,11 +78,7 @@ const Wine = () => {
               <Modal.Header closeButton></Modal.Header>
               <Modal.Body class="modal_body">
                 <div class="modal_div1">
-                  <img
-                    id="wineImg"
-                    src={LOUISLATOURSANTENAY}
-                    alt="modal_wine"
-                  />
+                  <img id="wineImg" src={data.image_path} alt="modal_wine" />
                 </div>
                 <div class="modal_div2">
                   <h3 id="wineName">{data.name}</h3>
