@@ -37,6 +37,14 @@ body {
   height: 400px;
 }
 
+element.style {
+  color: var(--main-color) !important;
+}
+
+.orders {
+  color: var(--main-color);
+}
+
 .input_user {
   text-align: start;
 }
@@ -48,7 +56,7 @@ body {
   grid-gap: 30px;
 }
 
-.mb-5 {
+#phone {
   display: grid;
   grid-template-columns: 2fr 0.5fr 2fr 0.5fr 2fr;
   justify-items: center;
@@ -60,9 +68,20 @@ body {
   justify-items: center;
 }
 
-.address {
+#address_search {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 5px;
+  justify-items: center;
+}
+
+.postmodal {
+  background: var(--main-color);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .last_order {
@@ -71,4 +90,11 @@ body {
   align-content: center;
   padding-top: 50px;
   padding-bottom: 200px;
+}
+
+.brithday {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr 2fr 1fr;
+  align-content: center;
+  justify-items: center;
 }

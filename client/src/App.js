@@ -3,12 +3,17 @@ import "./App.css";
 import Layout from "./components/Categories/Layout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import AdminProducts from "./components/Admin/Admin_products";
-import AdminUsers from "./components/Admin/Admin_users";
-import AdminOrders from "./components/Admin/Admin_orders";
-import AdminCategories from "./components/Admin/Admin_categories";
-import SignupConsent from "./components/SignUp/SignUp_consent";
-import SignupInformation from "./components/SignUp/SignUp_information";
+import AdminProducts from "./components/Admin/AdminProducts";
+import AdminUsers from "./components/Admin/AdminUsers";
+import AdminOrders from "./components/Admin/AdminOrders";
+import AdminCategories from "./components/Admin/AdminCategories";
+import SignupConsent from "./components/SignUp/SignUpConsent";
+import SignupInformation from "./components/SignUp/SignUpInformation";
+import SignUpComplete from "./components/SignUp/SignUpComplete";
+import Login from "./components/Login/Login";
+import MypageOrder from "./components/Mypage/MypageOrder";
+import MypageInformation from "./components/Mypage/MypageInformation";
+import MypageLeave from "./components/Mypage/MypageLeave";
 
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
@@ -45,6 +50,12 @@ export default function App() {
               path="/signup/information"
               element={<SignupInformation />}
             ></Route>
+            <Route exact path="/login" element={<Login />}></Route>
+            <Route
+              exact
+              path="/signup/complete"
+              element={<SignUpComplete />}
+            ></Route>
             <Route exact path="/Admin/users" element={<AdminUsers />}></Route>
             <Route exact path="/admin/orders" element={<AdminOrders />}></Route>
             <Route
@@ -57,6 +68,13 @@ export default function App() {
               path="/admin/products"
               element={<AdminProducts />}
             ></Route>
+            <Route exact path="/mypage/order" element={<MypageOrder />}></Route>
+            <Route
+              exact
+              path="/mypage/information"
+              element={<MypageInformation />}
+            ></Route>
+            <Route exact path="/mypage/leave" element={<MypageLeave />}></Route>
             <Route exact path="/order/cart" element={<Cart />}></Route>
             <Route exact path="/order/order" element={<Order />}></Route>
             <Route exact path="/order/complete" element={<Complete />}></Route>

@@ -1,20 +1,99 @@
 import React, { useState } from "react";
 import "./Layout.css";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Offcanvas from "react-bootstrap/Offcanvas";
+import {
+  Button,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Offcanvas,
+} from "react-bootstrap";
+
 import { FaCartArrowDown, FaSistrix, FaGithubAlt } from "react-icons/fa";
+import axios from "axios";
+axios.defaults.withCredentials = true; // withCredentials 전역 설정
+const api = require("../../api.json"); // API 불러오기
 
 const Layout = ({ children }) => {
+  const [cookieUserData, setCookieUserData] = useState(null); // 쿠키 유저이름
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const cartClick = (e) => {
+  const handleShow = async () => {
+    setCookieUserData(
+      await axios.get(api.users_auth_GET).then((response) => response.data) // 쿠키 유저이름 가져오기
+    );
+    setShow(true);
+  };
+  const handleCartClick = (e) => {
     window.location.href = "/order/cart";
   };
+
+  //로그아웃 함수
+  const handleLogoutClick = async () => {
+    await axios
+      .get(api.users_logout_GET)
+      .then((response) => {
+        if (response.data.success === true) {
+          setShow(false);
+          alert("로그아웃 성공");
+        }
+      })
+      .catch((err) => alert(err.message));
+  };
+
+  // 로그인 유무 구별
+  let checkCookie = [];
+  if (document.cookie) {
+    checkCookie = [];
+    checkCookie.push(
+      <>
+        <p id="layout_user_message">{cookieUserData?.name}님 안녕하세요!!</p>
+        <Button id="layout_logout_button" onClick={handleLogoutClick}>
+          로그아웃
+        </Button>
+      </>
+    );
+  } else {
+    checkCookie = [];
+    checkCookie.push(<a href="/login">로그인 </a>);
+  }
+
+  //런처 리스트 구현
+  let luncherList = [];
+  if (document.cookie) {
+    luncherList = [];
+    if (cookieUserData?.username === "admin")
+      luncherList.push(
+        <>
+          <div>
+            <a href="/admin/products">관리자페이지 </a>
+          </div>
+        </>
+      );
+    luncherList.push(
+      <>
+        <div>
+          <a href="/mypage/order">마이페이지</a>
+        </div>
+        <div>
+          <a href="/order/order">주문조회</a>
+        </div>
+      </>
+    );
+  } else {
+    luncherList = [];
+    luncherList.push(
+      <>
+        <div>
+          <a href="/signup/consent">회원가입 </a>
+        </div>
+        <div>
+          <a>비회원 주문조회</a>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="wrapper">
@@ -24,11 +103,13 @@ const Layout = ({ children }) => {
             Bottle Shop
           </a>
         </div>
-        <Navbar id="nav_main" className="navbar" bg="light" expand="lg">
+        {/* <div> */}
+        <Navbar id="nav_main" className="navbar" expand="lg">
           <Container fluid>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
               <Nav
+                id="navv"
                 className="me-auto my-2 my-lg-0"
                 style={{ maxHeight: "100px" }}
                 navbarScroll
@@ -37,55 +118,40 @@ const Layout = ({ children }) => {
                   <NavDropdown.Item href="/categories/wine">
                     All Wine
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
+                  <NavDropdown.Item href="/categories/wine?wine_type=redwine">
                     Red Wine
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
+                  <NavDropdown.Item href="/categories/wine?wine_type=whitewine">
                     White Wine
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/categories/wine">
+                  <NavDropdown.Item href="/categories/wine?wine_type=sparklingwine">
                     Sparkling Wine
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="/categories/cheeses">Cheeses</Nav.Link>
                 <Nav.Link href="#">Q&A</Nav.Link>
               </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <FaSistrix variant="outline-success" />
-              </Form>
-              <div onClick={cartClick} className="cart">
+
+              <div onClick={handleCartClick} className="cart">
                 <FaCartArrowDown />
               </div>
 
               {/* 주문조회,회원로그인 런처 */}
             </Navbar.Collapse>
-            <FaGithubAlt variant="white" onClick={handleShow} />
+            <FaGithubAlt className="mylogin" onClick={handleShow} />
 
             <Offcanvas show={show} onHide={handleClose}>
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title className="login">
-                  Bottle Shop <br />
-                  <br />
-                  로그인 해주세요.
-                </Offcanvas.Title>
-              </Offcanvas.Header>
+              <Offcanvas.Header
+                closeButton
+                id="layout_closebutton"
+              ></Offcanvas.Header>
+              <Offcanvas.Title className="layout_login">
+                <p id="layout_title">Bottle Shop</p>
+                <dev id="layout_checkCookie">{checkCookie}</dev>
+              </Offcanvas.Title>
               <Offcanvas.Body>
-                계정정보 <hr />
-                <a>로그인 </a>
-                <br />
-                <a href="/signup/consent">회원가입 </a>
-                <br />
-                <a href="/order/order">주문조회</a>
-                <br />
-                {/* 관리자 권한이 있는 사람에게만 보이도록 할 예정 */}
-                <a href="/admin/products">관리자페이지 </a>
-                <br />
+                <hr />
+                <div id="layout_luncherlist">{luncherList}</div>
               </Offcanvas.Body>
             </Offcanvas>
           </Container>
