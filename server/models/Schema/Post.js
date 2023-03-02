@@ -34,9 +34,8 @@ const PostSchema = new Schema(
         ref: 'Comment',
       },
     ],
-  }, {
-    timestamps: true,
-  }
+  },
+  { timestamps: true, }
 );
 
 export default PostSchema;

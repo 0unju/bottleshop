@@ -1,5 +1,5 @@
 'use strict';
-import { Shipment, Order } from '../../models/index.js';
+import { Shipment } from '../../models/index.js';
 
 const postShipment = async (req, res, next) => {
   try {
@@ -18,7 +18,7 @@ const postShipment = async (req, res, next) => {
       request,
     } = req.body;
 
-    const shipmentInfo = await Shipment.create({
+    await Shipment.create({
       order_id,
       user_id,
       guest_id,
@@ -32,8 +32,7 @@ const postShipment = async (req, res, next) => {
       phone,
       request,
     });
-
-    res.send('success /shipments');
+    res.send('배송 정보가 생성되었습니다.');
   } catch (err) {
     next(err);
   }

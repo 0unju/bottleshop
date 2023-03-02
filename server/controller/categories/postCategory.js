@@ -2,13 +2,13 @@
 import { Category } from '../../models/index.js';
 
 const postCategory = async (req, res, next) => {
-  const { name } = req.body;
   try {
+    const { name } = req.body;
+
     await Category.create({
       name,
     });
-
-    res.send('success /categories');
+    res.send('카테고리가 등록되었습니다.');
   } catch (err) {
     next(err);
   }

@@ -1,6 +1,7 @@
 'use strict';
 import express from 'express';
 const router = express.Router();
+
 import { Post } from '../models/index.js';
 import auth from '../middleware/auth.js';
 import postPost from '../controller/posts/postPost.js';
@@ -11,7 +12,6 @@ import postComment from '../controller/comments/postComment.js';
 import updateComment from '../controller/comments/updateComment.js';
 import deleteComment from '../controller/comments/deleteComment.js';
 import updatePostComment from '../controller/comments/updatePost.js';
-
 
 // http://localhost:8080/posts (목록 조회)
 router.get('/', auth, async (req, res, next) => {

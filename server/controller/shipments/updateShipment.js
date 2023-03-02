@@ -16,7 +16,7 @@ const updateShipment = async (req, res, next) => {
       request,
     } = req.body;
 
-    const shipment = await Shipment.updateOne(
+    await Shipment.updateOne(
       { _id: id },
       {
         tracking_number,
@@ -30,8 +30,7 @@ const updateShipment = async (req, res, next) => {
         request,
       }
     );
-
-    res.json(shipment);
+    res.send("배송 정보가 수정되었습니다.");
   } catch (err) {
     next(err);
   }
