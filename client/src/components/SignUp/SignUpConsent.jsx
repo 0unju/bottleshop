@@ -31,7 +31,7 @@ const SignUpConsent = () => {
           <p class="name">이용약관 [필수]</p>
           <div class="list">{clause.id_1}</div>
         </div>
-        <div class="box">
+        <div class="boxs">
           <p>이용약관에 동의하십니까?</p>
           <div key="checkbox_1" className="mb-3">
             <Form.Check

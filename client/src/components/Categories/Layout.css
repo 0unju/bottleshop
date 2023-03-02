@@ -47,10 +47,15 @@ body {
   font-family: DXPnM;
 }
 
+--bs-nav-link-color {
+  color: var(--sub-color);
+}
+
 #navv {
   display: flex;
   justify-content: center;
   margin-left: auto;
+  color: var(--sub-color);
 }
 
 svg {
@@ -130,6 +135,7 @@ svg {
   font-size: 30px;
   font-family: "DXPnM";
   font-weight: bold;
+  text-decoration: none;
 }
 
 #layout_logout_button {

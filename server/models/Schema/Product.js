@@ -24,7 +24,6 @@ const ProductSchema = new Schema(
     abv: Number,
     image_path: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true, }

@@ -25,7 +25,7 @@
 
 /* 내부 간격 */
 #login_input {
-  margin: 10%;
+  margin: 10% 10% 1% 10%;
 }
 
 /* input, botton 사이 간격 */
@@ -78,4 +78,14 @@
   --bs-btn-padding-x: 20px;
   --bs-btn-padding-y: 15px;
   --bs-btn-font-size: 25px;
+}
+
+#login_checkbox {
+  display: flex;
+  margin: 20px 0 0 10px;
+  font-size: 20px;
+}
+
+#chekbox {
+  margin-left: 10px;
 }

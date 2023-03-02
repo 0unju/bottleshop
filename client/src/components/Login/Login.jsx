@@ -9,12 +9,11 @@ const api = require("../../api.json"); // API 불러오기
 const Login = () => {
   const inputUserName = useRef(null);
   const inputPassword = useRef(null);
+  const checkBox = useRef(null);
 
   const handleButtonClick = async () => {
     const username = inputUserName.current.value;
     const password = inputPassword.current.value;
-
-    let success = false;
 
     await axios
       .post(
@@ -26,19 +25,22 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           alert("로그인 되었습니다");
+          if (checkBox.current.checked) {
+          }
           window.location.href = "/categories";
-          success = true;
         }
       })
       .catch((err) => {
         alert(err.message);
-        success = true;
       });
-    if (!success) alert("ID,PW를 바르게 입력해 주세요");
   };
+
+  // ID 저장
+  // const saveID = () => {
+  //   checkBox.current.checked;
+  // };
 
   return (
     <>
@@ -58,6 +60,12 @@ const Login = () => {
               placeholder="Password"
               type="password"
             />
+            <div id="login_checkbox">
+              <p>ID 저장</p>
+              <div key="checkbox_3" className="mb-3">
+                <Form.Check ref={checkBox} type="checkbox" id="chekbox" />
+              </div>
+            </div>
           </Form.Group>
 
           <div id="login_user_button">
@@ -71,9 +79,9 @@ const Login = () => {
             </Button>
           </div>
         </Form>
-        <div id="login_nonuser_button">
+        {/* <div id="login_nonuser_button">
           <Button id="login_nonuser_order_button">비회원 주문하기</Button>
-        </div>
+        </div> */}
         <div>
           <Button id="login_nonuser_ordercheck_button">비회원 주문조회</Button>
         </div>

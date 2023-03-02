@@ -1,17 +1,9 @@
-'use strict';
-import { Product } from '../../models/index.js';
+"use strict";
+import { Product } from "../../models/index.js";
 
 const postProduct = async (req, res, next) => {
   try {
-    const {
-      name,
-      type,
-      price,
-      description,
-      wine_type,
-      origin,
-      abv,
-    } = req.body;
+    const { name, type, price, description, wine_type, origin, abv } = req.body;
 
     await Product.create({
       name,
@@ -23,7 +15,7 @@ const postProduct = async (req, res, next) => {
       abv,
       image_path: req.file.path,
     });
-    res.send('제품이 등록되었습니다.');
+    res.send("제품이 등록되었습니다.");
   } catch (err) {
     next(err);
   }

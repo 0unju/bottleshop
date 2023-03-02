@@ -8,27 +8,27 @@ import {
   Table,
   Pagination,
 } from "react-bootstrap";
+import axios from "axios";
 
 const MypageOrder = () => {
+  const [cookieUserData, setCookieUserData] = useState(null); // 쿠키 유저이름
   const inputPassword = useRef();
+  const api = require("../../api.json"); // API 불러오기
+
+  const getName = async () => {
+    setCookieUserData(
+      await axios.get(api.users_auth_GET).then((response) => response.data) // 쿠키 유저이름 가져오기
+    );
+  };
+
+  useEffect(() => {
+    getName();
+  }, []);
+
   return (
     <>
-      <div id="mypage_leave_topbox">
-        <div>반갑습니다. 손민하님</div>
-        <div id="mypage_leave_count">
-          <div class="mypage_leave_box">
-            <p>구매내역</p>
-            <p>10</p>
-          </div>
-          <div class="mypage_leave_box">
-            <p>배송중</p>
-            <p>2</p>
-          </div>
-          <div class="mypage_leave_box">
-            <p>배송완료</p>
-            <p>8</p>
-          </div>
-        </div>
+      <div id="mypage_leave_title">
+        반갑습니다. {cookieUserData?.name}({cookieUserData?.username})님
       </div>
 
       {/* 네비게이션 바 */}
@@ -38,16 +38,24 @@ const MypageOrder = () => {
         defaultActiveKey="/mypage/leave"
       >
         <Nav.Item>
-          <Nav.Link href="/mypage/order">주문조회</Nav.Link>
+          <Nav.Link id="mypage_leave_nav" href="/mypage/order">
+            주문조회
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/mypage/information">회원정보수정</Nav.Link>
+          <Nav.Link id="mypage_leave_nav" href="/mypage/information">
+            회원정보수정
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/mypage/password">비밀번호변경</Nav.Link>
+          <Nav.Link id="mypage_leave_nav" href="/mypage/password">
+            비밀번호변경
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/mypage/leave">회원탈퇴</Nav.Link>
+          <Nav.Link id="mypage_leave_nav" href="/mypage/leave">
+            회원탈퇴
+          </Nav.Link>
         </Nav.Item>
       </Nav>
 
