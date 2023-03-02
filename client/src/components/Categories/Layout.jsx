@@ -47,7 +47,6 @@ const Layout = ({ children }) => {
   let checkCookie = [];
   if (document.cookie) {
     checkCookie = [];
-    console.log("tt" + cookieUserData);
     checkCookie.push(
       <>
         <p id="layout_user_message">{cookieUserData?.name}님 안녕하세요!!</p>
