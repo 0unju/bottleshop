@@ -4,7 +4,6 @@ import { Order } from '../../models/index.js';
 const deleteOrder = async (req, res, next) => {
   try {
     const { id } = req.params; // order_id
-    // console.log(req.query.select); // product_id
   
     if (!req.query.select) {
       await Order.deleteOne({ _id: id });

@@ -24,20 +24,16 @@ const ShipmentSchema = new Schema(
       type: String,
       required: true,
     },
-    city: {
-      type: String,
-      required: true,
-    },
-    district: {
-      type: String,
-      required: true,
-    },
     address1: {
       type: String,
       required: true,
     },
     address2: {
       type: String,
+    },
+    price: {
+      type: Number,
+      required: true,
     },
     recipient: {
       type: String,
@@ -52,7 +48,7 @@ const ShipmentSchema = new Schema(
       default: '대문 앞',
     },
   },
-  { timestamps: true, }
+  { timestamps: true }
 );
 
 export default ShipmentSchema;
