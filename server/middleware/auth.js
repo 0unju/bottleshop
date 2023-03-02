@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
     const guest = token === undefined;
 
     if (guest === false) {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, "JWTSECRET");
       const user = await User.findOne({ _id: decoded });
 
       if (!user) return res.json({ isAuth: false, error: true });

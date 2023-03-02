@@ -17,6 +17,13 @@ import Card from "react-bootstrap/Card";
 const api = require("../../api.json");
 
 const Order = (props) => {
+  const [cookieUserData, setCookieUserData] = useState(null); // 쿠키 유저이름
+  const handleShow = async () => {
+    setCookieUserData(
+      await axios.get(api.users_auth_GET).then((response) => response.data) // 쿠키 유저이름 가져오기
+    );
+  };
+
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
@@ -61,11 +68,6 @@ const Order = (props) => {
       .post(api.orders_POST, {
         w_count,
         price,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          alert(response.data);
-        }
       })
       .catch((err) => {
         alert(err.message);
@@ -127,6 +129,81 @@ const Order = (props) => {
     setPopup(!popup);
   };
 
+  // 로그인 유저
+  let checkCookie = [];
+  if (document.cookie) {
+    checkCookie = [];
+    checkCookie.push(
+      <div className="input_user">
+        <h2 className="shipment">배송정보 입력</h2>
+        <hr />
+        <div className="shipping">
+          <Form.Group className="ordr_input">
+            <Form.Label>받으시는 분*</Form.Label>
+            <Form.Control ref={inputRecipient} type="text" />
+          </Form.Group>
+
+          <Form.Group className="order_input">
+            <Form.Label>핸드폰번호*</Form.Label>
+            <div id="phone" className="mb-5">
+              <Form.Control ref={inputPhone} type="text" />
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-1">
+            <Form.Label>이메일*</Form.Label>
+            <div className="email">
+              <Form.Control type="text" placeholder="" />
+              <p>@</p>
+              <Form.Control type="text" placeholder="gmail.com" />
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-1">
+            <Form.Label>배송 메세지</Form.Label>
+            <Form.Control type="text" />
+          </Form.Group>
+
+          <Form.Group className="mb-1">
+            <Form.Label>주소</Form.Label>
+            <div id="address_search">
+              <Form.Control
+                className="user_enroll_text"
+                ref={inputAddress1}
+                type="text"
+                required={true}
+                name="address"
+                onChange={handleInput}
+                value={enroll_company.address}
+              />
+              <button className="postBtn" onClick={handleComplete}>
+                우편번호 찾기
+              </button>
+            </div>
+
+            {popup && (
+              <Post
+                company={enroll_company}
+                setcompany={setEnroll_company}
+              ></Post>
+            )}
+          </Form.Group>
+
+          <Form.Group className="mb-1">
+            <Form.Label>나머지 주소*</Form.Label>
+            <Form.Control ref={inputAddress2} type="text" />
+          </Form.Group>
+        </div>
+        <div className="last_order">
+          <Button onClick={handlePostButtonClick} size="lg">
+            주문하기
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // 장바구니 데이터 가져온 것
   let orderShooping = [];
   shoppingItem.map((el, index) =>
     orderShooping.push(
