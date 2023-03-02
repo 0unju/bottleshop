@@ -21,7 +21,6 @@ const MypageOrder = () => {
       await axios.get(api.orders_GET).then((response) => response.data) // orders data 가져오기
     );
   };
-  console.log(ordersDB);
 
   const getShipment = async () => {
     setshipmentsDB(
@@ -40,10 +39,15 @@ const MypageOrder = () => {
 
   let cookieUserordersData = [];
   ordersDB?.map((data) => {
-    if (data.user_id === cookieUserDB?._id) {
+    // console.log(data.user_id);
+    // console.log(data.user_id["_id"]);
+
+    if (data.user_id["_id"] === cookieUserDB?._id) {
       cookieUserordersData.push(data);
     }
   });
+
+  console.log(cookieUserordersData);
 
   let cookieUsershipmentsData = [];
   shipmentsDB?.map((data) => {
@@ -60,6 +64,10 @@ const MypageOrder = () => {
     });
   };
 
+  // console.log("DB=");
+  // console.log(ordersDB);
+  // console.log("order=" + cookieUserordersData);
+
   useEffect(() => {
     getName();
     getOrder();
@@ -69,7 +77,7 @@ const MypageOrder = () => {
 
   useEffect(() => {
     setCount();
-  }, [before, ing, complete]);
+  }, []); //before, ing, complete
 
   // 주문 조회 페이지
   // let orderList = [];
@@ -166,13 +174,14 @@ const MypageOrder = () => {
                   </thead>
                   <tbody>
                     {cookieUserordersData.forEach((ordersData) =>
-                      shipmentsData?.order_id === ordersData?._id
+                      shipmentsData?.order_id === ordersData?._id &&
+                      ordersData.product_id.length > 0
                         ? ordersData.product_id.map((productID) => {
-                            console.log(productID);
-                            console.log(ordersData.count[productID]);
+                            // console.log(ordersData);
+                            // console.log(productID);
                             <tr key={productID}>
-                              <td>{productID}</td>
-                              <td>{ordersData.count[productID]}</td>
+                              <td>{productID?._id}</td>
+                              <td>{ordersData.count[productID?._id] ?? 0}</td>
                             </tr>;
                           })
                         : null

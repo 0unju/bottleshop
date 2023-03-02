@@ -38,9 +38,11 @@ const Login = () => {
   };
 
   // ID 저장
-  // const saveID = () => {
-  //   checkBox.current.checked;
-  // };
+  const saveID = () => {
+    if (checkBox.current.checked) {
+      localStorage.setItem("saveID", inputUserName.current.value);
+    }
+  };
 
   return (
     <>

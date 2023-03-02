@@ -63,36 +63,43 @@ const AdminProducts = () => {
     inputImage.current.value = "";
   };
 
+  const [productFormData, setproductFormData] = useState(null);
+
   const handletest = (e) => {
     let formData = new FormData();
-    console.log(e.target.files[0]);
-    console.log(inputImage);
+
+    formData.append("type", inputType.current.value);
+    formData.append("name", inputName.current.value);
+    formData.append("price", inputPrice.current.value);
+    formData.append("description", inputDescription.current.value);
+    formData.append("wine_type", inputWineType.current.value);
+    formData.append("origin", inputOrigin.current.value);
+    formData.append("abv", inputAbv.current.value);
     formData.append("image", e.target.files[0]);
 
-    console.log(formData);
+    console.log(e.target.files[0]);
+    setproductFormData(formData);
+
+    for (const pair of formData.entries()) {
+      console.log(`${pair[0]}, ${pair[1]}`);
+    }
   };
 
   // [POST] 데이터 전송하기
   const handlePostButtonClick = async () => {
     // Element 값
+
     const name = inputName.current.value;
-    const type = inputType.current.value;
-    const price = inputPrice.current.value;
-    const description = inputDescription.current.value;
-    const wine_type = inputWineType.current.value;
-    const origin = inputOrigin.current.value;
-    const abv = inputAbv.current.value;
-    const image_path = inputImage.current.value;
+    let formData = new FormData();
 
-    // const image = new FormData();
-    // console.log(image);
-    // image?.append("file", image_path);
-
-    // const image = null;
-    // const setFile = (e) => {
-    //   const img = new FormData();
-    //   img.append("file", e.target.files[0]);
-    // };
+    formData.append("type", inputType.current.value);
+    formData.append("name", inputName.current.value);
+    formData.append("price", inputPrice.current.value);
+    formData.append("description", inputDescription.current.value);
+    formData.append("wine_type", inputWineType.current.value);
+    formData.append("origin", inputOrigin.current.value);
+    formData.append("abv", inputAbv.current.value);
+    formData.append("image", inputImage.current.files[0]);
 
     // 이름 중복 방지
     let overlap = false;
@@ -103,17 +110,14 @@ const AdminProducts = () => {
       }
     }
 
+    for (const pair of formData.entries()) {
+      console.log(pair[1]);
+    }
+
     if (!overlap) {
       await axios
-        .post(api.products_POST, {
-          name,
-          type,
-          price,
-          description,
-          wine_type,
-          origin,
-          abv,
-          image_path,
+        .post(api.products_POST, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
           if (response.status === 200) {
@@ -161,15 +165,15 @@ const AdminProducts = () => {
 
     // 이름 중복 방지
     let overlap = false;
-    for (let data of dataList) {
-      if (data._id !== id) {
-        // 다른 이름으로 변경할 경우 중복 체크
-        if (data.name === name) {
-          alert("이름이 중복됩니다");
-          overlap = true;
-        }
-      }
-    }
+    // for (let data of dataList) {
+    //   if (data._id !== id) {
+    //     // 다른 이름으로 변경할 경우 중복 체크
+    //     if (data.name === name) {
+    //       alert("이름이 중복됩니다");
+    //       overlap = true;
+    //     }
+    //   }
+    // }
 
     if (!overlap) {
       await axios
@@ -369,7 +373,7 @@ const AdminProducts = () => {
             type="file"
             name="image"
             // accept="image/*"
-            onChange={handletest}
+            // onChange={handletest}
           />
         </Form.Group>
       </div>

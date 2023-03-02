@@ -16,18 +16,18 @@ import {
 
 const Cart = () => {
   const counterRef = useRef;
-
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [checkedItem, setCheckedItem] = useState([]);
 
   useEffect(() => {
     const Items = JSON.parse(localStorage.getItem("cartList")) || [];
     setShoppingItem(Items);
   }, []);
 
-  const handleChecked = (event) => {
-    setIsChecked(event.target.checked);
+  const handleChecked = (id) => {
+    setCheckedItem((prev) => [...prev, id]);
   };
 
   const homeClick = (e) => {
@@ -49,58 +49,59 @@ const Cart = () => {
     localStorage.setItem("orderList", JSON.stringify(addOrder));
   };
 
-  let cartShooping = [];
-  shoppingItem.forEach((el, index) =>
-    cartShooping.push(
-      <>
-        <div key={el._id}>
-          <div>
-            <div className="carts">
-              <div className="cartCheckbox">
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={handleChecked}
-                />
-              </div>
-              <Card style={{ width: "18rem" }}>
-                <Card.Img variant="top" src="" />
-                <Card.Body>
-                  <Card.Title>{el.name}</Card.Title>
-                  <Card.Text>{el.price}</Card.Text>
-                </Card.Body>
-              </Card>
-              <div>
-                <Form.Group>
-                  <Form.Control
-                    // ref={counterRef}
-                    id="modal_num"
-                    type="number"
-                    placeholder={el.count}
-                    min="1"
-                  />
-                </Form.Group>
-              </div>
-              <div>
-                <p>{el.price}</p>
-              </div>
-              <div>
-                <p>{el.count * el.price}</p>
-              </div>
-              <Button
-                onClick={() => {
-                  handleClickOrder(el);
-                }}
-                variant="outline-secondary"
-              >
-                상품 주문
-              </Button>
-            </div>
-          </div>
-        </div>
-      </>
-    )
-  );
+  // let cartShooping = [];
+  // shoppingItem.forEach((el, index) =>
+  //   cartShooping.push(
+  //     <>
+  //       <div key={el._id}>
+  //         <div>
+  //           <div className="carts">
+  //             <div className="cartCheckbox">
+  //               <input
+  //                 type="checkbox"
+  //                 checked={checkedItem.includes(el._id)}
+  //                 onChange={() => handleChecked(el._id)}
+  //               />
+  //             </div>
+  //             <Card style={{ width: "18rem" }}>
+  //               <Card.Img variant="top" src="" />
+  //               <Card.Body>
+  //                 <Card.Title>{el.name}</Card.Title>
+  //                 <Card.Text>{el.price}</Card.Text>
+  //               </Card.Body>
+  //             </Card>
+  //             <div>
+  //               <Form.Group>
+  //                 <Form.Control
+  //                   // ref={counterRef}
+  //                   id="modal_num"
+  //                   type="number"
+  //                   placeholder={el.count}
+  //                   min="1"
+  //                   // onChange={}
+  //                 />
+  //               </Form.Group>
+  //             </div>
+  //             <div>
+  //               <p>{el.price}</p>
+  //             </div>
+  //             <div>
+  //               <p>{el.count * el.price}</p>
+  //             </div>
+  //             <Button
+  //               onClick={() => {
+  //                 handleClickOrder(el);
+  //               }}
+  //               variant="outline-secondary"
+  //             >
+  //               상품 주문
+  //             </Button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </>
+  //   )
+  // );
 
   return (
     <div>
@@ -126,16 +127,62 @@ const Cart = () => {
               <span>총금액</span>
             </div>
             <hr />
-            <div>{cartShooping}</div>
+            <div>
+              {shoppingItem?.map((el, index) => {
+                return (
+                  <div key={el._id + index.toString()}>
+                    <div>
+                      <div className="carts">
+                        <div className="cartCheckbox">
+                          <input
+                            type="checkbox"
+                            checked={checkedItem.includes(index.toString())}
+                            onChange={() => handleChecked(index.toString())}
+                          />
+                        </div>
+                        <Card style={{ width: "18rem" }}>
+                          <Card.Img variant="top" src="" />
+                          <Card.Body>
+                            <Card.Title>{el.name}</Card.Title>
+                            <Card.Text>{el.price}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                        <div>
+                          <Form.Group>
+                            <Form.Control
+                              // ref={counterRef}
+                              id="modal_num"
+                              type="number"
+                              placeholder={el.count}
+                              min="1"
+                              // onChange={}
+                            />
+                          </Form.Group>
+                        </div>
+                        <div>
+                          <p>{el.price}</p>
+                        </div>
+                        <div>
+                          <p>{el.count * el.price}</p>
+                        </div>
+                        <Button
+                          onClick={() => {
+                            handleClickOrder(el);
+                          }}
+                          variant="outline-secondary"
+                        >
+                          상품 주문
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
             <hr />
             <div className="summitButton">
-              <button className="summitCart">
-                <Link to="/categories">계속 쇼핑하기</Link>
-              </button>
-
-              <button className="summitCart">
-                <Link to="/order/order">전체상품 주문</Link>
-              </button>
+              <Button className="summitCart">계속 쇼핑하기</Button>
+              <Button onClick={orderClick}>주문 페이지</Button>
             </div>
           </div>
         </div>
