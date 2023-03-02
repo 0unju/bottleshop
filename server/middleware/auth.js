@@ -6,26 +6,26 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const auth = async (req, res, next) => {
-    try {
-        const token = req.cookies.x_auth;
-        const guest = (token === undefined);
-        
-        if(guest === false) {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const user = await User.findOne({ _id : decoded });
-            
-            if(!user) return res.json({ isAuth: false, error: true });
-            req.token = token;
-            req.user = user;
-            req.flagGuest = false;
-            next();
-        } else {
-            req.flagGuest = true;
-            next();
-        }
-    } catch(err) {
-        next(err);
+  try {
+    const token = req.cookies.x_auth;
+    const guest = token === undefined;
+
+    if (guest === false) {
+      const decoded = jwt.verify(token, "JWTSECRET");
+      const user = await User.findOne({ _id: decoded });
+
+      if (!user) return res.json({ isAuth: false, error: true });
+      req.token = token;
+      req.user = user;
+      req.flagGuest = false;
+      next();
+    } else {
+      req.flagGuest = true;
+      next();
     }
+  } catch (err) {
+    next(err);
+  }
 };
 
 export default auth;

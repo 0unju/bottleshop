@@ -1,4 +1,5 @@
 import { React, useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Cart.css";
 import "../Categories/Wine.jsx";
 import Button from "react-bootstrap/Button";
@@ -18,10 +19,16 @@ const Cart = () => {
 
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+
   useEffect(() => {
     const Items = JSON.parse(localStorage.getItem("cartList")) || [];
     setShoppingItem(Items);
   }, []);
+
+  const handleChecked = (event) => {
+    setIsChecked(event.target.checked);
+  };
 
   const homeClick = (e) => {
     window.location.href = "/categories";
@@ -42,6 +49,59 @@ const Cart = () => {
     localStorage.setItem("orderList", JSON.stringify(addOrder));
   };
 
+  let cartShooping = [];
+  shoppingItem.forEach((el, index) =>
+    cartShooping.push(
+      <>
+        <div key={el._id}>
+          <div>
+            <div className="carts">
+              <div className="cartCheckbox">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleChecked}
+                />
+              </div>
+              <Card style={{ width: "18rem" }}>
+                <Card.Img variant="top" src="" />
+                <Card.Body>
+                  <Card.Title>{el.name}</Card.Title>
+                  <Card.Text>{el.price}</Card.Text>
+                </Card.Body>
+              </Card>
+              <div>
+                <Form.Group>
+                  <Form.Control
+                    // ref={counterRef}
+                    id="modal_num"
+                    type="number"
+                    placeholder={el.count}
+                    min="1"
+                  />
+                </Form.Group>
+              </div>
+              <div>
+                <p>{el.price}</p>
+              </div>
+              <div>
+                <p>{el.count * el.price}</p>
+              </div>
+              <Button
+                onClick={() => {
+                  handleClickOrder(el);
+                }}
+                variant="outline-secondary"
+              >
+                상품 주문
+              </Button>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  );
+
   return (
     <div>
       {/* 아이콘들 */}
@@ -59,72 +119,28 @@ const Cart = () => {
         <div className="product">
           <div>
             <div className="names">
+              <span></span>
               <span>제품</span>
               <span>수량</span>
               <span>가격</span>
               <span>총금액</span>
             </div>
-
             <hr />
-            <div className="product_d">
-              {shoppingItem.map((el, index) => (
-                <div key={el._id}>
-                  <div className="carts">
-                    <Card style={{ width: "18rem" }}>
-                      <Card.Img variant="top" src="" />
+            <div>{cartShooping}</div>
+            <hr />
+            <div className="summitButton">
+              <button className="summitCart">
+                <Link to="/categories">계속 쇼핑하기</Link>
+              </button>
 
-                      <Card.Body>
-                        <Card.Title>{el.name}</Card.Title>
-                        <Card.Text>{el.price}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                    <div>
-                      <Form.Group>
-                        <Form.Control
-                          // ref={counterRef}
-                          id="modal_num"
-                          type="number"
-                          placeholder={el.count}
-                          min="1"
-                        />
-                      </Form.Group>
-                    </div>
-                    <div>
-                      <p>{el.price}</p>
-                    </div>
-                    <div>
-                      <p>{el.count * el.price}</p>
-                    </div>
-                    <div></div>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      handleClickOrder(el);
-                    }}
-                    variant="outline-secondary"
-                  >
-                    선택상품 주문
-                  </Button>
-                </div>
-              ))}
+              <button className="summitCart">
+                <Link to="/order/order">전체상품 주문</Link>
+              </button>
             </div>
           </div>
         </div>
       </div>
       <hr />
-      <div className="click_button">
-        <div>
-          <Button onClick={homeClick} variant="outline-secondary">
-            계속 쇼핑하기
-          </Button>
-        </div>
-
-        <div>
-          <Button onClick={orderClick} variant="outline-secondary">
-            전체상품 주문
-          </Button>
-        </div>
-      </div>
     </div>
   );
 };

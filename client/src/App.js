@@ -30,7 +30,6 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              exact
               path="/"
               element={<Navigate replace to="/categories" />}
             ></Route>
