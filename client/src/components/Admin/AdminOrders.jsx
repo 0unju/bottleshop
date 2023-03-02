@@ -20,19 +20,21 @@ const adminPermission = require("./adminPermission.js");
 const AdminOrders = () => {
   adminPermission.default();
   axios.defaults.withCredentials = true; // withCredentials 전역 설정
-
   // Element 제어
   let inputSearchBar = useRef(null);
-  let inputUserId = useRef(null);
-  let inputProductId = useRef(null);
-  let inputGuestId = useRef(null);
-  let inputCount = useRef(null);
+  let inputUserName = useRef(null);
+  let inputDomain = useRef(null);
+  let inputPassword = useRef(null);
+  let inputName = useRef(null);
+  let inputPhone = useRef(null);
+  let inputBirthday = useRef(null);
+  let inputAuthEmail = useRef(null);
 
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
   const getDate = async () => {
-    const response = await axios.get(api.orders_GET);
+    const response = await axios.get(api.users_GET);
     setDataList(response.data);
   };
 
@@ -42,19 +44,98 @@ const AdminOrders = () => {
 
   // 입력칸 리셋
   const reSet = () => {
-    inputSearchBar.current.value = "";
-    inputUserId.current.value = "";
-    inputProductId.current.value = "";
-    inputGuestId.current.value = "";
-    inputCount.current.value = "";
+    inputSearchBar = "";
+    inputUserName.current.value = "";
+    inputDomain.current.value = null;
+    inputPassword.current.value = "";
+    inputName.current.value = "";
+    inputPhone.current.value = "";
+    inputBirthday.current.value = "";
+    inputAuthEmail.current.value = null;
+  };
+
+  // [POST] 데이터 전송하기
+  const handlePostButtonClick = async () => {
+    const username = inputUserName.current.value;
+    const domain = inputDomain.current.value;
+    const password = inputPassword.current.value;
+    const name = inputName.current.value;
+    const phone = inputPhone.current.value;
+    const birthday = inputBirthday.current.value;
+
+    // 이름 중복 방지
+    let overlap = false;
+    for (let data of dataList) {
+      if (data.username === username) {
+        alert("이름이 중복됩니다");
+        overlap = true;
+      }
+    }
+
+    if (!overlap) {
+      await axios
+        .post(api.users_POST, {
+          username,
+          domain,
+          password,
+          name,
+          phone,
+          birthday,
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            alert(response.data);
+            getDate(); // 리스트 새로고침
+            reSet(); // 입력칸 리셋
+          }
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
   };
 
   // [DELETE] ID로 선택된 데이터 삭제
   const handleDeleteButtonClick = async () => {
-    const id = inputSearchBar.current.value;
+    const username = inputUserName.current.value;
 
     await axios
-      .delete(api.orders_DELETE + id)
+      .delete(api.users_DELETE + username)
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+          getDate(); // 리스트 새로고침
+          reSet(); // 입력칸 리셋
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
+  // [PUT] ID로 선택된 데이터 수정
+  const handlePutButtonClick = async () => {
+    const username = inputUserName.current.value;
+    const password = inputPassword.current.value;
+    const name = inputName.current.value;
+    const phone = inputPhone.current.value;
+    const birthday = inputBirthday.current.value;
+
+    await axios
+      .put(api.users_PUT + username, {
+        name,
+        phone,
+        birthday,
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+
+    await axios
+      .put(api.users_PUT + username, {
+        password,
+      })
       .then((response) => {
         if (response.status === 200) {
           alert(response.data);
@@ -104,13 +185,13 @@ const AdminOrders = () => {
 
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const setInput = (data) => {
-    // inputUserName.current.value = data.username;
-    // inputDomain.current.value = data.domain;
-    // inputPassword.current.value = data.password;
-    // inputName.current.value = data.name;
-    // inputPhone.current.value = data.phone;
-    // inputBirthday.current.value = data.birthday;
-    // inputAuthEmail.current.value = data.auth_email;
+    inputUserName.current.value = data.username;
+    inputDomain.current.value = data.domain;
+    inputPassword.current.value = data.password;
+    inputName.current.value = data.name;
+    inputPhone.current.value = data.phone;
+    inputBirthday.current.value = data.birthday;
+    inputAuthEmail.current.value = data.auth_email;
   };
 
   // 리스트 구현
@@ -169,8 +250,14 @@ const AdminOrders = () => {
           <Button id="button" onClick={handleSearchButtonClick}>
             조회
           </Button>
+          <Button id="button" onClick={handlePutButtonClick}>
+            저장
+          </Button>
           <Button id="button" onClick={handleDeleteButtonClick}>
             삭제
+          </Button>
+          <Button id="button" onClick={handlePostButtonClick}>
+            추가
           </Button>
         </InputGroup>
       </div>
@@ -178,23 +265,49 @@ const AdminOrders = () => {
       {/* DB입력 부분 */}
       <div class="DB_data">
         <Form.Group className="mb-1">
-          <Form.Label>User_Id</Form.Label>
-          <Form.Control ref={inputUserId} type="text" placeholder="String" />
+          <Form.Label>User_Name</Form.Label>
+          <Form.Control ref={inputUserName} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Product_id</Form.Label>
-          <Form.Control ref={inputProductId} type="text" placeholder="String" />
+          <Form.Label>Domain</Form.Label>
+          <Form.Select ref={inputDomain}>
+            <option></option>
+            {domainSelect}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Guest_Id</Form.Label>
-          <Form.Control ref={inputGuestId} type="text" placeholder="String" />
+          <Form.Label>Password</Form.Label>
+          <Form.Control ref={inputPassword} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Count</Form.Label>
-          <Form.Control ref={inputCount} type="text" placeholder="String" />
+          <Form.Label>Name</Form.Label>
+          <Form.Control ref={inputName} type="text" placeholder="String" />
+        </Form.Group>
+
+        <Form.Group className="mb-1">
+          <Form.Label>Phone</Form.Label>
+          <Form.Control ref={inputPhone} type="phone" placeholder="Number" />
+        </Form.Group>
+
+        <Form.Group className="mb-1">
+          <Form.Label>Birthday</Form.Label>
+          <Form.Control ref={inputBirthday} type="date" />
+        </Form.Group>
+
+        <Form.Group className="mb-1">
+          <Form.Label>Auth_email</Form.Label>
+          <Form.Select ref={inputAuthEmail}>
+            <option></option>
+            <option key="true" value="true">
+              True
+            </option>
+            <option key="false" value="false">
+              False
+            </option>
+          </Form.Select>
         </Form.Group>
       </div>
 
@@ -205,7 +318,6 @@ const AdminOrders = () => {
             <tr>
               <th>ID</th>
               <th>User_Name</th>
-              <th>Guest_Name</th>
             </tr>
           </thead>
           <tbody>{setList}</tbody>

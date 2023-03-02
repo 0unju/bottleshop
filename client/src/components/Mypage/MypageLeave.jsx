@@ -25,6 +25,22 @@ const MypageOrder = () => {
     getName();
   }, []);
 
+  const handleLeaveClick = async () => {
+    const password = inputPassword.current.value;
+    await axios
+      .delete(api.users_DELETE + cookieUserData.username, {
+        password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
   return (
     <>
       <div id="mypage_leave_title">
@@ -68,7 +84,12 @@ const MypageOrder = () => {
             ref={inputPassword}
             type="text"
           />
-          <Button id="mypage_information_leave_button">탈퇴하기</Button>
+          <Button
+            id="mypage_information_leave_button"
+            onClick={handleLeaveClick}
+          >
+            탈퇴하기
+          </Button>
         </div>
       </div>
     </>

@@ -41,7 +41,7 @@ const MypagePassword = () => {
     const verifyPassword = inputPasswordCheck.current.value;
 
     await axios
-      .put(api.users_PUT + cookieUserData.username + "password", {
+      .put(api.users_PUT + cookieUserData.username + "/password", {
         currentPassword,
         password,
         verifyPassword,

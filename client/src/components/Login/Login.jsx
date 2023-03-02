@@ -26,10 +26,12 @@ const Login = () => {
       )
       .then((response) => {
         if (response.status === 200) {
-          alert("로그인 되었습니다");
-          if (checkBox.current.checked) {
+          alert(response.data);
+          if (response.data === "로그인에 성공하였습니다.") {
+            if (checkBox.current.checked) {
+            }
+            window.location.href = "/categories";
           }
-          window.location.href = "/categories";
         }
       })
       .catch((err) => {
