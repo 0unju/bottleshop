@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Layout.css";
+import LuncherImg from "../images/main_we_01.jpg";
 import {
   Button,
   Container,
@@ -90,6 +91,9 @@ const Layout = ({ children }) => {
         </div>
         <div>
           <a>비회원 주문조회</a>
+        </div>
+        <div id="luncherImg">
+          <img src={LuncherImg} />
         </div>
       </>
     );

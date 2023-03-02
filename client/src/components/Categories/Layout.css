@@ -61,8 +61,7 @@ body {
 svg {
   color: var(--sub-color);
 }
-
-#search {
+lunche #search {
   padding: 0 70px;
   color: var(--sub-color);
 }
@@ -77,6 +76,17 @@ svg {
   align-items: center;
   padding-right: 50px;
   color: var(--sub-color);
+}
+
+#luncherImg {
+  display: flex;
+  justify-content: end;
+  position: relative;
+  top: 300px;
+  padding-top: 30px;
+  background-size: cover;
+  overflow: hidden;
+  opacity: 0.5;
 }
 
 #layout_closebutton {
