@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Order.css";
 import Post from "./Post.jsx";
@@ -17,24 +18,24 @@ import Card from "react-bootstrap/Card";
 const api = require("../../api.json");
 
 const Order = (props) => {
-  const [cookieUserData, setCookieUserData] = useState(null); // 쿠키 유저이름
-  const handleShow = async () => {
-    setCookieUserData(
-      await axios.get(api.users_auth_GET).then((response) => response.data) // 쿠키 유저이름 가져오기
-    );
-  };
+  // const [cookieUserData, setCookieUserData] = useState(null); // 쿠키 유저이름
+  // const handleShow = async () => {
+  //   setCookieUserData(
+  //     await axios.get(api.users_auth_GET).then((response) => response.data) // 쿠키 유저이름 가져오기
+  //   );
+  // };
 
-  // [GET] 데이터 불러오기
-  const [dataList, setDataList] = useState(null);
+  // // [GET] 데이터 불러오기
+  // const [dataList, setDataList] = useState(null);
 
-  const getDate = async () => {
-    const response = await axios.get(api.orders_GET);
-    setDataList(response.data);
-  };
+  // const getDate = async () => {
+  //   const response = await axios.get(api.orders_GET);
+  //   setDataList(response.data);
+  // };
 
-  useEffect(() => {
-    getDate();
-  }, []);
+  // useEffect(() => {
+  //   getDate();
+  // }, []);
 
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
@@ -43,52 +44,52 @@ const Order = (props) => {
     setShoppingItem(Items);
   }, []);
 
-  let inputRecipient = useRef();
-  let inputPhone = useRef();
-  let inputAddress1 = useRef();
-  let inputAddress2 = useRef(null);
-  let inputW_count = useRef(null);
-  let inputPrice = useRef(null);
+  // let inputRecipient = useRef();
+  // let inputPhone = useRef();
+  // let inputAddress1 = useRef();
+  // let inputAddress2 = useRef(null);
+  // let inputW_count = useRef(null);
+  // let inputPrice = useRef(null);
 
   // 계속 주문하기 버튼
-  const homeClick = (e) => {
-    window.location.href = "/categories";
+  const onClickComplete = (e) => {
+    window.location.href = "/order/complete";
   };
 
   // [POST] 데이터 전송하기
-  const handlePostButtonClick = async () => {
-    const recipient = inputRecipient.current.value;
-    const phone = inputPhone.current.value;
-    const address1 = inputAddress1.current.value;
-    const address2 = inputAddress2.current.value;
-    const w_count = inputW_count.current.value;
-    const price = inputPrice.current.value;
+  // const handlePostButtonClick = async () => {
+  //   const recipient = inputRecipient.current.value;
+  //   const phone = inputPhone.current.value;
+  //   const address1 = inputAddress1.current.value;
+  //   const address2 = inputAddress2.current.value;
+  //   const w_count = inputW_count.current.value;
+  //   const price = inputPrice.current.value;
 
-    await axios
-      .post(api.orders_POST, {
-        w_count,
-        price,
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+  //   await axios
+  //     .post(api.orders_POST, {
+  //       w_count,
+  //       price,
+  //     })
+  //     .catch((err) => {
+  //       alert(err.message);
+  //     });
 
-    await axios
-      .post(api.shipment_POST, {
-        recipient,
-        phone,
-        address1,
-        address2,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          alert(response.data);
-        }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  };
+  //   await axios
+  //     .post(api.shipment_POST, {
+  //       recipient,
+  //       phone,
+  //       address1,
+  //       address2,
+  //     })
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         alert(response.data);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert(err.message);
+  //     });
+  // };
 
   // 주소검색
   const complete = (data) => {
@@ -129,81 +130,6 @@ const Order = (props) => {
     setPopup(!popup);
   };
 
-  // 로그인 유저
-  let checkCookie = [];
-  if (document.cookie) {
-    checkCookie = [];
-    checkCookie.push(
-      <div className="input_user">
-        <h2 className="shipment">배송정보 입력</h2>
-        <hr />
-        <div className="shipping">
-          <Form.Group className="ordr_input">
-            <Form.Label>받으시는 분*</Form.Label>
-            <Form.Control ref={inputRecipient} type="text" />
-          </Form.Group>
-
-          <Form.Group className="order_input">
-            <Form.Label>핸드폰번호*</Form.Label>
-            <div id="phone" className="mb-5">
-              <Form.Control ref={inputPhone} type="text" />
-            </div>
-          </Form.Group>
-
-          <Form.Group className="mb-1">
-            <Form.Label>이메일*</Form.Label>
-            <div className="email">
-              <Form.Control type="text" placeholder="" />
-              <p>@</p>
-              <Form.Control type="text" placeholder="gmail.com" />
-            </div>
-          </Form.Group>
-
-          <Form.Group className="mb-1">
-            <Form.Label>배송 메세지</Form.Label>
-            <Form.Control type="text" />
-          </Form.Group>
-
-          <Form.Group className="mb-1">
-            <Form.Label>주소</Form.Label>
-            <div id="address_search">
-              <Form.Control
-                className="user_enroll_text"
-                ref={inputAddress1}
-                type="text"
-                required={true}
-                name="address"
-                onChange={handleInput}
-                value={enroll_company.address}
-              />
-              <button className="postBtn" onClick={handleComplete}>
-                우편번호 찾기
-              </button>
-            </div>
-
-            {popup && (
-              <Post
-                company={enroll_company}
-                setcompany={setEnroll_company}
-              ></Post>
-            )}
-          </Form.Group>
-
-          <Form.Group className="mb-1">
-            <Form.Label>나머지 주소*</Form.Label>
-            <Form.Control ref={inputAddress2} type="text" />
-          </Form.Group>
-        </div>
-        <div className="last_order">
-          <Button onClick={handlePostButtonClick} size="lg">
-            주문하기
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  // 장바구니 데이터 가져온 것
   let orderShooping = [];
   shoppingItem.map((el, index) =>
     orderShooping.push(
@@ -220,14 +146,14 @@ const Order = (props) => {
               </Card>
               <div className="orderCount">
                 <Form.Group>
-                  <Form.Text ref={inputW_count}>{el.count}</Form.Text>
+                  <Form.Text>{el.count}</Form.Text>
                 </Form.Group>
               </div>
               <div>
                 <p>{el.price}</p>
               </div>
               <div>
-                <p ref={inputPrice}>{el.count * el.price}</p>
+                <p>{el.count * el.price}</p>
               </div>
             </div>
           </div>
@@ -267,13 +193,13 @@ const Order = (props) => {
         <div className="shipping">
           <Form.Group className="ordr_input">
             <Form.Label>받으시는 분*</Form.Label>
-            <Form.Control ref={inputRecipient} type="text" />
+            <Form.Control type="text" />
           </Form.Group>
 
           <Form.Group className="order_input">
             <Form.Label>핸드폰번호*</Form.Label>
             <div id="phone" className="mb-5">
-              <Form.Control ref={inputPhone} type="text" />
+              <Form.Control type="text" />
             </div>
           </Form.Group>
 
@@ -296,7 +222,6 @@ const Order = (props) => {
             <div id="address_search">
               <Form.Control
                 className="user_enroll_text"
-                ref={inputAddress1}
                 type="text"
                 required={true}
                 name="address"
@@ -318,13 +243,11 @@ const Order = (props) => {
 
           <Form.Group className="mb-1">
             <Form.Label>나머지 주소*</Form.Label>
-            <Form.Control ref={inputAddress2} type="text" />
+            <Form.Control type="text" />
           </Form.Group>
         </div>
         <div className="last_order">
-          <Button onClick={handlePostButtonClick} size="lg">
-            주문하기
-          </Button>
+          <Button onClick={onClickComplete}>주문하기</Button>
         </div>
       </div>
     </div>
