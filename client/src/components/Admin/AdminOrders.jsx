@@ -1,6 +1,7 @@
+import React, { useEffect, useState, useRef } from "react";
 import "./Admin.css";
 import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
+
 import {
   Nav,
   Button,
@@ -10,19 +11,22 @@ import {
   Pagination,
 } from "react-bootstrap";
 
-// JSON 파일 가져오기
+// json 연결
 const api = require("../../api.json"); // API 불러오기
 const adminList = require("./adminList.json"); // Admin 리스트 불러오기
+const domainList = require("../../domainList.json"); // Domain 리스트 불러오기
 const adminPermission = require("./adminPermission.js");
 
 const AdminOrders = () => {
   adminPermission.default();
+  axios.defaults.withCredentials = true; // withCredentials 전역 설정
+
   // Element 제어
   let inputSearchBar = useRef(null);
   let inputUserId = useRef(null);
-  let inputGuestId = useRef(null);
   let inputProductId = useRef(null);
-  let inputStatus = useRef(null);
+  let inputGuestId = useRef(null);
+  let inputCount = useRef(null);
 
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
@@ -30,9 +34,6 @@ const AdminOrders = () => {
   const getDate = async () => {
     const response = await axios.get(api.orders_GET);
     setDataList(response.data);
-    console.log(response.data);
-    console.log(response.data[9].product_id);
-    console.log(response.data[9].count);
   };
 
   useEffect(() => {
@@ -43,44 +44,10 @@ const AdminOrders = () => {
   const reSet = () => {
     inputSearchBar.current.value = "";
     inputUserId.current.value = "";
-    inputGuestId.current.value = "";
     inputProductId.current.value = "";
-    inputStatus.current.value = "";
+    inputGuestId.current.value = "";
+    inputCount.current.value = "";
   };
-
-  // [POST] 데이터 전송하기
-  // const handlePostButtonClick = async () => {
-  //   const user_id = inputUserId.current.value;
-  //   const guest_id = inputGuestId.current.value;
-  //   const product_id = inputProductId.current.value;
-  //   const count = inputStatus.current.value;
-
-  //
-  //   await axios
-  //     .post(api.orders_POST, {
-  //       user_id,
-  //       guest_id,
-  //       product_id,
-  //       count,
-  //     })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         alert(response.data);
-  //         getDate(); // 리스트 새로고침
-  //         reSet(); // 입력칸 리셋
-  //
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       alert(err.message);
-  //
-  //     })
-  //     .catch((err) => {
-  //       alert(err.message);
-  //
-  //     });
-  //   if (!success) alert("값을 바르게 입력해 주세요");
-  // };
 
   // [DELETE] ID로 선택된 데이터 삭제
   const handleDeleteButtonClick = async () => {
@@ -100,26 +67,15 @@ const AdminOrders = () => {
       });
   };
 
-  // [PUT] ID로 선택된 데이터 수정
-  const handlePutButtonClick = async () => {
-    const id = inputSearchBar.current.value;
-    const status = inputStatus.current.value;
-
-    await axios
-      .put(api.orders_PUT + id, {
-        status,
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          alert(response.data);
-          getDate(); // 리스트 새로고침
-          reSet(); // 입력칸 리셋
-        }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
-  };
+  // Domain List 만들기
+  const domainSelect = [];
+  domainList.forEach((data) => {
+    domainSelect.push(
+      <option key={data.name} value={data.name}>
+        {data.name}
+      </option>
+    );
+  });
 
   // 페이지 넘버 만들기
   const row = 5; // 한 페이지에 넣을 개수
@@ -128,12 +84,12 @@ const AdminOrders = () => {
     dataListLength % row === 0
       ? parseInt(dataListLength / row) - 1
       : parseInt(dataListLength / row);
-  let items = [];
+  let setPageNumber = [];
   const [active, setActive] = useState(1);
   const handlePageClick = (number) => setActive(number);
 
   for (let number = 1; number <= pageNumber + 1; number++) {
-    items.push(
+    setPageNumber.push(
       <Pagination.Item
         key={number}
         active={number === active}
@@ -146,38 +102,15 @@ const AdminOrders = () => {
     );
   }
 
-  // const [countList, setCountList] = useState([]);
-  let countList = [];
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const setInput = (data) => {
-    inputSearchBar.current.value = data._id;
-    inputUserId.current.value = data.user_id;
-    inputGuestId.current.value = data.guest_id;
-    inputProductId.current.value = data.product_id;
-
-    // Count 리스트 구현
-    // setCountList([]);
-    // data.product_id.forEach((id) => {
-    //   console.log("id=" + id);
-    //   setCountList(
-    //     <>
-    //       {countList[0]}
-    //       <tr key={id}>
-    //         <td>{id}</td>
-    //         <td>{data.count[id]}</td>
-    //       </tr>
-    //     </>
-    //   );
-    // });
-
-    data.product_id.forEach((id) => {
-      countList.push(
-        <tr key={id}>
-          <td>{id}</td>
-          <td>{data.count[id]}</td>
-        </tr>
-      );
-    });
+    // inputUserName.current.value = data.username;
+    // inputDomain.current.value = data.domain;
+    // inputPassword.current.value = data.password;
+    // inputName.current.value = data.name;
+    // inputPhone.current.value = data.phone;
+    // inputBirthday.current.value = data.birthday;
+    // inputAuthEmail.current.value = data.auth_email;
   };
 
   // 리스트 구현
@@ -186,15 +119,13 @@ const AdminOrders = () => {
     if (row * (active - 1) <= index && index < row * active) {
       setList.push(
         <tr
-          key={data.id}
+          key={data._id}
           onClick={() => {
             setInput(data);
           }}
         >
           <td>{data._id}</td>
-          <td>{data.user_id}</td>
-          <td>{data.guest_id}</td>
-          {/* <td>{data.count}</td> */}
+          <td>{data.username}</td>
         </tr>
       );
     }
@@ -202,21 +133,17 @@ const AdminOrders = () => {
 
   // 조회 기능
   const handleSearchButtonClick = () => {
-    const user_id = inputSearchBar.current.value;
-    let searchList = [];
+    const searchValue = inputSearchBar.current.value;
     let success = false;
 
     for (let data of dataList) {
-      if (user_id === "") {
-        getDate();
+      if (data.username === searchValue) {
+        setInput(data);
         success = true;
         break;
-      } else if (data.user_id === user_id) {
-        searchList.push(data);
       }
     }
     if (!success) alert("일치하는 데이터가 없습니다.");
-    else if (user_id !== "") setDataList(searchList);
   };
 
   return (
@@ -224,7 +151,7 @@ const AdminOrders = () => {
       {/* 네비게이션 바 */}
       <Nav id="nav_bar" variant="tabs" defaultActiveKey="/admin/orders">
         {adminList.map((data) => (
-          <Nav.Item key={data.id}>
+          <Nav.Item key={data.name}>
             <Nav.Link href={data.href}>{data.name}</Nav.Link>
           </Nav.Item>
         ))}
@@ -237,28 +164,27 @@ const AdminOrders = () => {
           <Form.Control
             ref={inputSearchBar}
             id="DB_searchbar"
-            placeholder="Users_ID"
+            placeholder="ID"
           />
           <Button id="button" onClick={handleSearchButtonClick}>
             조회
           </Button>
-          <Button id="button" onClick={handlePutButtonClick}>
-            저장
-          </Button>
           <Button id="button" onClick={handleDeleteButtonClick}>
             삭제
           </Button>
-          {/* <Button id="button" onClick={handlePostButtonClick}>
-            추가
-          </Button> */}
         </InputGroup>
       </div>
 
       {/* DB입력 부분 */}
       <div class="DB_data">
         <Form.Group className="mb-1">
-          <Form.Label>Users_Id</Form.Label>
+          <Form.Label>User_Id</Form.Label>
           <Form.Control ref={inputUserId} type="text" placeholder="String" />
+        </Form.Group>
+
+        <Form.Group className="mb-1">
+          <Form.Label>Product_id</Form.Label>
+          <Form.Control ref={inputProductId} type="text" placeholder="String" />
         </Form.Group>
 
         <Form.Group className="mb-1">
@@ -267,32 +193,9 @@ const AdminOrders = () => {
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Product_Id</Form.Label>
-          <Form.Control ref={inputProductId} type="text" placeholder="String" />
+          <Form.Label>Count</Form.Label>
+          <Form.Control ref={inputCount} type="text" placeholder="String" />
         </Form.Group>
-
-        <Form.Group className="mb-1">
-          <Form.Label>Status</Form.Label>
-          <Form.Select ref={inputStatus}>
-            <option></option>
-            <option value="배송전">배송전</option>
-            <option value="배송중">배송중</option>
-            <option value="배송완료">배송완료</option>
-          </Form.Select>
-        </Form.Group>
-      </div>
-
-      {/* count 리스트 */}
-      <div>
-        <Table striped bordered hover size="sm" id="DB_countlist">
-          <thead>
-            <tr>
-              <th>Product_Id</th>
-              <th>Count</th>
-            </tr>
-          </thead>
-          <tbody>{countList}</tbody>
-        </Table>
       </div>
 
       {/* 리스트 */}
@@ -300,15 +203,15 @@ const AdminOrders = () => {
         <Table striped bordered hover size="sm" id="DB_list">
           <thead>
             <tr>
-              <th>Orders_Id</th>
-              <th>User_Id</th>
-              <th>Guest_Id</th>
+              <th>ID</th>
+              <th>User_Name</th>
+              <th>Guest_Name</th>
             </tr>
           </thead>
           <tbody>{setList}</tbody>
         </Table>
         <Pagination id="page" size="sm">
-          {items}
+          {setPageNumber}
         </Pagination>
       </div>
     </>

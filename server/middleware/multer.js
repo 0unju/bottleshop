@@ -6,11 +6,13 @@ import path from "path";
 // image storage config
 const storage = multer.diskStorage({
   destination: (req, file, done) => {
+    console.log("xx");
     done(null, "public/images");
   },
   filename: function (req, file, done) {
     const ext = path.extname(file.originalname); // 확장자 추가
     const fileName = path.basename(file.originalname, ext) + ext;
+    console.log("xxxx");
     done(null, fileName);
     // done(null, file.fieldname + '-' + Date.now());
   },
