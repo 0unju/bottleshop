@@ -146,8 +146,8 @@ const AdminOrders = () => {
     );
   }
 
-  const [countList, setCountList] = useState([]);
-  // let countList=[];
+  // const [countList, setCountList] = useState([]);
+  let countList = [];
   // 데이터를 입력하면 입력폼에 표시하는 코드
   const setInput = (data) => {
     inputSearchBar.current.value = data._id;
@@ -156,27 +156,28 @@ const AdminOrders = () => {
     inputProductId.current.value = data.product_id;
 
     // Count 리스트 구현
-    setCountList([]);
-    data.product_id.forEach((id) => {
-      console.log("id=" + id);
-      setCountList(
-        <>
-          {countList[0]}
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{data.count[id]}</td>
-          </tr>
-        </>
-      );
-    });
+    // setCountList([]);
     // data.product_id.forEach((id) => {
-    //   countList.push(
-    //     <tr key={id}>
-    //       <td>{id}</td>
-    //       <td>{data.count[id]}</td>
-    //     </tr>
+    //   console.log("id=" + id);
+    //   setCountList(
+    //     <>
+    //       {countList[0]}
+    //       <tr key={id}>
+    //         <td>{id}</td>
+    //         <td>{data.count[id]}</td>
+    //       </tr>
+    //     </>
     //   );
     // });
+
+    data.product_id.forEach((id) => {
+      countList.push(
+        <tr key={id}>
+          <td>{id}</td>
+          <td>{data.count[id]}</td>
+        </tr>
+      );
+    });
   };
 
   // 리스트 구현

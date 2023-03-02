@@ -34,9 +34,10 @@ const Layout = ({ children }) => {
     await axios
       .get(api.users_logout_GET)
       .then((response) => {
-        if (response.data.success === true) {
+        console.log(response);
+        if (response.status === 200) {
           setShow(false);
-          alert("로그아웃 성공");
+          alert(response.data);
         }
       })
       .catch((err) => alert(err.message));
@@ -46,6 +47,7 @@ const Layout = ({ children }) => {
   let checkCookie = [];
   if (document.cookie) {
     checkCookie = [];
+    console.log("tt" + cookieUserData);
     checkCookie.push(
       <>
         <p id="layout_user_message">{cookieUserData?.name}님 안녕하세요!!</p>
