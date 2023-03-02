@@ -4,7 +4,11 @@ import { User } from '../../models/index.js';
 const updateUser = async (req, res, next) => {
   try{
     const { username } = req.params;
-    const { name, phone, birthday } = req.body;
+    const {
+      name,
+      phone,
+      birthday
+    } = req.body;
   
     // 로그인한 유저와 admin만 정보 수정 가능
     if((username === req.user.username) || (req.user.isAdmin === true)) {
@@ -16,11 +20,10 @@ const updateUser = async (req, res, next) => {
             birthday,
           },
         );
-      res.send("success /users");
+      res.send("사용자 정보가 수정되었습니다.");
     } else {
-      res.send("access denied /users/:username");
-    }
-  } catch (err) {
+      res.send("사용자 정보를 수정할 권한이 없습니다.");
+  }} catch (err) {
     next(err);
   }
 }

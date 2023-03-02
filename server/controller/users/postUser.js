@@ -5,21 +5,20 @@ const saltRounds = 10;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
 const postUser = async (req, res, next) => {
-  const {
-    username,
-    domain,
-    password,
-    name,
-    phone,
-    birthday,
-    auth_email,
-  } = req.body;
-  
   try {
+    const {
+      username,
+      domain,
+      password,
+      name,
+      phone,
+      birthday,
+      auth_email,
+    } = req.body;
     const user = await User.findOne({ username });
     
     if(user) {  // 아이디 중복 확인
-      res.send('User already exists');
+      res.send('아이디가 중복되었습니다.');
     } else {
       let adminValue = false;
       
@@ -41,9 +40,8 @@ const postUser = async (req, res, next) => {
           birthday,
           auth_email,
         });
-        res.send('success /users');
+        res.send('사용자 정보가 생성되었습니다.');
       }
-      
     } 
   } catch (err) {
     next(err);

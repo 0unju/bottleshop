@@ -52,9 +52,7 @@ const ShipmentSchema = new Schema(
       default: '대문 앞',
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true, }
 );
 
 export default ShipmentSchema;

@@ -24,7 +24,7 @@ const postOrder = async (req, res, next) => {
       .exec();
     res.send(result);
   } catch (err) {
-    console.log(err.message);
+    next(err);
   }
 };
 

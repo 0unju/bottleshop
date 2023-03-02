@@ -26,9 +26,7 @@ const ProductSchema = new Schema(
       type: String,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true, }
 );
 
 export default ProductSchema;

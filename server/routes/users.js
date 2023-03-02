@@ -1,6 +1,7 @@
 'use strict';
 import express from 'express';
 const router = express.Router();
+
 import { User } from '../models/index.js';
 import auth from '../middleware/auth.js';
 import postUser from '../controller/users/postUser.js';

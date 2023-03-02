@@ -5,7 +5,7 @@ const postProduct = async (req, res, next) => {
   try {
     const { name, type, price, description, wine_type, origin, abv } = req.body;
 
-    const productInfo = await Product.create({
+    await Product.create({
       name,
       type,
       price,
