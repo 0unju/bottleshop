@@ -30,10 +30,27 @@ const updateShipment = async (req, res, next) => {
         request,
       }
     );
-    res.send("배송 정보가 수정되었습니다.");
+    res.send('배송 정보가 수정되었습니다.');
   } catch (err) {
     next(err);
   }
 };
 
-export default updateShipment;
+const statusShipment = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const shipment = await Shipment.updateOne(
+      { _id: id },
+      {
+        status,
+      }
+    );
+    res.send('배송 상태가 수정되었습니다.')
+  } catch (err) {
+    next(err);
+  }
+};
+
+export { updateShipment, statusShipment };
