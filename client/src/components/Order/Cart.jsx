@@ -18,7 +18,6 @@ const Cart = () => {
   const counterRef = useRef;
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
   const [checkedItem, setCheckedItem] = useState([]);
 
   useEffect(() => {
@@ -181,7 +180,7 @@ const Cart = () => {
             </div>
             <hr />
             <div className="summitButton">
-              <Button className="summitCart">계속 쇼핑하기</Button>
+              <Button onClick={homeClick}>계속 쇼핑하기</Button>
               <Button onClick={orderClick}>주문 페이지</Button>
             </div>
           </div>

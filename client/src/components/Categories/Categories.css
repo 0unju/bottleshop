@@ -57,8 +57,9 @@
   text-align: start;
 }
 
-.about_1 > img {
+.Main_about1 > Img {
   max-width: 500px;
+  background-size: cover;
 }
 
 .about_2 {
