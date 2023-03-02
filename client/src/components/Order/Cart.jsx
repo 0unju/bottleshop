@@ -16,10 +16,9 @@ import {
 
 const Cart = () => {
   const counterRef = useRef;
-
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
-
+  const [isChecked, setIsChecked] = useState(false);
   const [checkedItem, setCheckedItem] = useState([]);
 
   useEffect(() => {
