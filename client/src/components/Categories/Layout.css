@@ -47,10 +47,15 @@ body {
   font-family: DXPnM;
 }
 
+--bs-nav-link-color {
+  color: var(--sub-color);
+}
+
 #navv {
   display: flex;
   justify-content: center;
   margin-left: auto;
+  color: var(--sub-color);
 }
 
 svg {

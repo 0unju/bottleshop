@@ -131,7 +131,6 @@ const Layout = ({ children }) => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="/categories/cheeses">Cheeses</Nav.Link>
-                <Nav.Link href="#">Q&A</Nav.Link>
               </Nav>
 
               <div onClick={handleCartClick} className="cart">

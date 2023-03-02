@@ -1,3 +1,25 @@
+:root {
+  --main-color: #6c49b8;
+  --text-color: #566270;
+  --sub-color: #d9d9d9;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  text-align: center;
+}
+body {
+  background-color: #6c49b8;
+}
+
+@font-face {
+  font-family: "AlexBrush";
+  src: url("../..//fonts/AlexBrush-Regular.ttf");
+}
+@font-face {
+  font-family: "DXPnM";
+  src: url("../../fonts/DXPnM-KSCpc-EUC-H.ttf");
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -14,14 +36,16 @@
 #main_container {
   background-color: rgb(235, 235, 235);
   width: 500px;
-  height: 650px;
+  justify-content: center;
   margin: 20px auto;
   padding-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
-.box {
+#box {
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 40px;
   box-sizing: border-box;
@@ -40,15 +64,18 @@
   box-sizing: border-box;
 }
 
-#btn {
-  width: 300px;
-}
-
 .button {
   display: flex;
-  margin-left: 100px;
-  margin-top: 10px;
-  width: 300px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+  margin-bottom: 20px;
+  width: 200px;
+}
+
+#btn {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .content p {
