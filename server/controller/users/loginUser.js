@@ -13,18 +13,18 @@ const getLogin = async (req, res, next) => {
         } = req.body;
         const user = await User.findOne({ username });      // username DB 존재 확인
     
-        if (!user) {
+        if(!user) {
             res.send("존재하지 않은 아이디입니다.");
             next();
         } else {
             // password 확인
-            if (bcrypt.compareSync(password, user.password) === false) {
+            if(bcrypt.compareSync(password, user.password) === false) {
                 res.send("비밀번호가 틀렸습니다.");
                 next();
             } else {
                 // token 생성
                 const token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
-                if (token) {
+                if(token) {
                     res.cookie("x_auth", token);
                     res.send("로그인에 성공하였습니다.");
                 } else {
