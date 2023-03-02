@@ -8,9 +8,7 @@ const updateCategory = async (req, res, next) => {
 
     await Category.updateOne(
       { _id: id },
-      {
-        name,
-      }
+      { name, }
     );
     res.send("카테고리 수정되었습니다.");
   } catch (err) {
