@@ -20,7 +20,7 @@ const getLogin = async (req, res, next) => {
         next();
       } else {
         // token 생성
-        const token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
+        const token = jwt.sign(user._id.toHexString(), "JWT_SECRET");
         if (token) {
           res.cookie("x_auth", token);
           res.send("로그인에 성공하였습니다.");
