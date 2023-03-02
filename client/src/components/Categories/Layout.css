@@ -130,6 +130,7 @@ svg {
   font-size: 30px;
   font-family: "DXPnM";
   font-weight: bold;
+  text-decoration: none;
 }
 
 #layout_logout_button {

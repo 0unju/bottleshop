@@ -272,7 +272,12 @@ const AdminOrders = () => {
 
         <Form.Group className="mb-1">
           <Form.Label>Status</Form.Label>
-          <Form.Control ref={inputStatus} type="text" placeholder="String" />
+          <Form.Select ref={inputStatus}>
+            <option></option>
+            <option value="배송전">배송전</option>
+            <option value="배송중">배송중</option>
+            <option value="배송완료">배송완료</option>
+          </Form.Select>
         </Form.Group>
       </div>
 

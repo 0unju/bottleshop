@@ -21,6 +21,7 @@ const MypageOrder = () => {
       await axios.get(api.orders_GET).then((response) => response.data) // orders data 가져오기
     );
   };
+  console.log(ordersDB);
 
   const getShipment = async () => {
     setshipmentsDB(
@@ -166,14 +167,14 @@ const MypageOrder = () => {
                   <tbody>
                     {cookieUserordersData.forEach((ordersData) =>
                       shipmentsData?.order_id === ordersData?._id
-                        ? ordersData.product_id.map((productID) => (
-                            // console.log(productID);
-                            // console.log(ordersData.count[productID]);
+                        ? ordersData.product_id.map((productID) => {
+                            console.log(productID);
+                            console.log(ordersData.count[productID]);
                             <tr key={productID}>
                               <td>{productID}</td>
                               <td>{ordersData.count[productID]}</td>
-                            </tr>
-                          ))
+                            </tr>;
+                          })
                         : null
                     )}
                   </tbody>
