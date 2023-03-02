@@ -29,8 +29,8 @@ const Wine = () => {
   const dataList_length = dataList?.length;
   const page_number =
     dataList_length % 12 === 0
-      ? parseInt(dataList_length / 12) - 1
-      : parseInt(dataList_length / 12);
+      ? parseInt(dataList_length / 16) - 1
+      : parseInt(dataList_length / 16);
 
   let items = [];
   const [active, setActive] = useState(1);
@@ -54,7 +54,7 @@ const Wine = () => {
   let list = [];
   const [modalShow, setModalShow] = useState(false);
   dataList?.forEach((data, index) => {
-    if (6 * (active - 1) <= index && index < 13 * active) {
+    if (13 * (active - 1) <= index && index < 13 * active) {
       if (data.type === "Wine")
         list.push(
           <div>
