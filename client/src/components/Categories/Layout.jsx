@@ -146,7 +146,7 @@ const Layout = ({ children }) => {
               ></Offcanvas.Header>
               <Offcanvas.Title className="layout_login">
                 <p id="layout_title">Bottle Shop</p>
-                <dev id="layout_checkCookie">{checkCookie}</dev>
+                <div id="layout_checkCookie">{checkCookie}</div>
               </Offcanvas.Title>
               <Offcanvas.Body>
                 <hr />

@@ -16,11 +16,4 @@ router.use('/users', usersRouter);
 router.use('/posts', postsRouter);
 router.use('/categories', categoriesRouter);
 
-// http://localhost:8080
-router.get('/', (req, res) => {
-  res.render('index');
-});
-
-// upload picture
-
 export default router;

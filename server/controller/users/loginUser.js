@@ -4,11 +4,11 @@ import bcrypt from "bcrypt"; // "npm i bcrypt --save" 설치 필요
 import jwt from "jsonwebtoken"; // "npm i jsonwebtoken" 설치 필요
 import dotenv from "dotenv";
 dotenv.config();
+
 const getLogin = async (req, res, next) => {
-  const { username, password } = req.body;
   try {
-    // username DB 존재 확인
-    const user = await User.findOne({ username });
+    const { username, password } = req.body;
+    const user = await User.findOne({ username }); // username DB 존재 확인
 
     if (!user) {
       res.send("존재하지 않은 아이디입니다.");
@@ -21,7 +21,6 @@ const getLogin = async (req, res, next) => {
       } else {
         // token 생성
         const token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
-
         if (token) {
           res.cookie("x_auth", token).status(200).json({
             loginSuccess: true,

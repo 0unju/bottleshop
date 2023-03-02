@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "products_GET": "http://localhost:5000/api/products",
   "products_POST": "http://localhost:5000/api/products",
   "products_DELETE": "http://localhost:5000/api/products/",
@@ -14,4 +15,25 @@
   "users_login_POST": "http://localhost:5000/api/users/login",
   "users_auth_GET": "http://localhost:5000/api/users/auth",
   "users_logout_GET": "http://localhost:5000/api/users/logout"
+=======
+  "products_GET": "http://localhost:8080/products",
+  "products_POST": "http://localhost:8080/products",
+  "products_DELETE": "http://localhost:8080/products/",
+  "products_PUT": "http://localhost:8080/products/",
+  "users_GET": "http://localhost:8080/users",
+  "users_POST": "http://localhost:8080/users",
+  "users_DELETE": "http://localhost:8080/users/",
+  "users_PUT": "http://localhost:8080/users/",
+  "orders_GET": "http://localhost:8080/orders",
+  "orders_POST": "http://localhost:8080/orders",
+  "orders_DELETE": "http://localhost:8080/orders/delete/",
+  "orders_PUT": "http://localhost:8080/orders/edit/",
+  "users_login_POST": "http://localhost:8080/users/login",
+  "users_auth_GET": "http://localhost:8080/users/auth",
+  "users_logout_GET": "http://localhost:8080/users/logout",
+  "categories_GET": "http://localhost:8080/categories",
+  "categories_POST": "http://localhost:8080/categories",
+  "categories_DELETE": "http://localhost:8080/categories/",
+  "categories_PUT": "http://localhost:8080/categories/"
+>>>>>>> 43c6033156c8f90a6431705f82017d41abda4421
 }

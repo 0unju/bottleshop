@@ -4,10 +4,12 @@ import { User } from "../models/index.js";
 import jwt from "jsonwebtoken"; // "npm i jsonwebtoken" 설치 필요
 import dotenv from "dotenv";
 dotenv.config();
+
 const auth = async (req, res, next) => {
   try {
     const token = req.cookies.x_auth;
     const guest = token === undefined;
+
     if (guest === false) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findOne({ _id: decoded });

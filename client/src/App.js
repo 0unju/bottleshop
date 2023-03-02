@@ -14,6 +14,7 @@ import Login from "./components/Login/Login";
 import MypageOrder from "./components/Mypage/MypageOrder";
 import MypageInformation from "./components/Mypage/MypageInformation";
 import MypageLeave from "./components/Mypage/MypageLeave";
+import MypagePassword from "./components/Mypage/MypagePassword";
 
 import Categories from "./components/Categories/Categories";
 import Wine from "./components/Categories/Wine";
@@ -40,7 +41,6 @@ export default function App() {
               path="/signup/information"
               element={<SignupInformation />}
             ></Route>
-
             <Route path="/signup/complete" element={<SignUpComplete />}></Route>
             <Route path="/Admin/users" element={<AdminUsers />}></Route>
             <Route path="/admin/orders" element={<AdminOrders />}></Route>
@@ -54,6 +54,7 @@ export default function App() {
               path="/mypage/information"
               element={<MypageInformation />}
             ></Route>
+            <Route path="/mypage/password" element={<MypagePassword />}></Route>
             <Route path="/mypage/leave" element={<MypageLeave />}></Route>
             <Route path="/order/cart" element={<Cart />}></Route>
             <Route path="/order/order" element={<Order />}></Route>

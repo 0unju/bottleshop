@@ -19,9 +19,7 @@ const OrderSchema = new Schema(
     ],
     count: Object,
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true, }
 );
 
 export default OrderSchema;

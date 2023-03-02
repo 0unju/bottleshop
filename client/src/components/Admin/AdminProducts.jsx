@@ -13,13 +13,13 @@ import {
 // 가져오기
 const api = require("../../api.json"); // API 불러오기
 const adminList = require("./adminList.json"); // Admin 리스트 불러오기
-const categoryList = require("../../categoryList.json"); // Category 리스트 불러오기
 const adminPermission = require("./adminPermission.js");
 
 const AdminProducts = () => {
   adminPermission.default();
 
   // Element 제어
+  let inputSearchBar = useRef(null);
   let inputName = useRef(null);
   let inputType = useRef(null);
   let inputPrice = useRef(null);
@@ -27,8 +27,9 @@ const AdminProducts = () => {
   let inputWineType = useRef(null);
   let inputOrigin = useRef(null);
   let inputAbv = useRef(null);
-  let inputImagePath = useRef(null);
-  let inputSearchBar = useRef(null);
+  let inputImage = useRef(null);
+
+  console.log(inputImage);
 
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
@@ -38,8 +39,17 @@ const AdminProducts = () => {
     setDataList(response.data);
   };
 
+  // [GET] 카테고리 리스트 불러오기
+  const [categoriesList, setCategoriesList] = useState(null);
+
+  const getCategoriesList = async () => {
+    const response = await axios.get(api.categories_GET);
+    setCategoriesList(response.data);
+  };
+
   useEffect(() => {
     getDate();
+    getCategoriesList();
   }, []);
 
   // 입력칸 리셋
@@ -52,7 +62,7 @@ const AdminProducts = () => {
     inputWineType.current.value = null;
     inputOrigin.current.value = "";
     inputAbv.current.value = "";
-    inputImagePath.current.value = "";
+    inputImage.current.value = "";
   };
 
   // [POST] 데이터 전송하기
@@ -65,7 +75,7 @@ const AdminProducts = () => {
     const wine_type = inputWineType.current.value;
     const origin = inputOrigin.current.value;
     const abv = inputAbv.current.value;
-    const image_path = inputImagePath.current.value;
+    const image = inputImage.current.value;
 
     // 이름 중복 방지
     let overlap = false;
@@ -75,7 +85,7 @@ const AdminProducts = () => {
         overlap = true;
       }
     }
-    let success = false;
+
     if (!overlap) {
       await axios
         .post(api.products_POST, {
@@ -86,44 +96,37 @@ const AdminProducts = () => {
           wine_type,
           origin,
           abv,
-          image_path,
+          image,
         })
         .then((response) => {
           if (response.status === 200) {
-            alert("추가되었습니다.");
+            alert(response.data);
             getDate(); // 리스트 새로고침
             reSet(); // 입력칸 리셋
-            success = true;
           }
         })
         .catch((err) => {
           alert(err.message);
-          success = true;
         });
-      if (!success) alert("ID를 바르게 입력해 주세요");
     }
   };
 
   // [DELETE] ID로 선택된 데이터 삭제
   const handleDeleteButtonClick = async () => {
-    let success = false;
     const id = inputSearchBar.current.value;
 
     await axios
       .delete(api.products_DELETE + id)
       .then((response) => {
         if (response.status === 200) {
-          alert("삭제되었습니다.");
+          alert(response.data);
           getDate(); // 리스트 새로고침
           reSet(); // 입력칸 리셋
-          success = true;
         }
       })
       .catch((err) => {
         alert(err.message);
-        success = true;
       });
-    if (!success) alert("ID를 바르게 입력해 주세요");
   };
 
   // [PUT] ID로 선택된 데이터 수정
@@ -137,7 +140,7 @@ const AdminProducts = () => {
     const wine_type = inputWineType.current.value;
     const origin = inputOrigin.current.value;
     const abv = inputAbv.current.value;
-    const image_path = inputImagePath.current.value;
+    const image = inputImage.current.value;
 
     // 이름 중복 방지
     let overlap = false;
@@ -152,7 +155,6 @@ const AdminProducts = () => {
     }
 
     if (!overlap) {
-      let success = false;
       await axios
         .put(api.products_PUT + id, {
           name,
@@ -162,27 +164,24 @@ const AdminProducts = () => {
           wine_type,
           origin,
           abv,
-          image_path,
+          image,
         })
         .then((response) => {
           if (response.status === 200) {
-            alert("수정되었습니다.");
+            alert(response.data);
             getDate(); // 리스트 새로고침
             reSet(); // 입력칸 리셋
-            success = true;
           }
         })
         .catch((err) => {
           alert(err.message);
-          success = true;
         });
-      if (!success) alert("ID와 값을 바르게 입력해 주세요");
     }
   };
 
   // Type 리스트 만들기
   const typeList = [];
-  categoryList.forEach((data) => {
+  categoriesList?.forEach((data) => {
     typeList.push(
       <option key={data.name} value={data.name}>
         {data.name}
@@ -225,7 +224,7 @@ const AdminProducts = () => {
     inputWineType.current.value = data.wine_type;
     inputOrigin.current.value = data.origin;
     inputAbv.current.value = data.abv;
-    inputImagePath.current.value = data.image_path;
+    inputImage.current.value = data.image;
   };
 
   // 리스트 구현
@@ -250,7 +249,6 @@ const AdminProducts = () => {
   const handleSearchButtonClick = () => {
     const id = inputSearchBar.current.value;
     let success = false;
-
     for (let data of dataList) {
       if (data._id === id) {
         setInput(data);
@@ -346,8 +344,8 @@ const AdminProducts = () => {
         </Form.Group>
 
         <Form.Group className="mb-1">
-          <Form.Label>Image_path</Form.Label>
-          <Form.Control ref={inputImagePath} type="text" placeholder="String" />
+          <Form.Label>Image</Form.Label>
+          <Form.Control ref={inputImage} type="file" />
         </Form.Group>
       </div>
 

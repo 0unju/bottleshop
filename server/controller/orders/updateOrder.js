@@ -5,14 +5,14 @@ const updateOrder = async (req, res, next) => {
   const { product_id } = req.body;
 
   try {
-    const order = await Order.updateOne(
+    await Order.updateOne(
       { _id: id },
       {
         product_id,
         count,
       }
     );
-    res.json(order);
+    res.send("주문 정보가 수정되었습니다.");
 
   } catch (err) {
     next(err);

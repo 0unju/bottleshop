@@ -2,9 +2,9 @@
 import { Post } from '../../models/index.js';
 
 const postPost = async (req, res, next) => {
-    const { title, content, email } = req.body;
-    
     try {
+        const { title, content, email } = req.body;
+        
         // 로그인한 유저인 경우
         if (req.flagGuest === false) {
             await Post.create({
