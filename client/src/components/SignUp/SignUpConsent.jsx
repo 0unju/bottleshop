@@ -48,7 +48,7 @@ const SignUpConsent = () => {
           <p class="name">개인정보 처리방침 [필수]</p>
           <div class="list">{clause.id_2}</div>
         </div>
-        <div class="box">
+        <div class="boxs">
           <p>개인정보 처리방침에 동의하십니까?</p>
           <div key="checkbox_2" className="mb-3">
             <Form.Check
@@ -65,7 +65,7 @@ const SignUpConsent = () => {
           <p class="name">마케팅 활용 동의/철회 (선택)</p>
           <div class="list">{clause.id_3}</div>
         </div>
-        <div class="box">
+        <div class="boxs">
           <p>마케팅 활용 동의/철회에 동의하십니까?</p>
           <div key="checkbox_3" className="mb-3">
             <Form.Check type="checkbox" id="chekbox_3" label="동의함" />

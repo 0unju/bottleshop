@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MypageOrder.css";
-import { Nav, Accordion, Table } from "react-bootstrap";
+import { Nav, Accordion, Button } from "react-bootstrap";
 import axios from "axios";
 
 const MypageOrder = () => {
@@ -37,17 +37,31 @@ const MypageOrder = () => {
   const [ing, setIng] = useState(0);
   const [complete, setComplete] = useState(0);
 
+  const setCount = () => {
+    let beforeCount = 0;
+    let ingCount = 0;
+    let completeCount = 0;
+
+    cookieUsershipmentsData.map((val) => {
+      if (val.status === "배송전") beforeCount++;
+      else if (val.status === "배송중") ingCount++;
+      else if (val.status === "배송완료") completeCount++;
+    });
+    // console.log(beforeCount);
+    // console.log(ingCount);
+    // console.log(completeCount);
+
+    setBefore(beforeCount);
+    setIng(ingCount);
+    setComplete(completeCount);
+  };
+
   let cookieUserordersData = [];
   ordersDB?.map((data) => {
-    // console.log(data.user_id);
-    // console.log(data.user_id["_id"]);
-
     if (data.user_id["_id"] === cookieUserDB?._id) {
       cookieUserordersData.push(data);
     }
   });
-
-  console.log(cookieUserordersData);
 
   let cookieUsershipmentsData = [];
   shipmentsDB?.map((data) => {
@@ -56,51 +70,28 @@ const MypageOrder = () => {
     }
   });
 
-  const setCount = () => {
-    cookieUsershipmentsData.map((val) => {
-      if (val.status === "배송전") setBefore(before + 1);
-      else if (val.status === "배송중") setIng(ing + 1);
-      else if (val.status === "배송완료") setComplete(complete + 1);
-    });
-  };
-
-  // console.log("DB=");
-  // console.log(ordersDB);
-  // console.log("order=" + cookieUserordersData);
-
   useEffect(() => {
     getName();
     getOrder();
     getShipment();
     getDate();
+    setCount();
   }, []);
 
-  useEffect(() => {
-    setCount();
-  }, []); //before, ing, complete
+  const handleCancleClick = async (id) => {
+    console.log(id);
+    await axios
+      .delete(api.orders_DELETE + id)
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
-  // 주문 조회 페이지
-  // let orderList = [];
-
-  // const handelListClick = (shipments) => {
-  //   // console.log(shipments);
-  //   cookieUserordersData.forEach((ordersData) => {
-  //     // 배송정보와 일치하는 주문정보 찾기
-  //     if (shipments.order_id === ordersData._id) {
-  //       // console.log(ordersData);
-  //       ordersData.product_id?.map((productID) => {
-  //         console.log(productID);
-  //         console.log(ordersData.count[productID]);
-  //         orderList.push(
-  //           <tr key={productID}>
-  //             <td>{productID}</td>
-  //             <td>{ordersData.count[productID]}</td>
-  //           </tr>
-  //         );
-  //       });
-  //     }
-  //   });
-  // };
   return (
     <>
       <div id="mypage_order_title">
@@ -159,35 +150,18 @@ const MypageOrder = () => {
         {cookieUsershipmentsData?.map((shipmentsData) => (
           <>
             <Accordion.Item eventKey={shipmentsData?._id}>
-              {/* <Accordion.Header onClick={() => handelListClick(shipmentsData)}> */}
               <Accordion.Header>
                 {shipmentsData.createdAt.split("T")[0]} 주문 [
                 {shipmentsData.status}]
               </Accordion.Header>
               <Accordion.Body>
-                <Table striped bordered hover size="sm" id="DB_countlist">
-                  <thead>
-                    <tr>
-                      <th>상품명</th>
-                      <th>수량</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cookieUserordersData.forEach((ordersData) =>
-                      shipmentsData?.order_id === ordersData?._id &&
-                      ordersData.product_id.length > 0
-                        ? ordersData.product_id.map((productID) => {
-                            // console.log(ordersData);
-                            // console.log(productID);
-                            <tr key={productID}>
-                              <td>{productID?._id}</td>
-                              <td>{ordersData.count[productID?._id] ?? 0}</td>
-                            </tr>;
-                          })
-                        : null
-                    )}
-                  </tbody>
-                </Table>
+                <Button
+                  id="mypage_order_cancle_button"
+                  onClick={() => handleCancleClick(shipmentsData._id)}
+                  disabled={shipmentsData.status === "배송전" ? false : true}
+                >
+                  취소하기
+                </Button>
               </Accordion.Body>
             </Accordion.Item>
           </>
