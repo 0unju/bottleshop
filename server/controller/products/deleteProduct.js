@@ -1,6 +1,6 @@
-'use strict';
-import { Product } from '../../models/index.js';
-import fs from 'fs';
+"use strict";
+import { Product } from "../../models/index.js";
+import fs from "fs";
 
 const deleteProduct = async (req, res, next) => {
   const { id } = req.params;

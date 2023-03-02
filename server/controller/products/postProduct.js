@@ -1,18 +1,9 @@
-'use strict';
-import { Product } from '../../models/index.js';
-
+"use strict";
+import { Product } from "../../models/index.js";
 
 const postProduct = async (req, res, next) => {
   try {
-    const {
-      name,
-      type,
-      price,
-      description,
-      wine_type,
-      origin,
-      abv,
-    } = req.body;
+    const { name, type, price, description, wine_type, origin, abv } = req.body;
 
     const productInfo = await Product.create({
       name,
@@ -25,7 +16,7 @@ const postProduct = async (req, res, next) => {
       image_path: req.file.path,
     });
 
-    res.send('success /products');
+    res.send("success /products");
   } catch (err) {
     next(err);
   }

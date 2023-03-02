@@ -72,6 +72,11 @@ h2 {
   margin: 0 auto;
 }
 
+#DB_countlist {
+  max-width: fit-content;
+  margin: 0 auto 50px auto;
+}
+
 #page {
   margin: 20px 0;
   justify-content: center;

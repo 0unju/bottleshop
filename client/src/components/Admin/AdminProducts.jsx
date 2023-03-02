@@ -29,8 +29,6 @@ const AdminProducts = () => {
   let inputAbv = useRef(null);
   let inputImage = useRef(null);
 
-  console.log(inputImage);
-
   // [GET] 데이터 불러오기
   const [dataList, setDataList] = useState(null);
 
@@ -65,6 +63,15 @@ const AdminProducts = () => {
     inputImage.current.value = "";
   };
 
+  const handletest = (e) => {
+    let formData = new FormData();
+    console.log(e.target.files[0]);
+    console.log(inputImage);
+    formData.append("image", e.target.files[0]);
+
+    console.log(formData);
+  };
+
   // [POST] 데이터 전송하기
   const handlePostButtonClick = async () => {
     // Element 값
@@ -75,7 +82,17 @@ const AdminProducts = () => {
     const wine_type = inputWineType.current.value;
     const origin = inputOrigin.current.value;
     const abv = inputAbv.current.value;
-    const image = inputImage.current.value;
+    const image_path = inputImage.current.value;
+
+    // const image = new FormData();
+    // console.log(image);
+    // image?.append("file", image_path);
+
+    // const image = null;
+    // const setFile = (e) => {
+    //   const img = new FormData();
+    //   img.append("file", e.target.files[0]);
+    // };
 
     // 이름 중복 방지
     let overlap = false;
@@ -96,7 +113,7 @@ const AdminProducts = () => {
           wine_type,
           origin,
           abv,
-          image,
+          image_path,
         })
         .then((response) => {
           if (response.status === 200) {
@@ -345,7 +362,15 @@ const AdminProducts = () => {
 
         <Form.Group className="mb-1">
           <Form.Label>Image</Form.Label>
-          <Form.Control ref={inputImage} type="file" />
+
+          <Form.Control
+            ref={inputImage}
+            encType="multipart/form-data"
+            type="file"
+            name="image"
+            // accept="image/*"
+            onChange={handletest}
+          />
         </Form.Group>
       </div>
 

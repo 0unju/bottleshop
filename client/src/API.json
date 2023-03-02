@@ -17,5 +17,9 @@
   "categories_GET": "http://localhost:8080/categories",
   "categories_POST": "http://localhost:8080/categories",
   "categories_DELETE": "http://localhost:8080/categories/",
-  "categories_PUT": "http://localhost:8080/categories/"
+  "categories_PUT": "http://localhost:8080/categories/",
+  "shipment_GET": "http://localhost:8080/shipments",
+  "shipment_POST": "http://localhost:8080/shipments",
+  "shipment_DELETE": "http://localhost:8080/shipments/",
+  "shipment_PUT": "http://localhost:8080/shipments/"
 }
