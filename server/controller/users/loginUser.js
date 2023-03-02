@@ -22,12 +22,10 @@ const getLogin = async (req, res, next) => {
         // token 생성
         const token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
         if (token) {
-          res.cookie("x_auth", token).status(200).json({
-            loginSuccess: true,
-            username: user.username,
-          });
+          res.cookie("x_auth", token);
+          res.send("로그인에 성공하였습니다.");
         } else {
-          res.status(400).send(err);
+          res.send("로그인에 실패하였습니다.");
         }
       }
     }

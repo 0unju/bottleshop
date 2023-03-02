@@ -18,7 +18,7 @@ router.get('/', auth, async (req, res) => {
     const users = await User.find({});
     res.json(users);
   } else {
-    res.send("access denied /users");
+    res.send("사용자 정보를 조회할 권한이 없습니다.");
   }
 });
 

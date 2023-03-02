@@ -9,7 +9,10 @@ import deleteOrder from '../controller/orders/deleteOrder.js';
 
 // http://localhost:8080/orders (주문 목록 반환)
 router.get('/', async (req, res) => {
-  const orders = await Order.find({});
+  const orders = await Order.find({})
+    .populate({ path: 'product_id', select: 'wine_type price' })
+    .populate({ path: 'user_id', select: 'username' })
+    .exec();
   res.json(orders);
 });
 

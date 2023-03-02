@@ -32,8 +32,7 @@ import http from "http";
  * Get port from environment and store in Express.
  */
 
-// const port = normalizePort(process.env.PORT);
-const port = normalizePort("5000");
+const port = normalizePort(process.env.PORT);
 app.set("port", port);
 
 /**
