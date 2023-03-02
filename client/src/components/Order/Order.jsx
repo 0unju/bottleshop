@@ -1,5 +1,5 @@
-import { React, useState, useEffect } from "react";
-import Axios from "axios";
+import { React, useState, useEffect, useRef } from "react";
+import axios from "axios";
 import "./Order.css";
 import Post from "./Post.jsx";
 import Form from "react-bootstrap/Form";
@@ -17,6 +17,18 @@ import Card from "react-bootstrap/Card";
 const api = require("../../api.json");
 
 const Order = (props) => {
+  // [GET] 데이터 불러오기
+  const [dataList, setDataList] = useState(null);
+
+  const getDate = async () => {
+    const response = await axios.get(api.orders_GET);
+    setDataList(response.data);
+  };
+
+  useEffect(() => {
+    getDate();
+  }, []);
+
   // localStorage에서 데이터 가져오기
   const [shoppingItem, setShoppingItem] = useState([]);
   useEffect(() => {
@@ -24,16 +36,59 @@ const Order = (props) => {
     setShoppingItem(Items);
   }, []);
 
+  let inputRecipient = useRef();
+  let inputPhone = useRef();
+  let inputAddress1 = useRef();
+  let inputAddress2 = useRef(null);
+  let inputW_count = useRef(null);
+  let inputPrice = useRef(null);
+
   // 계속 주문하기 버튼
   const homeClick = (e) => {
     window.location.href = "/categories";
   };
 
-  // 주문 완료 버튼
-  const orderClick = (e) => {
-    window.location.href = "/order/complete";
+  // [POST] 데이터 전송하기
+  const handlePostButtonClick = async () => {
+    const recipient = inputRecipient.current.value;
+    const phone = inputPhone.current.value;
+    const address1 = inputAddress1.current.value;
+    const address2 = inputAddress2.current.value;
+    const w_count = inputW_count.current.value;
+    const price = inputPrice.current.value;
+
+    await axios
+      .post(api.orders_POST, {
+        w_count,
+        price,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+
+    await axios
+      .post(api.shipment_POST, {
+        recipient,
+        phone,
+        address1,
+        address2,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert(response.data);
+        }
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
+  // 주소검색
   const complete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -88,14 +143,14 @@ const Order = (props) => {
               </Card>
               <div className="orderCount">
                 <Form.Group>
-                  <Form.Text>{el.count}</Form.Text>
+                  <Form.Text ref={inputW_count}>{el.count}</Form.Text>
                 </Form.Group>
               </div>
               <div>
                 <p>{el.price}</p>
               </div>
               <div>
-                <p>{el.count * el.price}</p>
+                <p ref={inputPrice}>{el.count * el.price}</p>
               </div>
             </div>
           </div>
@@ -135,7 +190,7 @@ const Order = (props) => {
         <div className="shipping">
           <Form.Group className="ordr_input">
             <Form.Label>받으시는 분*</Form.Label>
-            <Form.Control ref={inputName} type="text" />
+            <Form.Control ref={inputRecipient} type="text" />
           </Form.Group>
 
           <Form.Group className="order_input">
@@ -156,7 +211,7 @@ const Order = (props) => {
 
           <Form.Group className="mb-1">
             <Form.Label>배송 메세지</Form.Label>
-            <Form.Control type="text" placeholder="" />
+            <Form.Control type="text" />
           </Form.Group>
 
           <Form.Group className="mb-1">
@@ -164,7 +219,7 @@ const Order = (props) => {
             <div id="address_search">
               <Form.Control
                 className="user_enroll_text"
-                placeholder="주소"
+                ref={inputAddress1}
                 type="text"
                 required={true}
                 name="address"
@@ -186,11 +241,11 @@ const Order = (props) => {
 
           <Form.Group className="mb-1">
             <Form.Label>나머지 주소*</Form.Label>
-            <Form.Control type="text" placeholder="" />
+            <Form.Control ref={inputAddress2} type="text" />
           </Form.Group>
         </div>
         <div className="last_order">
-          <Button onClick={orderClick} size="lg">
+          <Button onClick={handlePostButtonClick} size="lg">
             주문하기
           </Button>
         </div>
