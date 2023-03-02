@@ -24,7 +24,7 @@ const Ordercomplete = () => {
           완료 되었습니다.
         </h1>
         <h2>주문번호: qwe125wrehdf</h2>
-        <p>비회원의 경우, 주문번호를 꼭 메모해주세요!</p>
+
         <hr />
         <div id="boxs" className="box">
           <div className="header">
