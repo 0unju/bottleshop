@@ -133,25 +133,15 @@ const Order = (props) => {
         <h2 className="shipment">배송정보 입력</h2>
         <hr />
         <div className="shipping">
-          <Form.Group className="mb-1">
+          <Form.Group className="ordr_input">
             <Form.Label>받으시는 분*</Form.Label>
-            <Form.Control type="text" placeholder="" />
+            <Form.Control ref={inputName} type="text" />
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group className="order_input">
             <Form.Label>핸드폰번호*</Form.Label>
             <div id="phone" className="mb-5">
-              <Form.Select>
-                <option></option>
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="016">016</option>
-                <option value="019">019</option>
-              </Form.Select>
-              <p>-</p>
-              <Form.Control type="text" placeholder="" />
-              <p>-</p>
-              <Form.Control type="text" placeholder="" />
+              <Form.Control ref={inputPhone} type="text" />
             </div>
           </Form.Group>
 
