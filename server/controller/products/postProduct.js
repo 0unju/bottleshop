@@ -23,7 +23,7 @@ const postProduct = async (req, res, next) => {
       abv,
       image_path: req.file.path,
     });
-    res.send('success /products');
+    res.send('제품이 등록되었습니다.');
   } catch (err) {
     next(err);
   }
