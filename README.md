@@ -17,8 +17,12 @@
 Node.js Express Mongoose React Bootstrap
 
 ## ERD (Model Diagram)
-<img src="/uploads/7a2e6c2d361a552b646e66ab38bfdff4/회원정보ERD.png" width="500" height="200">
 ![주문ERD](/uploads/b76ff8ea184bfaf72539a92d5653d511/주문ERD.png)
+![비회원ERD](/uploads/7dcbfeea311b6f74c24172a46f7663a9/비회원ERD.png)
+<img src="/uploads/7a2e6c2d361a552b646e66ab38bfdff4/회원정보ERD.png" width="500" height="200">
+<img src="/uploads/3396d69f3ed7a01bb577dc1a8c830a8d/제품ERD.png" width="500" height="200">
+<img src="/uploads/cdc3cc119a58be785a86133344001a25/배송ERD.png" width="500" height="200">
+
 
 ## API 명세서
 https://www.notion.so/elice/API-3fdc5a51663349d39e3f01b689bd41e6?pvs=4
@@ -49,20 +53,22 @@ https://www.notion.so/elice/API-3fdc5a51663349d39e3f01b689bd41e6?pvs=4
 ## Codding Convention
 <details>
 <summary>변수명</summary>
-<div markdown="1">       
-- 변수명은 항상 Carmel Case 사용
-- 함수의 경우 동사+명사 사용
-    - ex) getInformation()
-- flag 변수는 조동사 + flag 종류로 구성 ([flag 변수란?](https://m.blog.naver.com/scyan2011/221610951335))
-    - ex) isNum
+<div markdown="1"> 
+      
+- 변수명은 항상 Carmel Case 사용 <br>
+- 함수의 경우 동사+명사 사용<br>
+    - ex) getInformation()<br>
+- flag 변수는 조동사 + flag 종류로 구성 ([flag 변수란?](https://m.blog.naver.com/scyan2011/221610951335))<br>
+    - ex) isNum<br>
 - 약어는 되도록 사용하지 않는다.
 </div>
 </details>
 
 <details>
 <summary>주석</summary>
-<div markdown="1">       
-- 한 줄 주석은 `//`를 사용한다.
+<div markdown="1">   
+    
+- 한 줄 주석은 `//`를 사용한다.<br>
 - 그 이상은 `/** */`를 사용한다.
 </div>
 </details>
@@ -74,8 +80,4 @@ https://www.notion.so/elice/API-3fdc5a51663349d39e3f01b689bd41e6?pvs=4
 | 김은주 | ISFP | 백앤드 | 회원가입, 게시판 | sherlock22124@gmail.com |
 | 윤현수 | ISFJ | 프론트 | 관리자, 회원가입, 로그인  | yhs697248@gmail.com |
 | 장재우 | INFJ | 프론트 | 장바구니,주문,레이아웃 | jjang6632@gmail.com |
-
-
-
-
 
