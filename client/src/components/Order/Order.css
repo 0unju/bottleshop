@@ -103,7 +103,7 @@ body {
 
 #phone {
   display: grid;
-  grid-template-columns: 2fr 0.5fr 2fr 0.5fr 2fr;
+
   justify-items: center;
 }
 
