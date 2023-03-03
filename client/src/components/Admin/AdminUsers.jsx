@@ -297,7 +297,7 @@ const AdminUsers = () => {
           <Form.Control ref={inputBirthday} type="date" />
         </Form.Group>
 
-        <Form.Group className="mb-1">
+        {/* <Form.Group className="mb-1">
           <Form.Label>Auth_email</Form.Label>
           <Form.Select ref={inputAuthEmail}>
             <option></option>
@@ -308,7 +308,7 @@ const AdminUsers = () => {
               False
             </option>
           </Form.Select>
-        </Form.Group>
+        </Form.Group> */}
       </div>
 
       {/* 리스트 */}
