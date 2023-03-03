@@ -36,6 +36,7 @@ const MypageOrder = () => {
       .then((response) => {
         if (response.status === 200) {
           alert(response.data);
+          window.location.href = "/mypage/information";
         }
       })
       .catch((err) => {

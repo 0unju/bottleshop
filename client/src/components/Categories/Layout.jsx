@@ -38,6 +38,7 @@ const Layout = ({ children }) => {
         if (response.status === 200) {
           setShow(false);
           alert(response.data);
+          window.location.href = "/categories";
         }
       })
       .catch((err) => alert(err.message));

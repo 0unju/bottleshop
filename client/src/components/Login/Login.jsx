@@ -14,7 +14,6 @@ const Login = () => {
   const handleButtonClick = async () => {
     const username = inputUserName.current.value;
     const password = inputPassword.current.value;
-
     await axios
       .post(
         api.users_login_POST,
@@ -28,8 +27,6 @@ const Login = () => {
         if (response.status === 200) {
           alert(response.data);
           if (response.data === "로그인에 성공하였습니다.") {
-            if (checkBox.current.checked) {
-            }
             window.location.href = "/categories";
           }
         }
@@ -37,13 +34,6 @@ const Login = () => {
       .catch((err) => {
         alert(err.message);
       });
-  };
-
-  // ID 저장
-  const saveID = () => {
-    if (checkBox.current.checked) {
-      localStorage.setItem("saveID", inputUserName.current.value);
-    }
   };
 
   return (
