@@ -11,17 +11,17 @@
 배포 주소 : http://34.64.96.43/categories
 
 ## 화면 흐름도 (Flow chart)
-![Bottle_Shop.drawio](/uploads/4572f0ca2b92761eaafa573bbad6164f/Bottle_Shop.drawio.png)
+![image](https://user-images.githubusercontent.com/121041665/232260733-1724602f-195e-41ba-9576-15c3d7506d10.png)
 
 ## Development Environment
 Node.js Express Mongoose React Bootstrap
 
 ## ERD (Model Diagram)
-![주문ERD](/uploads/b76ff8ea184bfaf72539a92d5653d511/주문ERD.png)
-![비회원ERD](/uploads/7dcbfeea311b6f74c24172a46f7663a9/비회원ERD.png)
-<img src="/uploads/7a2e6c2d361a552b646e66ab38bfdff4/회원정보ERD.png" width="500" height="200">
-<img src="/uploads/3396d69f3ed7a01bb577dc1a8c830a8d/제품ERD.png" width="500" height="200">
-<img src="/uploads/cdc3cc119a58be785a86133344001a25/배송ERD.png" width="500" height="200">
+![image](https://user-images.githubusercontent.com/121041665/232260738-4c7e9811-675b-41fe-ae18-bfd129b6b32a.png)
+![image](https://user-images.githubusercontent.com/121041665/232260739-3ef54a3d-1337-48d0-84d1-6716b35597eb.png)
+![image](https://user-images.githubusercontent.com/121041665/232260744-00f0e289-dbda-4135-944c-84bb45536072.png)
+![image](https://user-images.githubusercontent.com/121041665/232260751-19d8ab37-8d8b-4b32-a2d2-ea4aff7e039a.png)
+![image](https://user-images.githubusercontent.com/121041665/232260757-1ad63008-a786-4075-811a-14b815398ced.png)
 
 
 ## API 명세서
